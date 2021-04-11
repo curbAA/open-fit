@@ -7,9 +7,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import IonIcons from "react-native-vector-icons/Ionicons";
 
 // Screens
-import Diary from "./screens/Diary";
-import Foods from "./screens/Foods";
-import Goals from "./screens/Goals";
+import Diary from "./screens/Diary/Diary";
+import Foods from "./screens/Foods/Foods";
+import Goals from "./screens/Goals/Goals";
 
 // Components
 import Header from "./components/Header/Header";
