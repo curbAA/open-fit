@@ -4,14 +4,14 @@ import { StyleSheet, Dimensions, View } from "react-native";
 // Components
 import Display from "./components/Display";
 
-const MacroHeader = () => {
+const MacroHeader = ({exerciseTotal, foodTotal, goal}) => {
 	return (
 		<View style={styles.container}>
-			<Display calories={2000} subtitle="GOAL" />
-			<Display calories={350} subtitle="REMAINING" />
-			<Display calories={1650} subtitle="NET" />
-			<Display calories={1920} subtitle="FOOD" />
-			<Display calories={-270} subtitle="EXERCISE" />
+			<Display calories={goal} subtitle="GOAL" />
+			<Display calories={goal - (foodTotal + exerciseTotal)} subtitle="REMAINING" />
+			<Display calories={foodTotal + exerciseTotal} subtitle="NET" />
+			<Display calories={foodTotal} subtitle="FOOD" />
+			<Display calories={exerciseTotal} subtitle="EXERCISE" />
 		</View>
 	);
 };

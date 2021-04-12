@@ -55,6 +55,7 @@ const Diary = () => {
 			kcal: 195,
 		},
 	]);
+	const [goalCalories, setGoalCalories] = useState(2500)
 
 	const getTotalCal = (list) => {
 		let totalCalories = 0;
@@ -66,7 +67,11 @@ const Diary = () => {
 
 	return (
 		<View style={styles.container}>
-			<MacroHeader />
+			<MacroHeader
+				exerciseTotal={getTotalCal(exerciseList)}
+				foodTotal={getTotalCal(foodList)}
+				goal={goalCalories}
+			/>
 			<ScrollView>
 				<Header title="FOOD" totalCalories={getTotalCal(foodList)} />
 				{foodList.map((l, i) => (
