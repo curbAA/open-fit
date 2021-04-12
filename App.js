@@ -1,6 +1,5 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { View, StyleSheet } from "react-native";
 import { ThemeProvider } from "react-native-elements";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
