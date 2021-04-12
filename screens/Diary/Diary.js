@@ -6,7 +6,6 @@ import MacroHeader from "./components/MacroHeader/MacroHeader";
 import Header from "./components/Header/Header";
 import ListItem from "./components/ListItem/ListItem";
 
-
 const Diary = () => {
 	const [foodList, setFoodList] = useState([
 		{
@@ -57,15 +56,23 @@ const Diary = () => {
 		},
 	]);
 
+	const getTotalCal = (list) => {
+		let totalCalories = 0;
+		list.map((l) => {
+			totalCalories += l.amount == undefined ? -l.kcal : l.kcal * l.amount;
+		});
+		return Math.round(totalCalories);
+	};
+
 	return (
 		<View style={styles.container}>
 			<MacroHeader />
 			<ScrollView>
-				<Header title="FOOD" />
+				<Header title="FOOD" totalCalories={getTotalCal(foodList)} />
 				{foodList.map((l, i) => (
 					<ListItem.Food food={l} key={i} />
 				))}
-				<Header title="EXERCISE" />
+				<Header title="EXERCISE" totalCalories={getTotalCal(exerciseList)} />
 				{exerciseList.map((l, i) => (
 					<ListItem.Exercise exercise={l} key={i} />
 				))}
