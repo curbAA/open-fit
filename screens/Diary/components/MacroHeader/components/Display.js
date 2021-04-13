@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const Display = ({ calories, subtitle }) => {
+const Display = ({ calories, subtitle, green }) => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.calories}>{calories}</Text>
+			<Text style={[styles.calories, { color: green ? "limegreen" : "black" }]}>{calories}</Text>
 			<Text style={styles.subtitle}>{subtitle}</Text>
 		</View>
 	);
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 	},
 	subtitle: {
 		textAlign: "center",
-    fontSize:10,
-    color:"gray"
+		fontSize: 10,
+		color: "gray",
 	},
 });

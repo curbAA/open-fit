@@ -8,7 +8,7 @@ const MacroHeader = ({exerciseTotal, foodTotal, goal}) => {
 	return (
 		<View style={styles.container}>
 			<Display calories={goal} subtitle="GOAL" />
-			<Display calories={goal - (foodTotal + exerciseTotal)} subtitle="REMAINING" />
+			<Display calories={goal - (foodTotal + exerciseTotal)} green subtitle="REMAINING" />
 			<Display calories={foodTotal + exerciseTotal} subtitle="NET" />
 			<Display calories={foodTotal} subtitle="FOOD" />
 			<Display calories={exerciseTotal} subtitle="EXERCISE" />
