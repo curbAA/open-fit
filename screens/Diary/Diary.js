@@ -5,6 +5,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import MacroHeader from "./components/MacroHeader/MacroHeader";
 import Header from "./components/Header/Header";
 import ListItem from "./components/ListItem/ListItem";
+import AddItem from "./components/AddItem/AddItem";
 
 const Diary = () => {
 	const [foodList, setFoodList] = useState([
@@ -55,7 +56,7 @@ const Diary = () => {
 			kcal: 195,
 		},
 	]);
-	const [goalCalories, setGoalCalories] = useState(2500)
+	const [goalCalories, setGoalCalories] = useState(2500);
 
 	const getTotalCal = (list) => {
 		let totalCalories = 0;
@@ -77,10 +78,12 @@ const Diary = () => {
 				{foodList.map((l, i) => (
 					<ListItem.Food food={l} key={i} />
 				))}
+				<AddItem.Food />
 				<Header title="EXERCISE" totalCalories={getTotalCal(exerciseList)} />
 				{exerciseList.map((l, i) => (
 					<ListItem.Exercise exercise={l} key={i} />
 				))}
+				<AddItem.Exercise />
 			</ScrollView>
 		</View>
 	);
