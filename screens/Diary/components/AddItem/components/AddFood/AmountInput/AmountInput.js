@@ -6,6 +6,7 @@ const AmountInput = ({ unit, calories, amount, setAmount }) => {
 	return (
 		<View style={styles.amount}>
 			<Input
+				keyboardType="number-pad"
 				containerStyle={styles.amoutContainer}
 				placeholder="Amount"
 				onChangeText={(value) => setAmount(value)}

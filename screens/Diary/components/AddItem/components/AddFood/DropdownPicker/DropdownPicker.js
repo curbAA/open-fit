@@ -14,9 +14,7 @@ const CustomDropdownPicker = ({
 			items={list}
 			containerStyle={styles.container}
 			dropDownStyle={styles.dropdown}
-			itemStyle={{
-				justifyContent: "flex-start",
-			}}
+			itemStyle={styles.item}
 			defaultValue={value}
 			onChangeItem={(item) => {
 				setCalories(item.kcal);
@@ -35,5 +33,8 @@ const styles = StyleSheet.create({
 	},
 	dropdown: {
 		backgroundColor: "#fafafa",
+	},
+	item: {
+		justifyContent: "flex-start",
 	},
 });

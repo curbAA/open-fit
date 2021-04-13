@@ -2,15 +2,20 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-elements";
 
-const ButtonContainer = () => {
+const ButtonContainer = ({ cancelFunction, addFunction }) => {
 	return (
 		<View style={styles.buttonContainer}>
 			<Button
 				type="outline"
 				buttonStyle={[styles.button, styles.cancelButton]}
 				title="Cancel"
+				onPress={cancelFunction}
 			/>
-			<Button buttonStyle={[styles.button, styles.addButton]} title="Add" />
+			<Button
+				buttonStyle={[styles.button, styles.addButton]}
+				onPress={addFunction}
+				title="Add"
+			/>
 		</View>
 	);
 };

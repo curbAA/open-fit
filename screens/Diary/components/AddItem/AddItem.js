@@ -5,7 +5,10 @@ import { View, StyleSheet, Dimensions } from "react-native";
 // Food Components
 import DropdownPicker from "./components/AddFood/DropdownPicker/DropdownPicker";
 import AmountInput from "./components/AddFood/AmountInput/AmountInput";
-import ButtonContainer from "./components/AddFood/ButtonContainer/ButtonContainer";
+import ButtonContainer from "./components/General/ButtonContainer/ButtonContainer";
+
+// Exercise Components
+import OverlayContent from "./components/AddExercise/OverlayContent/OverlayContent";
 
 const availableFoodList = [
 	{
@@ -63,14 +66,14 @@ const AddFood = () => {
 	const addFood = () => {};
 
 	return (
-		<View style={foodStyles.container}>
+		<View style={styles.container}>
 			<Button title="Add Food" onPress={toggleOverlay} />
 
 			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-				<View style={foodStyles.overlay}>
-					<Text style={foodStyles.title}>Add Food</Text>
-					<Divider style={foodStyles.divider} />
-					<View style={foodStyles.content}>
+				<View style={styles.overlay}>
+					<Text style={styles.title}>Add Food</Text>
+					<Divider style={styles.divider} />
+					<View style={styles.content}>
 						<DropdownPicker
 							list={availableFoodList}
 							value={selectedFood}
@@ -92,7 +95,51 @@ const AddFood = () => {
 	);
 };
 
-const foodStyles = StyleSheet.create({
+const AddExercise = () => {
+	const [visible, setVisible] = useState(false);
+
+	// Exercise Data
+	const [name, setName] = useState("");
+	const [time, setTime] = useState("");
+	const [calories, setCalories] = useState("");
+
+	const toggleOverlay = () => {
+		setVisible(!visible);
+	};
+
+	return (
+		<View style={styles.container}>
+			<Button title="Add Exercise" onPress={toggleOverlay} />
+
+			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+				<View style={styles.overlay}>
+					<Text style={styles.title}>Add Exercise</Text>
+					<Divider style={styles.divider} />
+					<View style={styles.content}>
+						<OverlayContent
+							name={name}
+							setName={setName}
+							time={time}
+							setTime={setTime}
+							calories={calories}
+							setCalories={setCalories}
+						/>
+						<ButtonContainer />
+					</View>
+				</View>
+			</Overlay>
+		</View>
+	);
+};
+
+const AddItem = {
+	Exercise: AddExercise,
+	Food: AddFood,
+};
+
+export default AddItem;
+
+const styles = StyleSheet.create({
 	container: {
 		margin: 16,
 		flexDirection: "column",
@@ -112,37 +159,5 @@ const foodStyles = StyleSheet.create({
 	title: {
 		color: "cornflowerblue",
 		fontSize: 16,
-	},
-});
-
-const AddExercise = () => {
-	const [visible, setVisible] = useState(false);
-
-	const toggleOverlay = () => {
-		setVisible(!visible);
-	};
-
-	return (
-		<View style={styles.container}>
-			<Button title="Add Exercise" onPress={toggleOverlay} />
-
-			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-				<Text>Hello from Overlay!</Text>
-			</Overlay>
-		</View>
-	);
-};
-
-const AddItem = {
-	Exercise: AddExercise,
-	Food: AddFood,
-};
-
-export default AddItem;
-
-const styles = StyleSheet.create({
-	container: {
-		margin: 16,
-		flexDirection: "column",
 	},
 });
