@@ -92,6 +92,8 @@ export const AppContextProvider = (props) => {
 		},
 	]);
 
+	const [goalCalories, setGoalCalories] = useState(2500);
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -105,6 +107,9 @@ export const AppContextProvider = (props) => {
 				setAvailableExerciseList,
 				exerciseList,
 				setExerciseList,
+				// Calories
+				goalCalories,
+				setGoalCalories,
 			}}
 		>
 			{props.children}

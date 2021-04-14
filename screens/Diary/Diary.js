@@ -11,10 +11,7 @@ import ListItem from "./components/ListItem/ListItem";
 import AddItem from "./components/AddItem/AddItem";
 
 const Diary = () => {
-	const addFood = (food, amount) => {};
-
-	const { foodList, exerciseList } = useContext(AppContext);
-	const [goalCalories, setGoalCalories] = useState(2500);
+	const { foodList, exerciseList, goalCalories } = useContext(AppContext);
 
 	const getTotalCal = (list) => {
 		let totalCalories = 0;
