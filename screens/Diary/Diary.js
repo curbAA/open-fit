@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 
 // Context
@@ -8,7 +8,8 @@ import { AppContext } from "../../components/Context/AppContext";
 import MacroHeader from "./components/MacroHeader/MacroHeader";
 import Header from "./components/Header/Header";
 import ListItem from "./components/ListItem/ListItem";
-import AddItem from "./components/AddItem/AddItem";
+import AddFood from "./components/AddItem/AddFood";
+import AddExercise from "./components/AddItem/AddExercise";
 
 const Diary = () => {
 	const { foodList, exerciseList, goalCalories } = useContext(AppContext);
@@ -33,12 +34,12 @@ const Diary = () => {
 				{foodList.map((l, i) => (
 					<ListItem.Food food={l} key={i} />
 				))}
-				<AddItem.Food />
+				<AddFood />
 				<Header title="EXERCISE" totalCalories={getTotalCal(exerciseList)} />
 				{exerciseList.map((l, i) => (
 					<ListItem.Exercise exercise={l} key={i} />
 				))}
-				<AddItem.Exercise />
+				<AddExercise />
 			</ScrollView>
 		</View>
 	);
