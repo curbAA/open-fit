@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Overlay, Text, Input, Divider } from "react-native-elements";
 import { View, StyleSheet, Dimensions } from "react-native";
+
+// Context
+import { AppContext } from "../../../../components/Context/AppContext";
 
 // Food Components
 import DropdownPicker from "./components/AddFood/DropdownPicker/DropdownPicker";
@@ -10,46 +13,9 @@ import ButtonContainer from "./components/General/ButtonContainer/ButtonContaine
 // Exercise Components
 import OverlayContent from "./components/AddExercise/OverlayContent/OverlayContent";
 
-const availableFoodList = [
-	{
-		label: "Egg",
-		value: "egg",
-		unit: "units",
-		kcal: 75,
-	},
-	{
-		label: "Cheese",
-		value: "cheese",
-		unit: "g",
-		kcal: 2,
-	},
-	{
-		label: "Milk",
-		value: "milk",
-		unit: "ml",
-		kcal: 0.7,
-	},
-	{
-		label: "Steak",
-		value: "steak",
-		unit: "g",
-		kcal: 1.7,
-	},
-	{
-		label: "Steak",
-		value: "fefe",
-		unit: "g",
-		kcal: 1.7,
-	},
-	{
-		label: "Steak",
-		value: "sasdasteak",
-		unit: "g",
-		kcal: 1.7,
-	},
-];
-
 const AddFood = () => {
+	const { availableFoodList } = useContext(AppContext);
+
 	const [visible, setVisible] = useState(false);
 
 	const [selectedFood, setSelectedFood] = useState("");
