@@ -73,16 +73,19 @@ export const AppContextProvider = (props) => {
 	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
 	const [availableExerciseList, setAvailableExerciseList] = useState([
 		{
-			name: "Burpees",
-			kcal: 12.5,
+			label: "Burpees",
+			value: "burpees",
+			kcal: -12.5,
 		},
 		{
-			name: "Running",
-			kcal: 11.2,
+			label: "Running",
+			value: "running",
+			kcal: -11.2,
 		},
 		{
-			name: "Weightlifting",
-			kcal: 9.3,
+			label: "Weightlifting",
+			value: "weightlifting",
+			kcal: -9.3,
 		},
 	]);
 

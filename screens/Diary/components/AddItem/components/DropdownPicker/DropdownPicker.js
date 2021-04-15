@@ -1,14 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import DropdownPicker from "react-native-dropdown-picker";
 
-const CustomDropdownPicker = ({
-	list,
-	value,
-	setCalories,
-	setSelectedFood,
-	setUnit,
-}) => {
+const CustomDropdownPicker = ({ list, value, onChangeItem }) => {
 	return (
 		<DropdownPicker
 			items={list}
@@ -16,11 +10,7 @@ const CustomDropdownPicker = ({
 			dropDownStyle={styles.dropdown}
 			itemStyle={styles.item}
 			defaultValue={value}
-			onChangeItem={(item) => {
-				setCalories(item.kcal);
-				setSelectedFood(item.value);
-				setUnit(item.unit);
-			}}
+			onChangeItem={onChangeItem}
 		/>
 	);
 };

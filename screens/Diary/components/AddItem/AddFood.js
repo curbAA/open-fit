@@ -5,13 +5,13 @@ import { AppContext } from "../../../../components/Context/AppContext";
 
 // Components
 import Base from "./components/Base/Base";
-import DropdownPicker from "./components/AddFood/DropdownPicker/DropdownPicker";
-import AmountInput from "./components/AddFood/AmountInput/AmountInput";
+import DropdownPicker from "./components/DropdownPicker/DropdownPicker";
+import AmountInput from "./components/AmountInput/AmountInput";
 
 const AddFood = () => {
 	const { availableFoodList } = useContext(AppContext);
 
-  // Food Data
+	// Food Data
 	const [selectedFood, setSelectedFood] = useState("");
 	const [unit, setUnit] = useState("");
 	const [calories, setCalories] = useState("");
@@ -22,9 +22,11 @@ const AddFood = () => {
 			<DropdownPicker
 				list={availableFoodList}
 				value={selectedFood}
-				setCalories={setCalories}
-				setSelectedFood={setSelectedFood}
-				setUnit={setUnit}
+				onChangeItem={(item) => {
+					setCalories(item.kcal);
+					setSelectedFood(item.value);
+					setUnit(item.unit);
+				}}
 			/>
 			<AmountInput
 				unit={unit}
