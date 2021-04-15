@@ -92,11 +92,6 @@ export const AppContextProvider = (props) => {
 			time: 20,
 			kcal: -9.3,
 		},
-		{
-			name: "Weightlifting",
-			time: 20,
-			kcal: -9.3,
-		},
 	]);
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
 	const addFood = (newFood) => {
