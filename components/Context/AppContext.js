@@ -91,22 +91,22 @@ export const AppContextProvider = (props) => {
 	const [exerciseList, setExerciseList] = useState([
 		{
 			name: "Burpees",
-			minutes: 20,
+			time: 20,
 			kcal: 251,
 		},
 		{
 			name: "Running",
-			minutes: 20,
+			time: 20,
 			kcal: 217,
 		},
 		{
 			name: "Weightlifting",
-			minutes: 20,
+			time: 20,
 			kcal: 195,
 		},
 		{
 			name: "Weightlifting",
-			minutes: 20,
+			time: 20,
 			kcal: 195,
 		},
 	]);

@@ -25,7 +25,7 @@ const ListItemExercise = ({ exercise }) => {
 			<ListItem.Content style={styles.itemContainer}>
 				<View>
 					<ListItem.Title>{exercise.name}</ListItem.Title>
-					<ListItem.Subtitle>{exercise.minutes} min</ListItem.Subtitle>
+					<ListItem.Subtitle>{exercise.time} min</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
 					<Text style={styles.calories}>- {exercise.kcal}</Text>
