@@ -9,7 +9,7 @@ import DropdownPicker from "./components/DropdownPicker/DropdownPicker";
 import AmountInput from "./components/AmountInput/AmountInput";
 
 const AddFood = () => {
-	const { availableFoodList } = useContext(AppContext);
+	const { availableFoodList, addFood } = useContext(AppContext);
 
 	// Food Data
 	const [selectedFood, setSelectedFood] = useState("");
@@ -18,13 +18,25 @@ const AddFood = () => {
 	const [amount, setAmount] = useState("");
 
 	return (
-		<Base title="Add Food">
+		<Base
+			title="Add Food"
+			addFunction={() => {
+				let newFood = {
+					name: selectedFood,
+					unit: unit,
+					kcal: calories,
+					amount: amount,
+				};
+
+				addFood(newFood);
+			}}
+		>
 			<DropdownPicker
 				list={availableFoodList}
-				value={selectedFood}
+				value={selectedFood.toLowerCase()}
 				onChangeItem={(item) => {
 					setCalories(item.kcal);
-					setSelectedFood(item.value);
+					setSelectedFood(item.label);
 					setUnit(item.unit);
 				}}
 			/>

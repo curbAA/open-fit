@@ -5,7 +5,7 @@ import { Button, Divider, Overlay } from "react-native-elements";
 // Components
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 
-const Base = ({ title, children }) => {
+const Base = ({ title, addFunction, cancelFunction, children }) => {
 	const [overlayVisible, setOverlayVisible] = useState(false);
 
 	const toggleOverlay = () => {
@@ -21,7 +21,10 @@ const Base = ({ title, children }) => {
 					<Divider style={styles.divider} />
 					<View style={styles.content}>
 						{children}
-						<ButtonContainer />
+						<ButtonContainer
+							addFunction={addFunction}
+							cancelFunction={cancelFunction}
+						/>
 					</View>
 				</View>
 			</Overlay>

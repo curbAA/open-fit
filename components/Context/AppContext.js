@@ -3,7 +3,6 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
-
 	// ─── FOOD ───────────────────────────────────────────────────────────────────────
 	const [availableFoodList, setAvailableFoodList] = useState([
 		{
@@ -112,36 +111,24 @@ export const AppContextProvider = (props) => {
 		},
 	]);
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
-	const addFood = (food, amount) => {
-		let newFood = { ...food, amount: amount };
+	const addFood = (newFood) => {
 		let newFoodList = [...foodList, newFood];
 		setFoodList(newFoodList);
-		console.log(newFoodList);
 	};
 
-	const createFood = (name, unit, calories) => {
-		let newFood = {
-			label: name,
-			value: name.toLowerCase(),
-			unit: unit,
-			kcal: calories,
-		};
-
+	const createFood = (newFood) => {
 		let newFoodList = [...availableFoodList, newFood];
 		setAvailableFoodList(newFoodList);
-		console.log(availableFoodList);
 	};
 
-	const addExercise = (exercise, time) => {
-		let newExercise = { ...exercise, time: time };
+	const addExercise = (newExercise) => {
 		let newExerciseList = [...exerciseList, newExercise];
-		setExerciseList(newExercise);
+		setExerciseList(newExerciseList);
 	};
 
-	const createExercise = (name, calories) => {
-		let newExercise = { name, calories };
+	const createExercise = (newExercise) => {
 		let newExerciseList = [...exerciseList, newExercise];
-		setAvailableExerciseList(newExercise);
+		setAvailableExerciseList(newExerciseList);
 	};
 	// ─── GOAL CALORIES ──────────────────────────────────────────────────────────────
 	const [goalCalories, setGoalCalories] = useState(2500);
