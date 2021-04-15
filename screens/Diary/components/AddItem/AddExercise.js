@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 
 // Context
 import { AppContext } from "../../../../components/Context/AppContext";
+import { DiaryContext } from "../Context/DiaryContext";
 
 // Components
 import Base from "./components/Base/Base";
@@ -10,6 +11,8 @@ import AmountInput from "./components/AmountInput/AmountInput";
 
 const AddExercise = () => {
 	const { availableExerciseList, addExercise } = useContext(AppContext);
+	const {displayExerciseOverlay, toggleExerciseOverlay} = useContext(DiaryContext);
+
 
 	const [selectedExercise, setSelectedExercise] = useState("");
 	const [calories, setCalories] = useState("");
@@ -19,12 +22,6 @@ const AddExercise = () => {
 		setSelectedExercise("");
 		setCalories("");
 		setTime("");
-	};
-
-	const [overlayVisible, setOverlayVisible] = useState(false);
-
-	const toggleOverlay = () => {
-		setOverlayVisible(!overlayVisible);
 	};
 
 	return (
@@ -39,14 +36,14 @@ const AddExercise = () => {
 
 				addExercise(newExercise);
 				resetState();
-				toggleOverlay();
+				toggleExerciseOverlay();
 			}}
 			cancelFunction={() => {
 				resetState();
-				toggleOverlay();
+				toggleExerciseOverlay();
 			}}
-			overlayVisible={overlayVisible}
-			toggleOverlay={toggleOverlay}
+			overlayVisible={displayExerciseOverlay}
+			onBackdropPress={toggleExerciseOverlay}
 		>
 			<DropdownPicker
 				list={availableExerciseList}

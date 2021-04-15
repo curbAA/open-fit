@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 // Context
 import { AppContext } from "../../../../components/Context/AppContext";
+import { DiaryContext } from "../Context/DiaryContext";
 
 // Components
 import Base from "./components/Base/Base";
@@ -10,6 +11,7 @@ import AmountInput from "./components/AmountInput/AmountInput";
 
 const AddFood = () => {
 	const { availableFoodList, addFood } = useContext(AppContext);
+	const { displayFoodOverlay, toggleFoodOverlay } = useContext(DiaryContext);
 
 	// Food Data
 	const [selectedFood, setSelectedFood] = useState("");
@@ -22,12 +24,6 @@ const AddFood = () => {
 		setUnit("");
 		setCalories("");
 		setAmount("");
-	};
-
-	const [overlayVisible, setOverlayVisible] = useState(false);
-
-	const toggleOverlay = () => {
-		setOverlayVisible(!overlayVisible);
 	};
 
 	return (
@@ -43,14 +39,14 @@ const AddFood = () => {
 
 				addFood(newFood);
 				resetState();
-				toggleOverlay();
+				toggleFoodOverlay();
 			}}
 			cancelFunction={() => {
 				resetState();
-				toggleOverlay();
+				toggleFoodOverlay();
 			}}
-			overlayVisible={overlayVisible}
-			toggleOverlay={toggleOverlay}
+			overlayVisible={displayFoodOverlay}
+			onBackdropPress={toggleFoodOverlay}
 		>
 			<DropdownPicker
 				list={availableFoodList}

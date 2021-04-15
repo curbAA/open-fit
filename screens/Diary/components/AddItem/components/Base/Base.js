@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { Button, Divider, Overlay } from "react-native-elements";
+import { Divider, Overlay } from "react-native-elements";
 
 // Components
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 
-const Base = ({ title, overlayVisible, toggleOverlay, addFunction, cancelFunction, children }) => {
-
+const Base = ({
+	title,
+	onBackdropPress,
+	overlayVisible,
+	addFunction,
+	cancelFunction,
+	children,
+}) => {
 	return (
 		<View style={styles.container}>
-			<Button title={title} onPress={toggleOverlay} />
-			<Overlay isVisible={overlayVisible} onBackdropPress={toggleOverlay}>
+			<Overlay isVisible={overlayVisible} onBackdropPress={onBackdropPress}>
 				<View style={styles.overlay}>
 					<Text style={styles.title}>{title}</Text>
 					<Divider style={styles.divider} />
@@ -31,7 +36,6 @@ export default Base;
 
 const styles = StyleSheet.create({
 	container: {
-		margin: 16,
 		flexDirection: "column",
 	},
 	overlay: {

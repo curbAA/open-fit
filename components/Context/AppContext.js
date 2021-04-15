@@ -21,23 +21,11 @@ export const AppContextProvider = (props) => {
 			label: "Milk",
 			value: "milk",
 			unit: "ml",
-			kcal: 0.7,
+			kcal: 1,
 		},
 		{
 			label: "Steak",
 			value: "steak",
-			unit: "g",
-			kcal: 1.7,
-		},
-		{
-			label: "Steak",
-			value: "fefe",
-			unit: "g",
-			kcal: 1.7,
-		},
-		{
-			label: "Steak",
-			value: "sasdasteak",
 			unit: "g",
 			kcal: 1.7,
 		},
@@ -98,7 +86,6 @@ export const AppContextProvider = (props) => {
 			name: "Running",
 			time: 20,
 			kcal: -11.2,
-
 		},
 		{
 			name: "Weightlifting",

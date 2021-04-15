@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 
 // Context
-import { AppContext } from "../../components/Context/AppContext";
+import { AppContext } from "../../components/Context/AppContext"; // General Context (App)
+import { DiaryContextProvider } from "./components/Context/DiaryContext"; // Local Context (Diary)
 
 // Components
 import MacroHeader from "./components/MacroHeader/MacroHeader";
@@ -24,25 +25,27 @@ const Diary = () => {
 	};
 
 	return (
-		<View style={styles.container}>
-			<MacroHeader
-				exerciseTotal={getTotalCal(exerciseList)}
-				foodTotal={getTotalCal(foodList)}
-				goal={goalCalories}
-			/>
-			<ScrollView>
-				<Header title="FOOD" totalCalories={getTotalCal(foodList)} />
-				{foodList.map((l, i) => (
-					<ListItem.Food food={l} key={i} />
-				))}
-				<AddFood />
-				<Header title="EXERCISE" totalCalories={getTotalCal(exerciseList)} />
-				{exerciseList.map((l, i) => (
-					<ListItem.Exercise exercise={l} key={i} />
-				))}
-				<AddExercise />
-			</ScrollView>
-		</View>
+		<DiaryContextProvider>
+			<View style={styles.container}>
+				<MacroHeader
+					exerciseTotal={getTotalCal(exerciseList)}
+					foodTotal={getTotalCal(foodList)}
+					goal={goalCalories}
+				/>
+				<ScrollView>
+					<Header title="FOOD" totalCalories={getTotalCal(foodList)} />
+					{foodList.map((l, i) => (
+						<ListItem.Food food={l} key={i} />
+					))}
+					<AddFood />
+					<Header title="EXERCISE" totalCalories={getTotalCal(exerciseList)} />
+					{exerciseList.map((l, i) => (
+						<ListItem.Exercise exercise={l} key={i} />
+					))}
+					<AddExercise />
+				</ScrollView>
+			</View>
+		</DiaryContextProvider>
 	);
 };
 

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
 
-const Header = ({ title, totalCalories }) => {
+// Context
+import { DiaryContext } from "../Context/DiaryContext";
+
+const Header = ({ title, addFunction, collapseFunction, totalCalories }) => {
+	const {
+		toggleFoodOverlay,
+		toggleFoodList,
+		toggleExerciseOverlay,
+		toggleExerciseList,
+	} = useContext(DiaryContext);
+
 	return (
 		<View style={styles.container}>
 			<View>
@@ -10,8 +20,31 @@ const Header = ({ title, totalCalories }) => {
 			</View>
 			<View style={styles.rightContainer}>
 				<Text style={styles.title}>{totalCalories} Kcal</Text>
-				<Icon style={styles.plusIcon} color="white" name="add" type="ionicon" />
-				<Icon color="white" name="chevron-down" type="ionicon" />
+				<Icon
+					style={styles.plusIcon}
+					onPress={() => {
+						if (title == "FOOD") {
+							toggleFoodOverlay();
+						} else if (title == "EXERCISE") {
+							toggleExerciseOverlay();
+						}
+					}}
+					color="white"
+					name="add"
+					type="ionicon"
+				/>
+				<Icon
+					onPress={() => {
+						if (title == "FOOD") {
+							toggleFoodList();
+						} else if (title == "EXERCISE") {
+							toggleExerciseList();
+						}
+					}}
+					color="white"
+					name="chevron-down"
+					type="ionicon"
+				/>
 			</View>
 		</View>
 	);
@@ -30,7 +63,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		marginRight: 10,
 	},
-	plusIcon:{
+	plusIcon: {
 		marginRight: 3,
 	},
 	rightContainer: {
