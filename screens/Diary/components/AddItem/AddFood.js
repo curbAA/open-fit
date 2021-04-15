@@ -17,6 +17,13 @@ const AddFood = () => {
 	const [calories, setCalories] = useState("");
 	const [amount, setAmount] = useState("");
 
+	const resetState = () => {
+		setSelectedFood("");
+		setUnit("");
+		setCalories("");
+		setAmount("");
+	};
+
 	const [overlayVisible, setOverlayVisible] = useState(false);
 
 	const toggleOverlay = () => {
@@ -35,6 +42,11 @@ const AddFood = () => {
 				};
 
 				addFood(newFood);
+				resetState();
+				toggleOverlay();
+			}}
+			cancelFunction={() => {
+				resetState();
 				toggleOverlay();
 			}}
 			overlayVisible={overlayVisible}

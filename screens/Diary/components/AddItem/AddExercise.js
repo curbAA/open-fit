@@ -15,6 +15,12 @@ const AddExercise = () => {
 	const [calories, setCalories] = useState("");
 	const [time, setTime] = useState("");
 
+	const resetState = () => {
+		setSelectedExercise("");
+		setCalories("");
+		setTime("");
+	};
+
 	const [overlayVisible, setOverlayVisible] = useState(false);
 
 	const toggleOverlay = () => {
@@ -32,6 +38,11 @@ const AddExercise = () => {
 				};
 
 				addExercise(newExercise);
+				resetState();
+				toggleOverlay();
+			}}
+			cancelFunction={() => {
+				resetState();
 				toggleOverlay();
 			}}
 			overlayVisible={overlayVisible}
