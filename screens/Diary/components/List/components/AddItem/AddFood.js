@@ -60,6 +60,7 @@ const AddFood = ({ displayOverlay, toggleOverlay }) => {
 				calories={calories}
 				amount={amount}
 				setAmount={setAmount}
+				placeholder="Amount"
 			/>
 		</Base>
 	);

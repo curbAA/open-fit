@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, Input } from "react-native-elements";
 
-const AmountInput = ({ unit, calories, amount, setAmount }) => {
+const AmountInput = ({ unit, calories, amount, setAmount, placeholder }) => {
 	return (
 		<View style={styles.amount}>
 			<Input
 				keyboardType="number-pad"
 				containerStyle={styles.amoutContainer}
-				placeholder="Amount"
+				placeholder={placeholder}
 				onChangeText={(value) => setAmount(value)}
 			/>
 			<Text style={styles.amountUnit}>

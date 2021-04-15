@@ -55,6 +55,7 @@ const AddExercise = ({ displayOverlay, toggleOverlay }) => {
 				calories={calories}
 				amount={time}
 				setAmount={setTime}
+				placeholder="Time"
 			/>
 		</Base>
 	);

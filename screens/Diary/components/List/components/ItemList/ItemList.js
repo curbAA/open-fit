@@ -1,4 +1,5 @@
 import React from "react";
+import uuid from "react-uuid";
 
 // Components
 import ListItem from "./components/ListItem/ListItem";
@@ -8,9 +9,9 @@ const ItemList = ({ list, type, displayList }) => {
 		<>
 			{list.map((item) => {
 				if (type == "food" && displayList) {
-					return <ListItem.Food food={item} />;
+					return <ListItem.Food key={uuid()} food={item} />;
 				} else if (type == "exercise" && displayList) {
-					return <ListItem.Exercise exercise={item} />;
+					return <ListItem.Exercise key={uuid()} exercise={item} />;
 				}
 			})}
 		</>

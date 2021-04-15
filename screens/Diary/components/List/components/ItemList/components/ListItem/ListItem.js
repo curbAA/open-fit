@@ -1,11 +1,10 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, ListItem } from "react-native-elements";
-import uuid from "react-uuid";
 
 const ListItemFood = ({ food }) => {
 	return (
-		<ListItem key={uuid()} bottomDivider>
+		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
 				<View>
 					<ListItem.Title>{food.name}</ListItem.Title>
@@ -24,7 +23,7 @@ const ListItemFood = ({ food }) => {
 
 const ListItemExercise = ({ exercise }) => {
 	return (
-		<ListItem key={uuid()} bottomDivider>
+		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
 				<View>
 					<ListItem.Title>{exercise.name}</ListItem.Title>
