@@ -17,6 +17,12 @@ const AddFood = () => {
 	const [calories, setCalories] = useState("");
 	const [amount, setAmount] = useState("");
 
+	const [overlayVisible, setOverlayVisible] = useState(false);
+
+	const toggleOverlay = () => {
+		setOverlayVisible(!overlayVisible);
+	};
+
 	return (
 		<Base
 			title="Add Food"
@@ -29,7 +35,10 @@ const AddFood = () => {
 				};
 
 				addFood(newFood);
+				toggleOverlay();
 			}}
+			overlayVisible={overlayVisible}
+			toggleOverlay={toggleOverlay}
 		>
 			<DropdownPicker
 				list={availableFoodList}

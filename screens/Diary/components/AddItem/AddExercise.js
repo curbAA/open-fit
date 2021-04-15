@@ -15,6 +15,12 @@ const AddExercise = () => {
 	const [calories, setCalories] = useState("");
 	const [time, setTime] = useState("");
 
+	const [overlayVisible, setOverlayVisible] = useState(false);
+
+	const toggleOverlay = () => {
+		setOverlayVisible(!overlayVisible);
+	};
+
 	return (
 		<Base
 			title="Add Exercise"
@@ -26,7 +32,10 @@ const AddExercise = () => {
 				};
 
 				addExercise(newExercise);
+				toggleOverlay();
 			}}
+			overlayVisible={overlayVisible}
+			toggleOverlay={toggleOverlay}
 		>
 			<DropdownPicker
 				list={availableExerciseList}
