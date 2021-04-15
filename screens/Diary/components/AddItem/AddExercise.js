@@ -9,18 +9,30 @@ import DropdownPicker from "./components/DropdownPicker/DropdownPicker";
 import AmountInput from "./components/AmountInput/AmountInput";
 
 const AddExercise = () => {
-	const { availableExerciseList } = useContext(AppContext);
+	const { availableExerciseList, addExercise } = useContext(AppContext);
+
 	const [selectedExercise, setSelectedExercise] = useState("");
 	const [calories, setCalories] = useState("");
 	const [time, setTime] = useState("");
 
 	return (
-		<Base title="Add Exercise">
+		<Base
+			title="Add Exercise"
+			addFunction={() => {
+				let newExercise = {
+					name: selectedExercise,
+					time: time,
+					kcal: calories,
+				};
+
+				addExercise(newExercise);
+			}}
+		>
 			<DropdownPicker
 				list={availableExerciseList}
-				value={selectedExercise}
+				value={selectedExercise.toLowerCase}
 				onChangeItem={(item) => {
-					setSelectedExercise(item.value);
+					setSelectedExercise(item.label);
 					setCalories(item.kcal);
 				}}
 			/>

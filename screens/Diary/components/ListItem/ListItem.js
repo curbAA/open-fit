@@ -11,7 +11,9 @@ const ListItemFood = ({ food }) => {
 					<ListItem.Subtitle>{food.amount + " " + food.unit}</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>{Math.round(food.kcal * food.amount)}</Text>
+					<Text style={styles.calories}>
+						{Math.round(food.kcal * food.amount)}
+					</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
 			</ListItem.Content>
@@ -28,7 +30,9 @@ const ListItemExercise = ({ exercise }) => {
 					<ListItem.Subtitle>{exercise.time} min</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>- {exercise.kcal}</Text>
+					<Text style={styles.calories}>
+						{parseInt(exercise.kcal) * parseInt(exercise.time)}
+					</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
 			</ListItem.Content>

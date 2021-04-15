@@ -92,22 +92,23 @@ export const AppContextProvider = (props) => {
 		{
 			name: "Burpees",
 			time: 20,
-			kcal: 251,
+			kcal: -12.5,
 		},
 		{
 			name: "Running",
 			time: 20,
-			kcal: 217,
+			kcal: -11.2,
+
 		},
 		{
 			name: "Weightlifting",
 			time: 20,
-			kcal: 195,
+			kcal: -9.3,
 		},
 		{
 			name: "Weightlifting",
 			time: 20,
-			kcal: 195,
+			kcal: -9.3,
 		},
 	]);
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────

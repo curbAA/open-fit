@@ -17,7 +17,8 @@ const Diary = () => {
 	const getTotalCal = (list) => {
 		let totalCalories = 0;
 		list.map((l) => {
-			totalCalories += l.amount == undefined ? -l.kcal : l.kcal * l.amount;
+			totalCalories +=
+				l.amount == undefined ? l.kcal * l.time : l.kcal * l.amount;
 		});
 		return Math.round(totalCalories);
 	};
