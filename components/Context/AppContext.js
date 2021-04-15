@@ -92,6 +92,38 @@ export const AppContextProvider = (props) => {
 		},
 	]);
 
+	const addFood = (food, amount) => {
+		let newFood = { ...food, amount: amount };
+		let newFoodList = [...foodList, newFood];
+		setFoodList(newFoodList);
+		console.log(newFoodList);
+	};
+
+	const createFood = (name, unit, calories) => {
+		let newFood = {
+			label: name,
+			value: name.toLowerCase(),
+			unit: unit,
+			kcal: calories,
+		};
+
+		let newFoodList = [...availableFoodList, newFood];
+		setAvailableFoodList(newFoodList);
+		console.log(availableFoodList);
+	};
+
+	const addExercise = (exercise, time) => {
+		let newExercise = { ...exercise, time: time };
+		let newExerciseList = [...exerciseList, newExercise];
+		setExerciseList(newExercise);
+	};
+
+	const createExercise = (name, calories) => {
+		let newExercise = { name, calories };
+		let newExerciseList = [...exerciseList, newExercise];
+		setAvailableExerciseList(newExercise);
+	};
+
 	const [goalCalories, setGoalCalories] = useState(2500);
 
 	return (
@@ -99,14 +131,14 @@ export const AppContextProvider = (props) => {
 			value={{
 				// Food
 				availableFoodList,
-				setAvailableFoodList,
+				createFood,
 				foodList,
-				setFoodList,
+				addFood,
 				// Exercise
 				availableExerciseList,
-				setAvailableExerciseList,
+				createExercise,
 				exerciseList,
-				setExerciseList,
+				addExercise,
 				// Calories
 				goalCalories,
 				setGoalCalories,

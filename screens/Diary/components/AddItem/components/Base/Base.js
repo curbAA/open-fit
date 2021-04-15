@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Button, Divider, Overlay } from "react-native-elements";
+
+// Context
+import { AppContext } from "../../../../../../components/Context/AppContext";
 
 // Components
 import ButtonContainer from "../General/ButtonContainer/ButtonContainer";
