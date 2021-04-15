@@ -1,18 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
 
-// Context
-import { DiaryContext } from "../Context/DiaryContext";
-
-const Header = ({ title, addFunction, collapseFunction, totalCalories }) => {
-	const {
-		toggleFoodOverlay,
-		toggleFoodList,
-		toggleExerciseOverlay,
-		toggleExerciseList,
-	} = useContext(DiaryContext);
-
+const Header = ({ title, toggleList, toggleOverlay, totalCalories }) => {
 	return (
 		<View style={styles.container}>
 			<View>
@@ -22,25 +12,13 @@ const Header = ({ title, addFunction, collapseFunction, totalCalories }) => {
 				<Text style={styles.title}>{totalCalories} Kcal</Text>
 				<Icon
 					style={styles.plusIcon}
-					onPress={() => {
-						if (title == "FOOD") {
-							toggleFoodOverlay();
-						} else if (title == "EXERCISE") {
-							toggleExerciseOverlay();
-						}
-					}}
+					onPress={toggleOverlay}
 					color="white"
 					name="add"
 					type="ionicon"
 				/>
 				<Icon
-					onPress={() => {
-						if (title == "FOOD") {
-							toggleFoodList();
-						} else if (title == "EXERCISE") {
-							toggleExerciseList();
-						}
-					}}
+					onPress={toggleList}
 					color="white"
 					name="chevron-down"
 					type="ionicon"

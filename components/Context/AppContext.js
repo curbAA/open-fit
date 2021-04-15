@@ -113,6 +113,15 @@ export const AppContextProvider = (props) => {
 		let newExerciseList = [...exerciseList, newExercise];
 		setAvailableExerciseList(newExerciseList);
 	};
+
+	const getTotalCalories = (list) => {
+		let totalCalories = 0;
+		list.map((l) => {
+			totalCalories +=
+				l.amount == undefined ? l.kcal * l.time : l.kcal * l.amount;
+		});
+		return Math.round(totalCalories);
+	};
 	// ─── GOAL CALORIES ──────────────────────────────────────────────────────────────
 	const [goalCalories, setGoalCalories] = useState(2500);
 
@@ -132,6 +141,7 @@ export const AppContextProvider = (props) => {
 				// Calories
 				goalCalories,
 				setGoalCalories,
+				getTotalCalories,
 			}}
 		>
 			{props.children}

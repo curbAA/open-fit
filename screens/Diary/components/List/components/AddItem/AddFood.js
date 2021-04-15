@@ -1,17 +1,15 @@
 import React, { useContext, useState } from "react";
 
 // Context
-import { AppContext } from "../../../../components/Context/AppContext";
-import { DiaryContext } from "../Context/DiaryContext";
+import { AppContext } from "../../../../../../components/Context/AppContext";
 
 // Components
 import Base from "./components/Base/Base";
 import DropdownPicker from "./components/DropdownPicker/DropdownPicker";
 import AmountInput from "./components/AmountInput/AmountInput";
 
-const AddFood = () => {
+const AddFood = ({ displayOverlay, toggleOverlay }) => {
 	const { availableFoodList, addFood } = useContext(AppContext);
-	const { displayFoodOverlay, toggleFoodOverlay } = useContext(DiaryContext);
 
 	// Food Data
 	const [selectedFood, setSelectedFood] = useState("");
@@ -39,14 +37,14 @@ const AddFood = () => {
 
 				addFood(newFood);
 				resetState();
-				toggleFoodOverlay();
+				toggleOverlay();
 			}}
 			cancelFunction={() => {
 				resetState();
-				toggleFoodOverlay();
+				toggleOverlay();
 			}}
-			overlayVisible={displayFoodOverlay}
-			onBackdropPress={toggleFoodOverlay}
+			overlayVisible={displayOverlay}
+			onBackdropPress={toggleOverlay}
 		>
 			<DropdownPicker
 				list={availableFoodList}

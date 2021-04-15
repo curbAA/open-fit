@@ -4,41 +4,27 @@ import { View, StyleSheet, ScrollView } from "react-native";
 // Context
 import { AppContext } from "../../components/Context/AppContext"; // General Context (App)
 import { DiaryContextProvider } from "./components/Context/DiaryContext"; // Local Context (Diary)
-import { DiaryContext } from "./components/Context/DiaryContext";
 
 // Components
 import MacroHeader from "./components/MacroHeader/MacroHeader";
-import Header from "./components/Header/Header";
-import ItemList from "./components/ItemList/ItemList";
-import AddFood from "./components/AddItem/AddFood";
-import AddExercise from "./components/AddItem/AddExercise";
+import FoodList from "./components/List/FoodList";
+import ExerciseList from "./components/List/ExerciseList";
 
 const Diary = () => {
-	const { foodList, exerciseList, goalCalories } = useContext(AppContext);
-	const getTotalCal = (list) => {
-		let totalCalories = 0;
-		list.map((l) => {
-			totalCalories +=
-				l.amount == undefined ? l.kcal * l.time : l.kcal * l.amount;
-		});
-		return Math.round(totalCalories);
-	};
+	const { foodList, exerciseList, goalCalories, getTotalCalories } = useContext(AppContext);
+
 
 	return (
 		<DiaryContextProvider>
 			<View style={styles.container}>
 				<MacroHeader
-					exerciseTotal={getTotalCal(exerciseList)}
-					foodTotal={getTotalCal(foodList)}
+					exerciseTotal={getTotalCalories(exerciseList)}
+					foodTotal={getTotalCalories(foodList)}
 					goal={goalCalories}
 				/>
 				<ScrollView>
-					<Header title="FOOD" totalCalories={getTotalCal(foodList)} />
-					<ItemList type="food" list={foodList} />
-					<AddFood />
-					<Header title="EXERCISE" totalCalories={getTotalCal(exerciseList)} />
-					<ItemList type="exercise" list={exerciseList} />
-					<AddExercise />
+					<FoodList />
+					<ExerciseList />
 				</ScrollView>
 			</View>
 		</DiaryContextProvider>
