@@ -2,7 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
 
-const Header = ({ title, toggleList, toggleOverlay, totalCalories }) => {
+const Header = ({
+	title,
+	toggleList,
+	displayList,
+	toggleOverlay,
+	totalCalories,
+}) => {
 	return (
 		<View style={styles.container}>
 			<View>
@@ -19,9 +25,11 @@ const Header = ({ title, toggleList, toggleOverlay, totalCalories }) => {
 				/>
 				<Icon
 					onPress={toggleList}
+					iconStyle={!displayList ? { transform: [{ rotateX: "180deg" }] } : {}}
 					color="white"
 					name="chevron-down"
-					type="ionicon"
+					type="font-awesome"
+					size={16}
 				/>
 			</View>
 		</View>
@@ -42,11 +50,12 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 	},
 	plusIcon: {
-		marginRight: 3,
+		marginRight: 5,
 	},
 	rightContainer: {
 		flexDirection: "row",
 		justifyContent: "space-between",
+		alignItems: "center",
 	},
 });
 

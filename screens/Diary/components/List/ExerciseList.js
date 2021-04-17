@@ -27,6 +27,7 @@ const ExerciseList = () => {
 			<Header
 				title="EXERCISE"
 				toggleList={toggleList}
+				displayList={displayList}
 				toggleOverlay={toggleOverlay}
 				totalCalories={getTotalCalories(exerciseList)}
 			/>
