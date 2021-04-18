@@ -31,17 +31,13 @@ export default function App() {
 							tabBarIcon: ({ color, size }) => {
 								switch (route.name) {
 									case "Diary":
-										return (
-											<IonIcons name={"fast-food"} size={size} color={color} />
-										);
+										return <IonIcons name={"fast-food"} size={size} color={color} />;
 										break;
 									case "Foods":
 										return <IonIcons name={"book"} size={size} color={color} />;
 										break;
 									case "Goals":
-										return (
-											<IonIcons name={"trophy"} size={size} color={color} />
-										);
+										return <IonIcons name={"trophy"} size={size} color={color} />;
 										break;
 								}
 							},
