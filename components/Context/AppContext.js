@@ -1,9 +1,67 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useRef, useEffect, useState } from "react";
+import { AppState } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
+	// ─── APP STATE ──────────────────────────────────────────────────────────────────
+
+	const appState = useRef(AppState.currentState);
+
+	useEffect(() => {
+		AppState.addEventListener("change", _handleAppStateChange);
+
+		setAvailableFoodList(getData("@availableFoodList"));
+		setFoodList(getData("@foodList"));
+		setAvailableExerciseList(getData("@availableExerciseList"));
+		setExerciseList(getData("@exerciseList"));
+
+		return () => {
+			AppState.removeEventListener("change", _handleAppStateChange);
+		};
+	}, []);
+
+	const _handleAppStateChange = (nextAppState) => {
+		if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+			// ─── FOREGROUND ──────────────────────────────────────────────────
+			console.log("app has come to the foreground!");
+			// getalldata();
+
+			// if (stored.availablefoodlist != null) setavailablefoodlist(stored.availablefoodlist);
+			// if (stored.foodlist != null) setavailablefoodlist(stored.foodlist);
+			// if (stored.availableexerciselist != null) setavailablefoodlist(stored.availableexerciselist);
+			// if (stored.exerciselist != null) setavailablefoodlist(stored.exerciselist);
+
+			setAvailableFoodList(getData("@availableFoodList"));
+			setFoodList(getData("@foodList"));
+			setAvailableExerciseList(getData("@availableExerciseList"));
+			setExerciseList(getData("@exerciseList"));
+			// ─────────────────────────────────────────────────────────────────
+		} else if (
+			(appState.current.match(/active/) && nextAppState === "inactive") ||
+			nextAppState === "background"
+		) {
+			// ─── BACKGROUND ──────────────────────────────────────────────────
+			console.log("App has come to the background!");
+			// storeAllData();
+
+			// console.log(availableFoodList);
+			// console.log(foodList);
+			// console.log(availableExerciseList);
+			// console.log(exerciseList);
+
+			storeData("@availableFoodList", availableFoodList);
+			storeData("@foodList", foodList);
+			storeData("@availableExerciseList", availableExerciseList);
+			storeData("@exerciseList", exerciseList);
+			// ─────────────────────────────────────────────────────────────────
+		}
+		appState.current = nextAppState;
+	};
+
 	// ─── FOOD ───────────────────────────────────────────────────────────────────────
+
 	const [availableFoodList, setAvailableFoodList] = useState([
 		{
 			label: "Egg",
@@ -57,7 +115,9 @@ export const AppContextProvider = (props) => {
 			kcal: 1.7,
 		},
 	]);
+
 	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
+
 	const [availableExerciseList, setAvailableExerciseList] = useState([
 		{
 			label: "Burpees",
@@ -93,7 +153,9 @@ export const AppContextProvider = (props) => {
 			kcal: -9.3,
 		},
 	]);
+
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
+
 	const addFood = (newFood) => {
 		let newFoodList = [...foodList, newFood];
 		setFoodList(newFoodList);
@@ -116,32 +178,95 @@ export const AppContextProvider = (props) => {
 
 	const getTotalCalories = (list) => {
 		let totalCalories = 0;
-		list.map((l) => {
-			totalCalories +=
-				l.amount == undefined ? l.kcal * l.time : l.kcal * l.amount;
-		});
-		return Math.round(totalCalories);
+		if (list.map == undefined) {
+			return totalCalories;
+		} else {
+			list.map((l) => {
+				totalCalories += l.amount == undefined ? l.kcal * l.time : l.kcal * l.amount;
+			});
+			return Math.round(totalCalories);
+		}
 	};
+
 	// ─── GOAL CALORIES ──────────────────────────────────────────────────────────────
+
 	const [goalCalories, setGoalCalories] = useState(2500);
+
+	// ─── LOCAL STORAGE ──────────────────────────────────────────────────────────────
+
+	const storeData = async (key, value) => {
+		try {
+			const jsonValue = JSON.stringify(value);
+			await AsyncStorage.setItem(key, jsonValue);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const getData = async (key) => {
+		try {
+			const jsonValue = await AsyncStorage.getItem(key);
+			console.log(jsonValue);
+			return jsonValue != null ? JSON.parse(jsonValue) : [];
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const getAllData = () => {
+		let stored;
+		stored.availableFoodList = getData("@availableFoodList");
+		stored.foodList = getData("@foodList");
+		stored.availableExerciseList = getData("@availableExerciseList");
+		stored.exerciseList = getData("@exerciseList");
+
+		// if (stored.availableFoodList != null) setAvailableFoodList(stored.availableFoodList);
+		// if (stored.foodList != null) setAvailableFoodList(stored.foodList);
+		// if (stored.availableExerciseList != null) setAvailableFoodList(stored.availableExerciseList);
+		// if (stored.exerciseList != null) setAvailableFoodList(stored.exerciseList);
+
+		setAvailableFoodList(stored.availableFoodList._W);
+		setFoodList(stored.foodList._W);
+		setAvailableExerciseList(stored.availableExerciseList._W);
+		setExerciseList(stored.exerciseList._W);
+	};
+
+	const storeAllData = () => {
+		console.log(availableFoodList);
+		console.log(foodList);
+		console.log(availableExerciseList);
+		console.log(exerciseList);
+
+		storeData("@availableFoodList", availableFoodList);
+		storeData("@foodList", foodList);
+		storeData("@availableExerciseList", availableExerciseList);
+		storeData("@exerciseList", exerciseList);
+	};
+
+	// ─── RETURN ─────────────────────────────────────────────────────────────────────
 
 	return (
 		<AppContext.Provider
 			value={{
 				// Food
 				availableFoodList,
-				createFood,
 				foodList,
+				createFood,
 				addFood,
 				// Exercise
 				availableExerciseList,
-				createExercise,
 				exerciseList,
+				createExercise,
 				addExercise,
 				// Calories
 				goalCalories,
-				setGoalCalories,
 				getTotalCalories,
+				setGoalCalories,
+				// Data
+				storeAllData,
+				storeData,
+				getAllData,
+				getData,
 			}}
 		>
 			{props.children}
