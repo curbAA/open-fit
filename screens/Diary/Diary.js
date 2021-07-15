@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
 
 // Context
 import { AppContext } from "../../components/Context/AppContext"; // General Context (App)

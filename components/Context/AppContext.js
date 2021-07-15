@@ -19,8 +19,7 @@ export const AppContextProvider = (props) => {
 	const _handleAppStateChange = (nextAppState) => {
 		if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 			// ─── FOREGROUND ──────────────────────────────────────────────────
-			console.log("app has come to the foreground!");
-			save = true;
+			// console.log("app has come to the foreground!");
 			getAllData();
 			// ─────────────────────────────────────────────────────────────────
 		} else if (
@@ -28,7 +27,7 @@ export const AppContextProvider = (props) => {
 			nextAppState === "background"
 		) {
 			// ─── BACKGROUND ──────────────────────────────────────────────────
-			console.log("App has come to the background!");
+			// console.log("App has come to the background!");
 			// ─────────────────────────────────────────────────────────────────
 		}
 		appState.current = nextAppState;
@@ -93,35 +92,31 @@ export const AppContextProvider = (props) => {
 		let newFoodList = [...foodList, newFood];
 		setFoodList(newFoodList);
 		storeData("@foodList", newFoodList);
-		// storeAllData();
 	};
 
-	const createFood = (newFood) => {
+	const createFood = (newAvailableFood) => {
 		let newAvailableFoodList = [...availableFoodList, newAvailableFood];
 		setAvailableFoodList(newAvailableFoodList);
 		storeData("@availableFoodList", newAvailableFoodList);
-		// storeAllData();
 	};
 
 	const addExercise = (newExercise) => {
 		let newExerciseList = [...exerciseList, newExercise];
 		setExerciseList(newExerciseList);
 		storeData("@exerciseList", newExerciseList);
-		// storeAllData();
 	};
 
-	const createExercise = (newExercise) => {
+	const createExercise = (newAvailableExercise) => {
 		let newAvailableExerciseList = [...availableExerciseList, newAvailableExercise];
 		setAvailableExerciseList(newAvailableExerciseList);
 		storeData("@availableExerciseList", newAvailableExerciseList);
-		// storeAllData();
 	};
 
 	const getTotalCalories = (list) => {
-		let totalCalories = 0;
 		if (list.map == undefined) {
-			return totalCalories;
+			return 0;
 		} else {
+			let totalCalories = 0;
 			list.map((l) => {
 				totalCalories += l.amount == undefined ? l.kcal * l.time : l.kcal * l.amount;
 			});
@@ -184,19 +179,9 @@ export const AppContextProvider = (props) => {
 			.catch((err) => {
 				console.log(err);
 			});
-
-		// if (stored.availableFoodList != null) setAvailableFoodList(stored.availableFoodList);
-		// if (stored.foodList != null) setAvailableFoodList(stored.foodList);
-		// if (stored.availableExerciseList != null) setAvailableFoodList(stored.availableExerciseList);
-		// if (stored.exerciseList != null) setAvailableFoodList(stored.exerciseList);
 	};
 
 	const storeAllData = () => {
-		// console.log(availableFoodList);
-		// console.log(foodList);
-		// console.log(availableExerciseList);
-		// console.log(exerciseList);
-
 		storeData("@availableFoodList", availableFoodList);
 		storeData("@foodList", foodList);
 		storeData("@availableExerciseList", availableExerciseList);
