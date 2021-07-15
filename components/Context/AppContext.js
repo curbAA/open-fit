@@ -41,24 +41,28 @@ export const AppContextProvider = (props) => {
 			value: "egg",
 			unit: "units",
 			kcal: 75,
+			common: 1,
 		},
 		{
 			label: "Cheese",
 			value: "cheese",
 			unit: "g",
 			kcal: 2,
+			common: 50,
 		},
 		{
 			label: "Milk",
 			value: "milk",
 			unit: "ml",
 			kcal: 1,
+			common: 250,
 		},
 		{
 			label: "Steak",
 			value: "steak",
 			unit: "g",
 			kcal: 1.7,
+			common: 200,
 		},
 	]);
 
