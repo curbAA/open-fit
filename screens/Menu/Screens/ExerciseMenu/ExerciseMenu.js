@@ -1,10 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-const ExerciseMenu = () => {
+// Components
+import ItemList from "../../components/ItemList/ItemList";
+import AddItemButton from "../../../../components/AddItemButton/AddItemButton";
+
+const ExerciseMenu = ({ availableExerciseList }) => {
 	return (
 		<View style={styles.container}>
-			<Text>Exercise Menu</Text>
+			<ItemList type="exercise" displayList={true} list={availableExerciseList} />
+			<AddItemButton title="Add Exercise" />
 		</View>
 	);
 };
@@ -14,7 +19,5 @@ export default ExerciseMenu;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
 	},
 });

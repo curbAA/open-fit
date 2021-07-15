@@ -1,5 +1,5 @@
-import React, {useContext} from "react";
-import { View, StyleSheet} from "react-native";
+import React, { useContext } from "react";
+import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import IonIcons from "react-native-vector-icons/Ionicons";
 
@@ -20,22 +20,15 @@ const Menu = () => {
 	return (
 		<NavigationContainer independent={true}>
 			<View style={styles.container}>
-				<Tab.Navigator 
-					// screenOptions={({ route }) => ({
-					// 	tabBarIcon: ({ color, size }) => {
-					// 		switch (route.name) {
-					// 			case "Foods":
-					// 				return <IonIcons name={"fast-food"} size={size} color={color} />;
-					// 				break;
-					// 			case "Exercises":
-					// 				return <IonIcons name={"bicycle"} size={size} color={color} />;
-					// 				break;
-					// 		}
-					// 	},
-					// })}
-				>
-					<Tab.Screen name="Foods" component={FoodMenu} />
-					<Tab.Screen name="Exercises" component={ExerciseMenu} />
+				<Tab.Navigator>
+					<Tab.Screen
+						name="Foods"
+						children={() => <FoodMenu availableFoodList={availableFoodList} />}
+					/>
+					<Tab.Screen
+						name="Exercises"
+						children={() => <ExerciseMenu availableExerciseList={availableExerciseList} />}
+					/>
 				</Tab.Navigator>
 			</View>
 		</NavigationContainer>

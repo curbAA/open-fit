@@ -7,14 +7,9 @@ const ListItemFood = ({ food }) => {
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
 				<View>
-					<ListItem.Title>{food.name}</ListItem.Title>
-					<ListItem.Subtitle>{food.amount + " " + food.unit}</ListItem.Subtitle>
-				</View>
-				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>
-						{Math.round(food.kcal * food.amount)}
-					</Text>
-					<Text style={styles.subtitle}>Kcal</Text>
+					<ListItem.Title>{food.label}</ListItem.Title>
+					<ListItem.Subtitle>{food.unit}</ListItem.Subtitle>
+					<ListItem.Subtitle>{food.kcal}</ListItem.Subtitle>
 				</View>
 			</ListItem.Content>
 		</ListItem>
@@ -22,18 +17,13 @@ const ListItemFood = ({ food }) => {
 };
 
 const ListItemExercise = ({ exercise }) => {
+	console.log(exercise);
 	return (
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
 				<View>
-					<ListItem.Title>{exercise.name}</ListItem.Title>
-					<ListItem.Subtitle>{exercise.time} min</ListItem.Subtitle>
-				</View>
-				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>
-						{parseInt(exercise.kcal) * parseInt(exercise.time)}
-					</Text>
-					<Text style={styles.subtitle}>Kcal</Text>
+					<ListItem.Title>{exercise.label}</ListItem.Title>
+					<ListItem.Subtitle>{exercise.kcal} min</ListItem.Subtitle>
 				</View>
 			</ListItem.Content>
 		</ListItem>
