@@ -7,7 +7,7 @@ import IonIcons from "react-native-vector-icons/Ionicons";
 
 // Screens
 import Diary from "./screens/Diary/Diary";
-import Foods from "./screens/Foods/Foods";
+import Menu from "./screens/Menu/Menu";
 import Goals from "./screens/Goals/Goals";
 
 // Components
@@ -33,7 +33,7 @@ export default function App() {
 									case "Diary":
 										return <IonIcons name={"fast-food"} size={size} color={color} />;
 										break;
-									case "Foods":
+									case "Menu":
 										return <IonIcons name={"book"} size={size} color={color} />;
 										break;
 									case "Goals":
@@ -44,7 +44,7 @@ export default function App() {
 						})}
 					>
 						<Tab.Screen name="Diary" component={Diary} />
-						<Tab.Screen name="Foods" component={Foods} />
+						<Tab.Screen name="Menu" component={Menu} />
 						<Tab.Screen name="Goals" component={Goals} />
 					</Tab.Navigator>
 				</ThemeProvider>

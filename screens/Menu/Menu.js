@@ -1,15 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Foods = () => {
+const Menu = () => {
 	return (
 		<View style={styles.container}>
-			<Text>Foods</Text>
+			<Text>Menu</Text>
 		</View>
 	);
 };
 
-export default Foods;
+export default Menu;
 
 const styles = StyleSheet.create({
 	container: {
