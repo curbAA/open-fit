@@ -23,7 +23,7 @@ const theme = {};
 export default function App() {
 	return (
 		<AppContextProvider>
-			<NavigationContainer>
+			<NavigationContainer independent={true}>
 				<ThemeProvider theme={theme}>
 					<Header />
 					<Tab.Navigator
