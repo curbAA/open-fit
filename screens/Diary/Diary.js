@@ -11,19 +11,7 @@ import FoodList from "./components/List/FoodList";
 import ExerciseList from "./components/List/ExerciseList";
 
 const Diary = () => {
-	const { foodList, exerciseList, goalCalories, getTotalCalories, storeData, getData } = useContext(
-		AppContext
-	);
-
-	let test = {};
-
-	const getTest = () => {
-		test = getData("test");
-	};
-
-	const storeTest = () => {
-		test = storeData("test", { test: "test" });
-	};
+	const { foodList, exerciseList, goalCalories, getTotalCalories } = useContext(AppContext);
 
 	return (
 		<View style={styles.container}>
@@ -35,10 +23,6 @@ const Diary = () => {
 			<ScrollView>
 				<FoodList />
 				<ExerciseList />
-				
-				<Button onPress={storeTest} title="Store Test" />
-				<Button onPress={getTest} title="Retrieve Test" />
-				<Button onPress={() => console.log(test._W)} title="Test" />
 			</ScrollView>
 		</View>
 	);
