@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 // Components
 import ItemList from "../../components/ItemList/ItemList";
-import AddItemButton from "../../../../components/AddItemButton/AddItemButton";
+import AddItemButton from "openfit/components/AddItemButton/AddItemButton";
 
 const ExerciseMenu = ({ availableExerciseList }) => {
 	return (

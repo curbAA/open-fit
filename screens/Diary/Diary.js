@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 
 // Context
-import { AppContext } from "../../components/Context/AppContext"; // General Context (App)
+import { AppContext } from "openfit/components/Context/AppContext"; // General Context (App)
 
 // Components
 import MacroHeader from "./components/MacroHeader/MacroHeader";

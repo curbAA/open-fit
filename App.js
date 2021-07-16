@@ -14,7 +14,7 @@ import Goals from "./screens/Goals/Goals";
 import Header from "./components/Header/Header";
 
 // Context
-import { AppContextProvider } from "./components/Context/AppContext";
+import { AppContextProvider } from "openfit/components/Context/AppContext";
 
 const Tab = createBottomTabNavigator();
 

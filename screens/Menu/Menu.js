@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import IonIcons from "react-native-vector-icons/Ionicons";
 
 // Tab Navigation
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -12,7 +11,7 @@ import FoodMenu from "./Screens/FoodMenu/FoodMenu";
 import ExerciseMenu from "./Screens/ExerciseMenu/ExerciseMenu";
 
 // Context
-import { AppContext } from "../../components/Context/AppContext";
+import { AppContext } from "openfit/components/Context/AppContext";
 
 const Menu = () => {
 	const { availableFoodList, availableExerciseList } = useContext(AppContext);

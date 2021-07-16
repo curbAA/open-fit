@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 
 // Context
-import { AppContext } from "../../../../../../components/Context/AppContext";
+import { AppContext } from "openfit/components/Context/AppContext";
 
 // Components
 import Base from "./components/Base/Base";
