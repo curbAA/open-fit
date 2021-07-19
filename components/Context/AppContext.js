@@ -37,6 +37,7 @@ export const AppContextProvider = (props) => {
 
 	const [availableFoodList, setAvailableFoodList] = useState([
 		{
+			type: "food",
 			label: "Egg",
 			value: "egg",
 			unit: "units",
@@ -44,6 +45,7 @@ export const AppContextProvider = (props) => {
 			common: 1,
 		},
 		{
+			type: "food",
 			label: "Cheese",
 			value: "cheese",
 			unit: "g",
@@ -51,6 +53,7 @@ export const AppContextProvider = (props) => {
 			common: 50,
 		},
 		{
+			type: "food",
 			label: "Milk",
 			value: "milk",
 			unit: "ml",
@@ -58,6 +61,7 @@ export const AppContextProvider = (props) => {
 			common: 250,
 		},
 		{
+			type: "food",
 			label: "Steak",
 			value: "steak",
 			unit: "g",
@@ -72,18 +76,27 @@ export const AppContextProvider = (props) => {
 
 	const [availableExerciseList, setAvailableExerciseList] = useState([
 		{
+			type: "exercise",
 			label: "Burpees",
 			value: "burpees",
+			common: 10,
+			unit: "min", // may use later on
 			kcal: -12.5,
 		},
 		{
+			type: "exercise",
 			label: "Running",
 			value: "running",
+			common: 10,
+			unit: "min", // may use later on
 			kcal: -11.2,
 		},
 		{
+			type: "exercise",
 			label: "Weightlifting",
 			value: "weightlifting",
+			common: 10,
+			unit: "min", // may use later on
 			kcal: -9.3,
 		},
 	]);
@@ -98,11 +111,17 @@ export const AppContextProvider = (props) => {
 		storeData("@foodList", newFoodList);
 	};
 
-	const createFood = (newAvailableFood) => {
+	// Edit Food
+	// Delete Food
+
+	const createAvailableFood = (newAvailableFood) => {
 		let newAvailableFoodList = [...availableFoodList, newAvailableFood];
 		setAvailableFoodList(newAvailableFoodList);
 		storeData("@availableFoodList", newAvailableFoodList);
 	};
+
+	// Edit Available Food
+	// Delete Available Food
 
 	const addExercise = (newExercise) => {
 		let newExerciseList = [...exerciseList, newExercise];
@@ -110,11 +129,17 @@ export const AppContextProvider = (props) => {
 		storeData("@exerciseList", newExerciseList);
 	};
 
-	const createExercise = (newAvailableExercise) => {
+	// Edit Exercise
+	// Delete Exercise
+
+	const createAvailableExercise = (newAvailableExercise) => {
 		let newAvailableExerciseList = [...availableExerciseList, newAvailableExercise];
 		setAvailableExerciseList(newAvailableExerciseList);
 		storeData("@availableExerciseList", newAvailableExerciseList);
 	};
+
+	// Edit Available Exercise
+	// Delete Available Exercise
 
 	const getTotalCalories = (list) => {
 		if (list.map == undefined) {
@@ -160,28 +185,28 @@ export const AppContextProvider = (props) => {
 				setAvailableFoodList(result);
 			})
 			.catch((err) => {
-				console.log(err);
+				console.error(err);
 			});
 		getData("@foodList")
 			.then((result) => {
 				setFoodList(result);
 			})
 			.catch((err) => {
-				console.log(err);
+				console.error(err);
 			});
 		getData("@availableExerciseList")
 			.then((result) => {
 				setAvailableExerciseList(result);
 			})
 			.catch((err) => {
-				console.log(err);
+				console.error(err);
 			});
 		getData("@exerciseList")
 			.then((result) => {
 				setExerciseList(result);
 			})
 			.catch((err) => {
-				console.log(err);
+				console.error(err);
 			});
 	};
 
@@ -204,12 +229,12 @@ export const AppContextProvider = (props) => {
 				// Food
 				availableFoodList,
 				foodList,
-				createFood,
+				createAvailableFood,
 				addFood,
 				// Exercise
 				availableExerciseList,
 				exerciseList,
-				createExercise,
+				createAvailableExercise,
 				addExercise,
 				// Calories
 				goalCalories,

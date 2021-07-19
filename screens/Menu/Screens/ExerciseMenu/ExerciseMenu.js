@@ -1,15 +1,26 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, ScrollView } from "react-native";
 
 // Components
 import ItemList from "../../components/ItemList/ItemList";
 import AddItemButton from "openfit/components/AddItemButton/AddItemButton";
+import AddItemOverlay from "../components/AddItemOverlay/AddItemOverlay";
 
 const ExerciseMenu = ({ availableExerciseList }) => {
+	const [displayOverlay, setDisplayOverlay] = useState(false);
+
+	const toggleOverlay = () => {
+		setDisplayOverlay(!displayOverlay);
+	};
 	return (
 		<View style={styles.container}>
 			<ItemList type="exercise" displayList={true} list={availableExerciseList} />
-			<AddItemButton title="Add Exercise" />
+			<AddItemButton title="Create Exercise" onPress={toggleOverlay} />
+			<AddItemOverlay
+				type="exercise"
+				displayOverlay={displayOverlay}
+				toggleOverlay={toggleOverlay}
+			/>
 		</View>
 	);
 };

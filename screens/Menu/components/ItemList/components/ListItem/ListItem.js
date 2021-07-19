@@ -40,7 +40,6 @@ const ListItemFood = ({ food }) => {
 };
 
 const ListItemExercise = ({ exercise }) => {
-	console.log(exercise);
 	return (
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
