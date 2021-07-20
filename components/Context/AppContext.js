@@ -1,6 +1,7 @@
 import React, { createContext, useRef, useEffect, useState } from "react";
 import { AppState } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from "react-uuid";
 
 export const AppContext = createContext();
 
@@ -105,41 +106,108 @@ export const AppContextProvider = (props) => {
 
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
 
+	// ─── FOOD ───────────────────────────────────────────────────────────────────────
 	const addFood = (newFood) => {
+		newFood.id = uuid();
 		let newFoodList = [...foodList, newFood];
 		setFoodList(newFoodList);
 		storeData("@foodList", newFoodList);
 	};
 
-	// Edit Food
-	// Delete Food
+	const editFood = (id, newFood) => {
+		let newFoodList = foodList.map((item, index) => {
+			if (item.id == id) return foodList.splice(index, 1, newFood);
+		});
+		setFoodList(newFoodList);
+		storeData("@foodList", newFoodList);
+	};
 
+	const deleteFood = (id) => {
+		let newFoodList = foodList.map((item, index) => {
+			if (item.id == id) return foodList.splice(index, 1);
+		});
+		setFoodList(newFoodList);
+		storeData("@foodList", newFoodList);
+	};
+
+	// ─── AVAILABLE FOOD ─────────────────────────────────────────────────────────────
 	const createAvailableFood = (newAvailableFood) => {
+		newAvailableFood.id = uuid();
 		let newAvailableFoodList = [...availableFoodList, newAvailableFood];
+		console.log(newAvailableFoodList);
 		setAvailableFoodList(newAvailableFoodList);
 		storeData("@availableFoodList", newAvailableFoodList);
 	};
 
-	// Edit Available Food
-	// Delete Available Food
+	const editAvailableFood = (id, newAvailableFood) => {
+		let newAvailableFoodList = availableFoodList;
+		newAvailableFoodList = newAvailableFoodList.map((item, index) => {
+			if (item.id == id) newAvailableFoodList[index] = newAvailableFood;
+		});
+		setAvailableFoodList(newAvailableFoodList);
+		storeData("@availableFoodList", newAvailableFoodList);
+	};
 
+	const deleteAvailableFood = (id) => {
+		let newAvailableFoodList = availableFoodList;
+		newAvailableFoodList = newAvailableFoodList.filter((item) => {
+			return item.id !== id;
+		});
+		setAvailableFoodList(newAvailableFoodList);
+		storeData("@availableFoodList", newAvailableFoodList);
+	};
+
+	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
 	const addExercise = (newExercise) => {
+		newExercise.id = uuid();
 		let newExerciseList = [...exerciseList, newExercise];
+		setAvailableExerciseList(newExerciseList);
+		storeData("@exerciseList", newExerciseList);
+	};
+
+	const editExercise = (id, newExercise) => {
+		let newExerciseList = exerciseList;
+		newExerciseList = newExerciseList.map((item, index) => {
+			if (item.id == id) newExerciseList[index] = newExercise;
+		});
 		setExerciseList(newExerciseList);
 		storeData("@exerciseList", newExerciseList);
 	};
 
-	// Edit Exercise
-	// Delete Exercise
+	const deleteExercise = (id) => {
+		let newExerciseList = exerciseList;
+		newExerciseList = newExerciseList.filter((item) => {
+			return item.id !== id;
+		});
+		setAvailableExerciseList(newExerciseList);
+		storeData("@exerciseList", newExerciseList);
+	};
 
+	// ─── AVAILABLE EXERCISE ─────────────────────────────────────────────────────────
 	const createAvailableExercise = (newAvailableExercise) => {
+		newAvailableExercise.id = uuid();
 		let newAvailableExerciseList = [...availableExerciseList, newAvailableExercise];
 		setAvailableExerciseList(newAvailableExerciseList);
 		storeData("@availableExerciseList", newAvailableExerciseList);
 	};
 
-	// Edit Available Exercise
-	// Delete Available Exercise
+	const editAvailableExercise = (id, newAvailableExercise) => {
+		let newAvailableExerciseList = availableExerciseList;
+		newAvailableExerciseList = newAvailableExerciseList.map((item, index) => {
+			if (item.id == id) newAvailableExerciseList[index] = newAvailableExercise;
+		});
+		setAvailableExerciseList(newAvailableExerciseList);
+		storeData("@availableExerciseList", newAvailableExerciseList);
+	};
+
+	const deleteAvailableExercise = (id) => {
+		let newAvailableExerciseList = availableExerciseList;
+		newAvailableExerciseList = newAvailableExerciseList.filter((item) => {
+			return item.id !== id;
+		});
+		setAvailableExerciseList(newAvailableExerciseList);
+		storeData("@availableExerciseList", newAvailableExerciseList);
+	};
 
 	const getTotalCalories = (list) => {
 		if (list.map == undefined) {
@@ -227,15 +295,25 @@ export const AppContextProvider = (props) => {
 		<AppContext.Provider
 			value={{
 				// Food
-				availableFoodList,
 				foodList,
-				createAvailableFood,
 				addFood,
+				deleteFood,
+				editFood,
+				// • • • • •
+				availableFoodList,
+				createAvailableFood,
+				editAvailableFood,
+				deleteAvailableFood,
 				// Exercise
-				availableExerciseList,
 				exerciseList,
-				createAvailableExercise,
 				addExercise,
+				editExercise,
+				deleteExercise,
+				// • • • • •
+				availableExerciseList,
+				createAvailableExercise,
+				editAvailableExercise,
+				deleteAvailableExercise,
 				// Calories
 				goalCalories,
 				getTotalCalories,
