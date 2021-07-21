@@ -38,7 +38,7 @@ export const AppContextProvider = (props) => {
 
 	const [availableFoodList, setAvailableFoodList] = useState([
 		{
-			type: "food",
+			type: "availableFood",
 			label: "Egg",
 			value: "egg",
 			unit: "units",
@@ -46,7 +46,7 @@ export const AppContextProvider = (props) => {
 			common: 1,
 		},
 		{
-			type: "food",
+			type: "availableFood",
 			label: "Cheese",
 			value: "cheese",
 			unit: "g",
@@ -54,7 +54,7 @@ export const AppContextProvider = (props) => {
 			common: 50,
 		},
 		{
-			type: "food",
+			type: "availableFood",
 			label: "Milk",
 			value: "milk",
 			unit: "ml",
@@ -62,7 +62,7 @@ export const AppContextProvider = (props) => {
 			common: 250,
 		},
 		{
-			type: "food",
+			type: "availableFood",
 			label: "Steak",
 			value: "steak",
 			unit: "g",
@@ -107,74 +107,132 @@ export const AppContextProvider = (props) => {
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
 
 	// ─── FOOD ───────────────────────────────────────────────────────────────────────
-	const addFood = (newFood) => {
-		newFood.id = uuid();
+	const addFood = ({ food, amount } = {}) => {
+		let newFood = {
+			type: "food",
+			food: food, // Object from AvailableFoodList
+			amount: amount,
+			id: uuid(),
+		};
+
 		let newFoodList = [...foodList, newFood];
+
 		setFoodList(newFoodList);
 		storeData("@foodList", newFoodList);
 	};
 
-	const editFood = (id, newFood) => {
+	// ────────────────────────────────────────────────────────────
+	const editFood = ({ id, food, amount } = {}) => {
+		let newFood = {
+			type: "food",
+			food: food, // Object from AvailableFoodList
+			amount: amount,
+			id: id,
+		};
+
 		let newFoodList = foodList.map((item, index) => {
 			if (item.id == id) return foodList.splice(index, 1, newFood);
 		});
+
 		setFoodList(newFoodList);
 		storeData("@foodList", newFoodList);
 	};
 
-	const deleteFood = (id) => {
+	// ────────────────────────────────────────────────────────────
+	const deleteFood = ({ id } = {}) => {
 		let newFoodList = foodList.map((item, index) => {
 			if (item.id == id) return foodList.splice(index, 1);
 		});
+
 		setFoodList(newFoodList);
 		storeData("@foodList", newFoodList);
 	};
 
-	// ─── AVAILABLE FOOD ─────────────────────────────────────────────────────────────
-	const createAvailableFood = (newAvailableFood) => {
-		newAvailableFood.id = uuid();
+	// ─── AVAILABLE FOOD ──────────────────────────────────────────────────────────────
+	const createAvailableFood = ({ label, common, unit, kcal } = {}) => {
+		let newAvailableFood = {
+			type: "availableFood",
+			label: label,
+			value: label.toLowerCase(),
+			common: common,
+			unit: unit,
+			kcal: kcal,
+			id: uuid(),
+		};
+
 		let newAvailableFoodList = [...availableFoodList, newAvailableFood];
-		console.log(newAvailableFoodList);
+
 		setAvailableFoodList(newAvailableFoodList);
 		storeData("@availableFoodList", newAvailableFoodList);
 	};
 
-	const editAvailableFood = (id, newAvailableFood) => {
+	// ────────────────────────────────────────────────────────────
+	const editAvailableFood = ({ id, label, common, unit, kcal } = {}) => {
+		let newAvailableFood = {
+			type: "availableFood",
+			label: label,
+			value: label.toLowerCase(),
+			common: common,
+			unit: unit,
+			kcal: kcal,
+			id: id(),
+		};
+
 		let newAvailableFoodList = availableFoodList;
 		newAvailableFoodList = newAvailableFoodList.map((item, index) => {
 			if (item.id == id) newAvailableFoodList[index] = newAvailableFood;
 		});
+
 		setAvailableFoodList(newAvailableFoodList);
 		storeData("@availableFoodList", newAvailableFoodList);
 	};
 
-	const deleteAvailableFood = (id) => {
+	// ────────────────────────────────────────────────────────────
+	const deleteAvailableFood = ({ id } = {}) => {
 		let newAvailableFoodList = availableFoodList;
 		newAvailableFoodList = newAvailableFoodList.filter((item) => {
 			return item.id !== id;
 		});
+
 		setAvailableFoodList(newAvailableFoodList);
 		storeData("@availableFoodList", newAvailableFoodList);
 	};
 
 	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
-	const addExercise = (newExercise) => {
-		newExercise.id = uuid();
+	const addExercise = ({ exercise, time } = {}) => {
+		let newExercise = {
+			type: "exercise",
+			exercise: exercise,
+			time: time,
+			id: uuid(),
+		};
+
 		let newExerciseList = [...exerciseList, newExercise];
+
 		setAvailableExerciseList(newExerciseList);
 		storeData("@exerciseList", newExerciseList);
 	};
 
-	const editExercise = (id, newExercise) => {
+	// ────────────────────────────────────────────────────────────
+	const editExercise = ({ id, exercise, time } = {}) => {
+		let newExercise = {
+			type: "exercise",
+			exercise: exercise,
+			time: time,
+			id: uuid(),
+		};
+
 		let newExerciseList = exerciseList;
 		newExerciseList = newExerciseList.map((item, index) => {
 			if (item.id == id) newExerciseList[index] = newExercise;
 		});
+
 		setExerciseList(newExerciseList);
 		storeData("@exerciseList", newExerciseList);
 	};
 
-	const deleteExercise = (id) => {
+	// ────────────────────────────────────────────────────────────
+	const deleteExercise = ({ id } = {}) => {
 		let newExerciseList = exerciseList;
 		newExerciseList = newExerciseList.filter((item) => {
 			return item.id !== id;
@@ -184,30 +242,57 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ─── AVAILABLE EXERCISE ─────────────────────────────────────────────────────────
-	const createAvailableExercise = (newAvailableExercise) => {
-		newAvailableExercise.id = uuid();
+	const createAvailableExercise = ({ label, common, kcal } = {}) => {
+		let newAvailableExercise = {
+			type: "availableExercise",
+			label: label,
+			value: label.toLowerCase(),
+			common: common,
+			kcal: kcal,
+			id: uuid(),
+		};
+
 		let newAvailableExerciseList = [...availableExerciseList, newAvailableExercise];
+
 		setAvailableExerciseList(newAvailableExerciseList);
 		storeData("@availableExerciseList", newAvailableExerciseList);
+		console.log(newAvailableExercise);
 	};
 
-	const editAvailableExercise = (id, newAvailableExercise) => {
+	// ────────────────────────────────────────────────────────────
+	const editAvailableExercise = ({ id, label, common, kcal } = {}) => {
+		let newAvailableExercise = {
+			type: "availableExercise",
+			label: label,
+			value: label.toLowerCase(),
+			common: common,
+			kcal: kcal,
+			id: id,
+		};
+
 		let newAvailableExerciseList = availableExerciseList;
 		newAvailableExerciseList = newAvailableExerciseList.map((item, index) => {
 			if (item.id == id) newAvailableExerciseList[index] = newAvailableExercise;
 		});
+
 		setAvailableExerciseList(newAvailableExerciseList);
 		storeData("@availableExerciseList", newAvailableExerciseList);
 	};
 
-	const deleteAvailableExercise = (id) => {
+	// ────────────────────────────────────────────────────────────
+	const deleteAvailableExercise = ({ id } = {}) => {
 		let newAvailableExerciseList = availableExerciseList;
 		newAvailableExerciseList = newAvailableExerciseList.filter((item) => {
 			return item.id !== id;
 		});
+
 		setAvailableExerciseList(newAvailableExerciseList);
 		storeData("@availableExerciseList", newAvailableExerciseList);
 	};
+
+	// ─── GOAL CALORIES ──────────────────────────────────────────────────────────────
+
+	const [goalCalories, setGoalCalories] = useState(2500);
 
 	const getTotalCalories = (list) => {
 		if (list.map == undefined) {
@@ -220,10 +305,6 @@ export const AppContextProvider = (props) => {
 			return Math.round(totalCalories);
 		}
 	};
-
-	// ─── GOAL CALORIES ──────────────────────────────────────────────────────────────
-
-	const [goalCalories, setGoalCalories] = useState(2500);
 
 	// ─── LOCAL STORAGE ──────────────────────────────────────────────────────────────
 
