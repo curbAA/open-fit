@@ -5,32 +5,26 @@ import { Overlay, Text, Input, Divider, Button } from "react-native-elements";
 //Context
 import { AppContext } from "openfit/components/Context/AppContext";
 
-const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => {
+const AddItemOverlay = ({ type, displayOverlay, toggleOverlay }) => {
 	const { createAvailableFood, createAvailableExercise } = useContext(AppContext);
 
 	const foodDefault = {
-		type: "food",
-		value: "",
 		label: "",
 		common: 0,
-		unit: "",
 		kcal: 0,
 	};
 
 	const [newAvailableFood, setNewAvailableFood] = useState(foodDefault);
 
 	const exerciseDefault = {
-		type: "exercise",
-		value: "",
 		label: "",
 		common: 0,
-		unit: "min",
 		kcal: 0,
 	};
 
 	const [newAvailableExercise, setNewAvailableExercise] = useState(exerciseDefault);
 
-	const handleChange = (type, value, data) => {
+	const handleChange = (value, data) => {
 		if (type == "food") {
 			let placeholderFood = newAvailableFood;
 			placeholderFood[value] = data;
@@ -42,28 +36,27 @@ const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => 
 		}
 	};
 
-	const storeData = (type) => {
-		const parseData = (raw) => {
-			let parsed = raw;
-			parsed.value = parsed.value;
-			parsed.label = parsed.label;
-			parsed.kcal = parseInt(parsed.kcal);
-			parsed.unit = parsed.unit.toLowerCase();
-			parsed.common = parseInt(parsed.common);
-			// Label stays the same
-			return parsed;
-		};
+	const storeData = () => {
 		if (type == "food") {
-			createAvailableFood(parseData(newAvailableFood));
+			createAvailableFood({
+				label: newAvailableFood.label,
+				common: newAvailableFood.common,
+				unit: newAvailableFood.unit,
+				kcal: newAvailableFood.kcal,
+			});
 			setNewAvailableFood(foodDefault);
 		} else if (type == "exercise") {
-			createAvailableExercise(parseData(newAvailableExercise));
+			createAvailableExercise({
+				label: newAvailableExercise.label,
+				common: newAvailableExercise.common,
+				kcal: newAvailableExercise.kcal,
+			});
 			setNewAvailableExercise(exerciseDefault);
 		}
 		toggleOverlay();
 	};
 
-	if (returnType == "food") {
+	if (type == "food") {
 		return (
 			<View style={styles.container}>
 				<Overlay isVisible={displayOverlay} onBackdropPress={toggleOverlay}>
@@ -72,15 +65,14 @@ const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => 
 						<Divider style={styles.divider} />
 						<Input
 							onChangeText={(data) => {
-								handleChange("food", "label", data);
-								handleChange("food", "value", data);
+								handleChange("label", data);
 							}}
 							placeholder="Food"
 						/>
 						<Input
 							placeholder="Calories"
 							onChangeText={(data) => {
-								handleChange("food", "kcal", data);
+								handleChange("kcal", data);
 							}}
 							keyboardType="number-pad"
 						/>
@@ -88,13 +80,13 @@ const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => 
 							keyboardType="number-pad"
 							placeholder="Common Serving"
 							onChangeText={(data) => {
-								handleChange("food", "common", data);
+								handleChange("common", data);
 							}}
 						/>
 						<Input
 							placeholder="Unit"
 							onChangeText={(data) => {
-								handleChange("food", "unit", data);
+								handleChange("unit", data);
 							}}
 						/>
 						<View style={styles.buttonContainer}>
@@ -110,7 +102,7 @@ const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => 
 				</Overlay>
 			</View>
 		);
-	} else if (returnType == "exercise") {
+	} else if (type == "exercise") {
 		return (
 			<View style={styles.container}>
 				<Overlay isVisible={displayOverlay} onBackdropPress={toggleOverlay}>
@@ -119,14 +111,13 @@ const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => 
 						<Divider style={styles.divider} />
 						<Input
 							onChangeText={(data) => {
-								handleChange("exercise", "label", data);
-								handleChange("exercise", "value", data);
+								handleChange("label", data);
 							}}
 							placeholder="Exercise"
 						/>
 						<Input
 							onChangeText={(data) => {
-								handleChange("exercise", "kcal", data);
+								handleChange("kcal", data);
 							}}
 							keyboardType="number-pad"
 							placeholder="Calories Burned in Common Time"
@@ -134,7 +125,7 @@ const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => 
 						<Input
 							placeholder="Common Time"
 							onChangeText={(data) => {
-								handleChange("exercise", "common", data);
+								handleChange("common", data);
 							}}
 							keyboardType="number-pad"
 						/>
@@ -142,8 +133,7 @@ const AddItemOverlay = ({ type: returnType, displayOverlay, toggleOverlay }) => 
 							<Button
 								buttonStyle={styles.button}
 								onPress={() => {
-									storeData("exercise");
-									console.log(newAvailableExercise);
+									storeData();
 								}}
 								title="Save"
 							/>

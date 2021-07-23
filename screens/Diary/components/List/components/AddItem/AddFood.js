@@ -11,31 +11,20 @@ import AmountInput from "./components/AmountInput/AmountInput";
 const AddFood = ({ displayOverlay, toggleOverlay }) => {
 	const { availableFoodList, addFood } = useContext(AppContext);
 
-	// Food Data
-	const [selectedFood, setSelectedFood] = useState("");
-	const [unit, setUnit] = useState("");
-	const [calories, setCalories] = useState("");
-	const [amount, setAmount] = useState("");
+	// Determined (used for getting information from user)
+	const [selectedFood, setSelectedFood] = useState({});
+	const [amount, setAmount] = useState(0);
 
 	const resetState = () => {
-		setSelectedFood("");
-		setUnit("");
-		setCalories("");
-		setAmount("");
+		setSelectedFood({});
+		setAmount(0);
 	};
 
 	return (
 		<Base
 			title="Add Food"
 			addFunction={() => {
-				let newFood = {
-					name: selectedFood,
-					unit: unit,
-					kcal: calories,
-					amount: amount,
-				};
-
-				addFood(newFood);
+				addFood({ food: selectedFood, amount: amount });
 				resetState();
 				toggleOverlay();
 			}}
@@ -44,20 +33,20 @@ const AddFood = ({ displayOverlay, toggleOverlay }) => {
 				toggleOverlay();
 			}}
 			overlayVisible={displayOverlay}
-			onBackdropPress={toggleOverlay}
+			onBackdropPress={() => {
+				resetState();
+				toggleOverlay();
+			}}
 		>
 			<DropdownPicker
 				list={availableFoodList}
-				value={selectedFood.toLowerCase()}
 				onChangeItem={(item) => {
-					setCalories(item.kcal);
-					setSelectedFood(item.label);
-					setUnit(item.unit);
+					setSelectedFood(item);
 				}}
 			/>
 			<AmountInput
-				unit={unit}
-				calories={calories}
+				unit={selectedFood.unit}
+				calories={selectedFood.kcal}
 				amount={amount}
 				setAmount={setAmount}
 				placeholder="Amount"

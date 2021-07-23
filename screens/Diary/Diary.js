@@ -10,13 +10,13 @@ import FoodList from "./components/List/FoodList";
 import ExerciseList from "./components/List/ExerciseList";
 
 const Diary = () => {
-	const { foodList, exerciseList, goalCalories, getTotalCalories } = useContext(AppContext);
+	const { goalCalories, getTotalCalories } = useContext(AppContext);
 
 	return (
 		<View style={styles.container}>
 			<MacroHeader
-				exerciseTotal={getTotalCalories(exerciseList)}
-				foodTotal={getTotalCalories(foodList)}
+				exerciseTotal={getTotalCalories("exercise")}
+				foodTotal={getTotalCalories("food")}
 				goal={goalCalories}
 			/>
 			<ScrollView>

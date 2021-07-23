@@ -29,7 +29,7 @@ const FoodList = () => {
 				toggleList={toggleList}
 				displayList={displayList}
 				toggleOverlay={toggleOverlay}
-				totalCalories={getTotalCalories(foodList)}
+				totalCalories={getTotalCalories("food")}
 			/>
 			<ItemList type="food" list={foodList} displayList={displayList} />
 			<AddFood displayOverlay={displayOverlay} toggleOverlay={toggleOverlay} />

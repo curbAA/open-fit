@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { Icon, ListItem } from "react-native-elements";
 
+// Context
+import { AppContext } from "openfit/components/Context/AppContext";
+
 const ListItemFood = ({ food }) => {
+	const { deleteAvailableFood, editAvailableFood } = useContext(AppContext);
+
 	return (
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
@@ -21,9 +26,9 @@ const ListItemFood = ({ food }) => {
 							color="#9e9e9e"
 							name="trash"
 							type="font-awesome-5"
-							onPress={() => console.log("Delete")}
+							onPress={() => deleteAvailableFood({ id: food.id })}
 						/>
-						<Icon
+						{/* <Icon
 							containerStyle={foodStyles.itemButtonContainer}
 							iconStyle={foodStyles.itemButtonIcon}
 							size={17}
@@ -31,7 +36,7 @@ const ListItemFood = ({ food }) => {
 							name="pen"
 							type="font-awesome-5"
 							onPress={() => console.log("Edit")}
-						/>
+						/> */}
 					</View>
 				</View>
 			</ListItem.Content>
@@ -40,12 +45,37 @@ const ListItemFood = ({ food }) => {
 };
 
 const ListItemExercise = ({ exercise }) => {
+	const { deleteAvailableExercise, editAvailableExercise } = useContext(AppContext);
 	return (
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
-				<View>
-					<ListItem.Title>{exercise.label}</ListItem.Title>
-					<ListItem.Subtitle>{exercise.kcal} min</ListItem.Subtitle>
+				<View style={foodStyles.container}>
+					<View>
+						<ListItem.Title>{exercise.label}</ListItem.Title>
+						<ListItem.Subtitle>
+							{exercise.kcal * exercise.common}kcal / {exercise.common} min
+						</ListItem.Subtitle>
+					</View>
+					<View style={[foodStyles.item, foodStyles.buttonContainer]}>
+						<Icon
+							containerStyle={foodStyles.itemButtonContainer}
+							iconStyle={foodStyles.itemButtonIcon}
+							size={17}
+							color="#9e9e9e"
+							name="trash"
+							type="font-awesome-5"
+							onPress={() => deleteAvailableExercise({ id: exercise.id })}
+						/>
+						{/* <Icon
+							containerStyle={foodStyles.itemButtonContainer}
+							iconStyle={foodStyles.itemButtonIcon}
+							size={17}
+							color="#9e9e9e"
+							name="pen"
+							type="font-awesome-5"
+							onPress={() => console.log("Edit")}
+						/> */}
+					</View>
 				</View>
 			</ListItem.Content>
 		</ListItem>

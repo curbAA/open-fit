@@ -11,13 +11,13 @@ import AmountInput from "./components/AmountInput/AmountInput";
 const AddExercise = ({ displayOverlay, toggleOverlay }) => {
 	const { availableExerciseList, addExercise } = useContext(AppContext);
 
-	const [selectedExercise, setSelectedExercise] = useState("");
-	const [calories, setCalories] = useState("");
+	// User Determined
+	const [selectedExercise, setSelectedExercise] = useState({});
 	const [time, setTime] = useState("");
 
+	// Clear form
 	const resetState = () => {
-		setSelectedExercise("");
-		setCalories("");
+		setSelectedExercise({});
 		setTime("");
 	};
 
@@ -25,13 +25,7 @@ const AddExercise = ({ displayOverlay, toggleOverlay }) => {
 		<Base
 			title="Add Exercise"
 			addFunction={() => {
-				let newExercise = {
-					name: selectedExercise,
-					time: time,
-					kcal: calories,
-				};
-
-				addExercise(newExercise);
+				addExercise({ exercise: selectedExercise, time: time });
 				resetState();
 				toggleOverlay();
 			}}
@@ -40,19 +34,21 @@ const AddExercise = ({ displayOverlay, toggleOverlay }) => {
 				toggleOverlay();
 			}}
 			overlayVisible={displayOverlay}
-			onBackdropPress={toggleOverlay}
+			onBackdropPress={() => {
+				resetState();
+				toggleOverlay();
+			}}
 		>
 			<DropdownPicker
 				list={availableExerciseList}
-				value={selectedExercise.toLowerCase}
 				onChangeItem={(item) => {
-					setSelectedExercise(item.label);
-					setCalories(item.kcal);
+					console.log("selectedExercise", item);
+					setSelectedExercise(item);
 				}}
 			/>
 			<AmountInput
-				unit={"minutes"}
-				calories={calories}
+				unit={"min"}
+				calories={selectedExercise.kcal}
 				amount={time}
 				setAmount={setTime}
 				placeholder="Time"

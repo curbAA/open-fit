@@ -29,13 +29,10 @@ const ExerciseList = () => {
 				toggleList={toggleList}
 				displayList={displayList}
 				toggleOverlay={toggleOverlay}
-				totalCalories={getTotalCalories(exerciseList)}
+				totalCalories={getTotalCalories("exercise")}
 			/>
 			<ItemList type="exercise" list={exerciseList} displayList={displayList} />
-			<AddExercise
-				displayOverlay={displayOverlay}
-				toggleOverlay={toggleOverlay}
-			/>
+			<AddExercise displayOverlay={displayOverlay} toggleOverlay={toggleOverlay} />
 		</>
 	);
 };

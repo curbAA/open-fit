@@ -2,13 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
 
-const Header = ({
-	title,
-	toggleList,
-	displayList,
-	toggleOverlay,
-	totalCalories,
-}) => {
+const Header = ({ title, toggleList, displayList, toggleOverlay, totalCalories }) => {
 	return (
 		<View style={styles.container}>
 			<View>

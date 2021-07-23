@@ -1,40 +1,78 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
-import { Text, ListItem } from "react-native-elements";
+import { Text, ListItem, Icon } from "react-native-elements";
 
-const ListItemFood = ({ food }) => {
+// Context
+import { AppContext } from "openfit/components/Context/AppContext";
+
+const ListItemFood = ({ item }) => {
+	const { deleteFood, editFood } = useContext(AppContext);
 	return (
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
 				<View>
-					<ListItem.Title>{food.name}</ListItem.Title>
-					<ListItem.Subtitle>{food.amount + " " + food.unit}</ListItem.Subtitle>
+					<ListItem.Title>{item.food.label}</ListItem.Title>
+					<ListItem.Subtitle>{item.amount + " " + item.food.unit}</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>
-						{Math.round(food.kcal * food.amount)}
-					</Text>
+					<Text style={styles.calories}>{Math.round(item.food.kcal * item.amount)}</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
+					<Icon
+						containerStyle={foodStyles.itemButtonContainer}
+						iconStyle={foodStyles.itemButtonIcon}
+						size={17}
+						color="#9e9e9e"
+						name="trash"
+						type="font-awesome-5"
+						onPress={() => deleteFood({ id: item.id })}
+					/>
+					{/* <Icon
+							containerStyle={foodStyles.itemButtonContainer}
+							iconStyle={foodStyles.itemButtonIcon}
+							size={17}
+							color="#9e9e9e"
+							name="pen"
+							type="font-awesome-5"
+							onPress={() => console.log("Edit")}
+						/> */}
 			</ListItem.Content>
 		</ListItem>
 	);
 };
 
-const ListItemExercise = ({ exercise }) => {
+const ListItemExercise = ({ item }) => {
+	const { deleteExercise, editExercise } = useContext(AppContext);
 	return (
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
 				<View>
-					<ListItem.Title>{exercise.name}</ListItem.Title>
-					<ListItem.Subtitle>{exercise.time} min</ListItem.Subtitle>
+					<ListItem.Title>{item.exercise.label}</ListItem.Title>
+					<ListItem.Subtitle>{item.time} min</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>
-						{parseInt(exercise.kcal) * parseInt(exercise.time)}
-					</Text>
+					<Text style={styles.calories}>{parseInt(item.exercise.kcal) * parseInt(item.time)}</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
+
+					<Icon
+						containerStyle={foodStyles.itemButtonContainer}
+						iconStyle={foodStyles.itemButtonIcon}
+						size={17}
+						color="#9e9e9e"
+						name="trash"
+						type="font-awesome-5"
+						onPress={() => deleteExercise({ id: item.id })}
+					/>
+					{/* <Icon
+							containerStyle={foodStyles.itemButtonContainer}
+							iconStyle={foodStyles.itemButtonIcon}
+							size={17}
+							color="#9e9e9e"
+							name="pen"
+							type="font-awesome-5"
+							onPress={() => console.log("Edit")}
+						/> */}
 			</ListItem.Content>
 		</ListItem>
 	);
@@ -65,5 +103,24 @@ const styles = StyleSheet.create({
 		color: "cornflowerblue",
 		fontSize: 12,
 		textAlign: "center",
+	},
+});
+
+const foodStyles = StyleSheet.create({
+	container: {
+		flexDirection: "row",
+	},
+	item: {
+		flex: 1,
+	},
+	buttonContainer: {
+		flexDirection: "row-reverse",
+		alignItems: "center",
+	},
+	itemButtonContainer: {
+		marginHorizontal: 5,
+	},
+	itemButtonIcon: {
+		padding: 8,
 	},
 });

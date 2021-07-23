@@ -5,13 +5,17 @@ import uuid from "react-uuid";
 
 export const AppContext = createContext();
 
+import { roundNumber } from "./components/math";
+
 export const AppContextProvider = (props) => {
 	// ─── APP STATE ──────────────────────────────────────────────────────────────────
 	const appState = useRef(AppState.currentState);
 
 	useEffect(() => {
 		AppState.addEventListener("change", _handleAppStateChange);
+		// clearAsyncStorage();
 		getAllData();
+		// storeAllData();
 		return () => {
 			AppState.removeEventListener("change", _handleAppStateChange);
 		};
@@ -22,6 +26,7 @@ export const AppContextProvider = (props) => {
 			// ─── FOREGROUND ──────────────────────────────────────────────────
 			// console.log("app has come to the foreground!");
 			getAllData();
+			// storeAllData();
 			// ─────────────────────────────────────────────────────────────────
 		} else if (
 			(appState.current.match(/active/) && nextAppState === "inactive") ||
@@ -44,6 +49,7 @@ export const AppContextProvider = (props) => {
 			unit: "units",
 			kcal: 75,
 			common: 1,
+			id: "4",
 		},
 		{
 			type: "availableFood",
@@ -52,6 +58,7 @@ export const AppContextProvider = (props) => {
 			unit: "g",
 			kcal: 2,
 			common: 50,
+			id: "3",
 		},
 		{
 			type: "availableFood",
@@ -60,6 +67,7 @@ export const AppContextProvider = (props) => {
 			unit: "ml",
 			kcal: 1,
 			common: 250,
+			id: "2",
 		},
 		{
 			type: "availableFood",
@@ -68,10 +76,54 @@ export const AppContextProvider = (props) => {
 			unit: "g",
 			kcal: 1.7,
 			common: 200,
+			id: "1",
 		},
 	]);
 
-	const [foodList, setFoodList] = useState([]);
+	const [foodList, setFoodList] = useState([
+		// {
+		// 	type: "food",
+		// 	food: {
+		// 		type: "availableFood",
+		// 		label: "Steak",
+		// 		value: "steak",
+		// 		unit: "g",
+		// 		kcal: 1.7,
+		// 		common: 200,
+		// 		id: "1",
+		// 	},
+		// 	amount: 100,
+		// 	id: "1",
+		// },
+		// {
+		// 	type: "food",
+		// 	food: {
+		// 		type: "availableFood",
+		// 		label: "Steak",
+		// 		value: "steak",
+		// 		unit: "g",
+		// 		kcal: 1.7,
+		// 		common: 200,
+		// 		id: "1",
+		// 	},
+		// 	amount: 100,
+		// 	id: "2",
+		// },
+		// {
+		// 	type: "food",
+		// 	food: {
+		// 		type: "availableFood",
+		// 		label: "Steak",
+		// 		value: "steak",
+		// 		unit: "g",
+		// 		kcal: 1.7,
+		// 		common: 200,
+		// 		id: "1",
+		// 	},
+		// 	amount: 100,
+		// 	id: "3",
+		// },
+	]);
 
 	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
 
@@ -83,6 +135,7 @@ export const AppContextProvider = (props) => {
 			common: 10,
 			unit: "min", // may use later on
 			kcal: -12.5,
+			id: "3",
 		},
 		{
 			type: "exercise",
@@ -90,7 +143,8 @@ export const AppContextProvider = (props) => {
 			value: "running",
 			common: 10,
 			unit: "min", // may use later on
-			kcal: -11.2,
+			kcal: -11,
+			id: "2",
 		},
 		{
 			type: "exercise",
@@ -99,10 +153,54 @@ export const AppContextProvider = (props) => {
 			common: 10,
 			unit: "min", // may use later on
 			kcal: -9.3,
+			id: "1",
 		},
 	]);
 
-	const [exerciseList, setExerciseList] = useState([]);
+	const [exerciseList, setExerciseList] = useState([
+		// {
+		// 	type: "exercise",
+		// 	exercise: {
+		// 		type: "exercise",
+		// 		label: "Weightlifting",
+		// 		value: "weightlifting",
+		// 		common: 10,
+		// 		unit: "min", // may use later on
+		// 		kcal: -9.3,
+		// 		id: "1",
+		// 	},
+		// 	time: 10,
+		// 	id: "1",
+		// },
+		// {
+		// 	type: "exercise",
+		// 	exercise: {
+		// 		type: "exercise",
+		// 		label: "Weightlifting",
+		// 		value: "weightlifting",
+		// 		common: 10,
+		// 		unit: "min", // may use later on
+		// 		kcal: -9.3,
+		// 		id: "1",
+		// 	},
+		// 	time: 10,
+		// 	id: "2",
+		// },
+		// {
+		// 	type: "exercise",
+		// 	exercise: {
+		// 		type: "exercise",
+		// 		label: "Weightlifting",
+		// 		value: "weightlifting",
+		// 		common: 10,
+		// 		unit: "min", // may use later on
+		// 		kcal: -9.3,
+		// 		id: "1",
+		// 	},
+		// 	time: 10,
+		// 	id: "3",
+		// },
+	]);
 
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
 
@@ -111,7 +209,7 @@ export const AppContextProvider = (props) => {
 		let newFood = {
 			type: "food",
 			food: food, // Object from AvailableFoodList
-			amount: amount,
+			amount: Math.abs(parseInt(amount)),
 			id: uuid(),
 		};
 
@@ -126,7 +224,7 @@ export const AppContextProvider = (props) => {
 		let newFood = {
 			type: "food",
 			food: food, // Object from AvailableFoodList
-			amount: amount,
+			amount: Math.abs(parseInt(amount)),
 			id: id,
 		};
 
@@ -140,8 +238,9 @@ export const AppContextProvider = (props) => {
 
 	// ────────────────────────────────────────────────────────────
 	const deleteFood = ({ id } = {}) => {
-		let newFoodList = foodList.map((item, index) => {
-			if (item.id == id) return foodList.splice(index, 1);
+		let newFoodList = foodList;
+		newFoodList = newFoodList.filter((item) => {
+			return item.id !== id;
 		});
 
 		setFoodList(newFoodList);
@@ -154,9 +253,9 @@ export const AppContextProvider = (props) => {
 			type: "availableFood",
 			label: label,
 			value: label.toLowerCase(),
-			common: common,
+			common: Math.abs(parseInt(common)),
 			unit: unit,
-			kcal: kcal,
+			kcal: roundNumber(Math.abs(parseInt(kcal)) / Math.abs(parseInt(common))),
 			id: uuid(),
 		};
 
@@ -172,10 +271,10 @@ export const AppContextProvider = (props) => {
 			type: "availableFood",
 			label: label,
 			value: label.toLowerCase(),
-			common: common,
+			common: Math.abs(parseInt(common)),
 			unit: unit,
-			kcal: kcal,
-			id: id(),
+			kcal: roundNumber(Math.abs(parseInt(kcal)) / Math.abs(parseInt(common))),
+			id: id,
 		};
 
 		let newAvailableFoodList = availableFoodList;
@@ -202,14 +301,14 @@ export const AppContextProvider = (props) => {
 	const addExercise = ({ exercise, time } = {}) => {
 		let newExercise = {
 			type: "exercise",
-			exercise: exercise,
-			time: time,
+			exercise: exercise, // Object from availableExerciseList
+			time: Math.abs(parseInt(time)),
 			id: uuid(),
 		};
 
 		let newExerciseList = [...exerciseList, newExercise];
 
-		setAvailableExerciseList(newExerciseList);
+		setExerciseList(newExerciseList);
 		storeData("@exerciseList", newExerciseList);
 	};
 
@@ -217,9 +316,9 @@ export const AppContextProvider = (props) => {
 	const editExercise = ({ id, exercise, time } = {}) => {
 		let newExercise = {
 			type: "exercise",
-			exercise: exercise,
-			time: time,
-			id: uuid(),
+			exercise: exercise, // Object from availableExerciseList
+			time: Math.abs(parseInt(time)),
+			id: id,
 		};
 
 		let newExerciseList = exerciseList;
@@ -237,7 +336,7 @@ export const AppContextProvider = (props) => {
 		newExerciseList = newExerciseList.filter((item) => {
 			return item.id !== id;
 		});
-		setAvailableExerciseList(newExerciseList);
+		setExerciseList(newExerciseList);
 		storeData("@exerciseList", newExerciseList);
 	};
 
@@ -247,8 +346,9 @@ export const AppContextProvider = (props) => {
 			type: "availableExercise",
 			label: label,
 			value: label.toLowerCase(),
-			common: common,
-			kcal: kcal,
+			common: Math.abs(parseInt(common)),
+			unit: "min",
+			kcal: roundNumber(Math.abs(parseInt(kcal)) / Math.abs(parseInt(common))) * -1,
 			id: uuid(),
 		};
 
@@ -265,8 +365,9 @@ export const AppContextProvider = (props) => {
 			type: "availableExercise",
 			label: label,
 			value: label.toLowerCase(),
-			common: common,
-			kcal: kcal,
+			common: Math.abs(parseInt(common)),
+			unit: "min",
+			cal: roundNumber(Math.abs(parseInt(kcal)) / Math.abs(parseInt(common))) * -1, // Always negative integer
 			id: id,
 		};
 
@@ -294,16 +395,18 @@ export const AppContextProvider = (props) => {
 
 	const [goalCalories, setGoalCalories] = useState(2500);
 
-	const getTotalCalories = (list) => {
-		if (list.map == undefined) {
-			return 0;
-		} else {
-			let totalCalories = 0;
-			list.map((l) => {
-				totalCalories += l.amount == undefined ? l.kcal * l.time : l.kcal * l.amount;
+	const getTotalCalories = (type) => {
+		let totalCalories;
+		if (type == "food") {
+			foodList.map((item) => {
+				totalCalories = item.amount * item.food.kcal;
 			});
-			return Math.round(totalCalories);
+		} else if (type == "exercise") {
+			exerciseList.map((item) => {
+				totalCalories = item.time * item.exercise.kcal;
+			});
 		}
+		return totalCalories ? Math.round(totalCalories) : 0;
 	};
 
 	// ─── LOCAL STORAGE ──────────────────────────────────────────────────────────────
