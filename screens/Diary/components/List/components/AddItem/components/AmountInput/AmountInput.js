@@ -9,12 +9,12 @@ const AmountInput = ({ unit, calories, amount, setAmount, placeholder }) => {
 				keyboardType="number-pad"
 				containerStyle={styles.amoutContainer}
 				placeholder={placeholder}
-				onChangeText={(value) => setAmount(value)}
+				onChangeText={(value) => setAmount(parseInt(value))}
 			/>
 			<Text style={styles.amountUnit}>
 				{unit}
 				{"   "}={"   "}
-				{calories && amount ? parseInt(calories) * parseInt(amount) : 0} Kcal
+				{calories * amount ? Math.round(amount * calories) : 0} Kcal
 			</Text>
 		</View>
 	);

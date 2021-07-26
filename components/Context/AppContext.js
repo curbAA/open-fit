@@ -395,6 +395,11 @@ export const AppContextProvider = (props) => {
 
 	const [goalCalories, setGoalCalories] = useState(2500);
 
+	const editGoalCalories = (value) => {
+		setGoalCalories(value ? value : 0);
+		storeData("@goalCalories", value);
+	};
+
 	const getTotalCalories = (type) => {
 		let totalCalories;
 		if (type == "food") {
@@ -460,6 +465,13 @@ export const AppContextProvider = (props) => {
 			.catch((err) => {
 				console.error(err);
 			});
+		getData("@goalCalories")
+			.then((result) => {
+				setGoalCalories(result);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	};
 
 	const storeAllData = () => {
@@ -467,6 +479,7 @@ export const AppContextProvider = (props) => {
 		storeData("@foodList", foodList);
 		storeData("@availableExerciseList", availableExerciseList);
 		storeData("@exerciseList", exerciseList);
+		storeData("@goalCalories", goalCalories);
 	};
 
 	const clearAsyncStorage = async () => {
@@ -499,9 +512,9 @@ export const AppContextProvider = (props) => {
 				editAvailableExercise,
 				deleteAvailableExercise,
 				// Calories
-				goalCalories,
 				getTotalCalories,
-				setGoalCalories,
+				goalCalories,
+				editGoalCalories,
 				// Data
 				storeAllData,
 				storeData,
