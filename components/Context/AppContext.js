@@ -400,17 +400,15 @@ export const AppContextProvider = (props) => {
 		storeData("@goalCalories", value);
 	};
 
-	// FIXME totalCalories dont update properly. Some elements dont get counted after closjng the app
-
 	const getTotalCalories = (type) => {
-		let totalCalories;
+		let totalCalories = 0;
 		if (type == "food") {
 			foodList.map((item) => {
-				totalCalories = item.amount * item.food.kcal;
+				totalCalories += item.amount * item.food.kcal;
 			});
 		} else if (type == "exercise") {
 			exerciseList.map((item) => {
-				totalCalories = item.time * item.exercise.kcal;
+				totalCalories += item.time * item.exercise.kcal;
 			});
 		}
 		return totalCalories ? roundNumber(totalCalories) : 0;

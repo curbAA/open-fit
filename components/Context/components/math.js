@@ -1,6 +1,6 @@
 // ─── MATH ───────────────────────────────────────────────────────────────────────
 // ─── ROUNDNUMBER ────────────────────────────────────────────────────────────────
-export const roundNumber = (num, scale = 1) => {
+export const roundNumber = (num, scale = 2) => {
 	if (!("" + num).includes("e")) {
 		return +(Math.round(num + "e+" + scale) + "e-" + scale);
 	} else {

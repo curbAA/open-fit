@@ -15,19 +15,19 @@ const ListItemFood = ({ item }) => {
 					<ListItem.Subtitle>{item.amount + " " + item.food.unit}</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>{Math.round(item.food.kcal * item.amount)}</Text>
+					<Text style={styles.calories}>{item.food.kcal * item.amount}</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
-					<Icon
-						containerStyle={foodStyles.itemButtonContainer}
-						iconStyle={foodStyles.itemButtonIcon}
-						size={17}
-						color="#9e9e9e"
-						name="trash"
-						type="font-awesome-5"
-						onPress={() => deleteFood({ id: item.id })}
-					/>
-					{/* <Icon
+				<Icon
+					containerStyle={foodStyles.itemButtonContainer}
+					iconStyle={foodStyles.itemButtonIcon}
+					size={17}
+					color="#9e9e9e"
+					name="trash"
+					type="font-awesome-5"
+					onPress={() => deleteFood({ id: item.id })}
+				/>
+				{/* <Icon
 							containerStyle={foodStyles.itemButtonContainer}
 							iconStyle={foodStyles.itemButtonIcon}
 							size={17}
@@ -51,20 +51,20 @@ const ListItemExercise = ({ item }) => {
 					<ListItem.Subtitle>{item.time} min</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>{parseInt(item.exercise.kcal) * parseInt(item.time)}</Text>
+					<Text style={styles.calories}>{item.exercise.kcal * item.time}</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
 
-					<Icon
-						containerStyle={foodStyles.itemButtonContainer}
-						iconStyle={foodStyles.itemButtonIcon}
-						size={17}
-						color="#9e9e9e"
-						name="trash"
-						type="font-awesome-5"
-						onPress={() => deleteExercise({ id: item.id })}
-					/>
-					{/* <Icon
+				<Icon
+					containerStyle={foodStyles.itemButtonContainer}
+					iconStyle={foodStyles.itemButtonIcon}
+					size={17}
+					color="#9e9e9e"
+					name="trash"
+					type="font-awesome-5"
+					onPress={() => deleteExercise({ id: item.id })}
+				/>
+				{/* <Icon
 							containerStyle={foodStyles.itemButtonContainer}
 							iconStyle={foodStyles.itemButtonIcon}
 							size={17}

@@ -2,8 +2,6 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
 
-// FIXME ListHeader Calories are different from MacroHeader Calories (fix it, u dummy)
-
 const Header = ({ title, toggleList, displayList, toggleOverlay, totalCalories }) => {
 	return (
 		<View style={styles.container}>
