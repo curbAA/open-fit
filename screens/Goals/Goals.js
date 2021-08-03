@@ -22,6 +22,11 @@ const Goals = () => {
 	return (
 		<View style={styles.container}>
 			<Title goalCalories={goalCalories} />
+			<Text>When it comes to fitness and healthy lifestyles, we all have a goal in mind.</Text>
+			<Text>
+				Here, OpenFit, can help you find those objectives for yourself and optimize results towards
+				them.
+			</Text>
 			<Form
 				handleChange={handleChange}
 				newGoalCalories={newGoalCalories}
