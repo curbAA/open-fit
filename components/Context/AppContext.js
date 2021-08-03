@@ -515,6 +515,8 @@ export const AppContextProvider = (props) => {
 				getTotalCalories,
 				goalCalories,
 				editGoalCalories,
+				// Math
+				roundNumber,
 				// Data
 				storeAllData,
 				storeData,
