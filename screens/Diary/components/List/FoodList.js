@@ -8,6 +8,8 @@ import Header from "./components/Header/Header";
 import ItemList from "./components/ItemList/ItemList";
 import AddFood from "./components/AddItem/AddFood";
 
+// TODO create addExercise button at end of list
+
 const FoodList = () => {
 	const { foodList, getTotalCalories } = useContext(AppContext);
 

@@ -8,6 +8,10 @@ import Base from "./components/Base/Base";
 import DropdownPicker from "./components/DropdownPicker/DropdownPicker";
 import AmountInput from "./components/AmountInput/AmountInput";
 
+// TODO create error component for modal
+// TODO show error component inside modal when user gives wrong input
+// TODO create a button for creating new exercise in availableExercise selector
+
 const AddExercise = ({ displayOverlay, toggleOverlay }) => {
 	const { availableExerciseList, addExercise } = useContext(AppContext);
 

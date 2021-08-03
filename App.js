@@ -20,6 +20,8 @@ const Tab = createBottomTabNavigator();
 
 const theme = {};
 
+// TODO revise app components styling for use with themeProvider
+
 export default function App() {
 	return (
 		<AppContextProvider>
