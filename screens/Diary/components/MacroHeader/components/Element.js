@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const Display = ({ calories, subtitle, green }) => {
+const Element = ({ calories, subtitle, green }) => {
 	return (
 		<View style={styles.container}>
 			<Text style={[styles.calories, { color: green ? "limegreen" : "black" }]}>{calories}</Text>
@@ -10,7 +10,7 @@ const Display = ({ calories, subtitle, green }) => {
 	);
 };
 
-export default Display;
+export default Element;
 
 const styles = StyleSheet.create({
 	container: {
