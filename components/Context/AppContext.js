@@ -356,7 +356,6 @@ export const AppContextProvider = (props) => {
 
 		setAvailableExerciseList(newAvailableExerciseList);
 		storeData("@availableExerciseList", newAvailableExerciseList);
-		console.log(newAvailableExercise);
 	};
 
 	// ────────────────────────────────────────────────────────────
