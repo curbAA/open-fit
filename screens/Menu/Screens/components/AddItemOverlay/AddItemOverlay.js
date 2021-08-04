@@ -5,6 +5,11 @@ import { Overlay, Text, Input, Divider, Button } from "react-native-elements";
 //Context
 import { AppContext } from "openfit/components/Context/AppContext";
 
+// TODO rename parent folder to "OverlayForm"
+// TODO create folders named "exercise" and "food" inside this directory
+// TODO create files named addExerciseOverlay.js and addFoodOverlay.js inside folders
+// TODO destructure each component into different subcomponents (exercise - food)
+
 const AddItemOverlay = ({ type, displayOverlay, toggleOverlay }) => {
 	const { createAvailableFood, createAvailableExercise } = useContext(AppContext);
 
