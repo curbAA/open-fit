@@ -4,7 +4,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 // Components
 import ItemList from "../../components/ItemList/ItemList";
 import AddItemButton from "openfit/components/AddItemButton/AddItemButton";
-import AddItemOverlay from "../components/AddItemOverlay/AddItemOverlay";
+import FoodForm from "./FoodForm";
 
 const FoodMenu = ({ availableFoodList }) => {
 	const [displayOverlay, setDisplayOverlay] = useState(false);
@@ -18,8 +18,7 @@ const FoodMenu = ({ availableFoodList }) => {
 			<ScrollView>
 				<ItemList type="food" displayList={true} list={availableFoodList} />
 				<AddItemButton title="Create Food" onPress={toggleOverlay} />
-				<AddItemOverlay
-					type={"food"}
+				<FoodForm
 					displayOverlay={displayOverlay}
 					toggleOverlay={toggleOverlay}
 				/>
