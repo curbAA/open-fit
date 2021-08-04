@@ -4,7 +4,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 // Components
 import ItemList from "../../components/ItemList/ItemList";
 import AddItemButton from "openfit/components/AddItemButton/AddItemButton";
-import FoodForm from "./FoodForm";
+import FoodForm from "./CreateFoodForm";
 
 const FoodMenu = ({ availableFoodList }) => {
 	const [displayOverlay, setDisplayOverlay] = useState(false);

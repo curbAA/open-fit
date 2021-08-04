@@ -12,7 +12,7 @@ import AmountInput from "./components/AmountInput/AmountInput";
 // TODO show error component inside modal when user gives wrong input
 // TODO create a button for creating new exercise in availableExercise selector
 
-const AddExercise = ({ displayOverlay, toggleOverlay }) => {
+const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 	const { availableExerciseList, addExercise } = useContext(AppContext);
 
 	// User Determined
@@ -61,4 +61,4 @@ const AddExercise = ({ displayOverlay, toggleOverlay }) => {
 	);
 };
 
-export default AddExercise;
+export default AddExerciseForm;

@@ -6,7 +6,7 @@ import { AppContext } from "openfit/components/Context/AppContext";
 // Components
 import Header from "./components/Header/Header";
 import ItemList from "./components/ItemList/ItemList";
-import AddExercise from "./components/AddItem/AddExercise";
+import AddExerciseForm from "./components/AddItemForm/AddExerciseForm";
 
 // TODO create addExercise button at end of list
 
@@ -34,7 +34,7 @@ const ExerciseList = () => {
 				totalCalories={getTotalCalories("exercise")}
 			/>
 			<ItemList type="exercise" list={exerciseList} displayList={displayList} />
-			<AddExercise displayOverlay={displayOverlay} toggleOverlay={toggleOverlay} />
+			<AddExerciseForm displayOverlay={displayOverlay} toggleOverlay={toggleOverlay} />
 		</>
 	);
 };

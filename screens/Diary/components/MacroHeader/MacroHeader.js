@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 
 // Components
-import Element from "./components/Element";
+import Element from "./components/HeaderElement";
 
 const MacroHeader = ({exerciseTotal, foodTotal, goal}) => {
 	return (

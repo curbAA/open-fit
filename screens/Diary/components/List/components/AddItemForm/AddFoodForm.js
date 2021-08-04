@@ -13,7 +13,7 @@ import AmountInput from "./components/AmountInput/AmountInput";
 // TODO make a button group selector for food unit (g, ml, lbs, oz, unit, fl oz)
 // TODO create a button for creating new food in availableFood selector
 
-const AddFood = ({ displayOverlay, toggleOverlay }) => {
+const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 	const { availableFoodList, addFood } = useContext(AppContext);
 
 	// Determined (used for getting information from user)
@@ -60,4 +60,4 @@ const AddFood = ({ displayOverlay, toggleOverlay }) => {
 	);
 };
 
-export default AddFood;
+export default AddFoodForm;
