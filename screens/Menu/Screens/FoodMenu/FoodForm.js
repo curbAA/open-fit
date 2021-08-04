@@ -1,18 +1,31 @@
 import React, { useContext, useState } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
-import { Overlay, Text, Input, Divider, Button } from "react-native-elements";
+import { Overlay, Text, Input, Divider, Button, ButtonGroup } from "react-native-elements";
 
 // Context
 import { AppContext } from "openfit/components/Context/AppContext";
 
-const FoodForm = ({toggleOverlay, displayOverlay}) => {
+// TODO Show visible error when user leaves fields on blank
+
+const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableFood } = useContext(AppContext);
+
+	const [selectedUnit, setSelectedUnit] = useState(0);
+	const FOOD_UNITS = ["g", "ml", "oz"];
+
+	const handleUnitChange = (index) => {
+		setSelectedUnit(index);
+		handleChange("unit", FOOD_UNITS[index]);
+	};
 
 	const foodDefault = {
 		label: "",
 		common: 0,
 		kcal: 0,
+		unit: "g",
 	};
+
+	const [newAvailableFood, setNewAvailableFood] = useState(foodDefault);
 
 	const handleChange = (value, data) => {
 		let placeholderFood = newAvailableFood;
@@ -30,8 +43,6 @@ const FoodForm = ({toggleOverlay, displayOverlay}) => {
 		setNewAvailableFood(foodDefault);
 		toggleOverlay();
 	};
-
-	const [newAvailableFood, setNewAvailableFood] = useState(foodDefault);
 
 	return (
 		<View style={styles.container}>
@@ -59,11 +70,11 @@ const FoodForm = ({toggleOverlay, displayOverlay}) => {
 							handleChange("common", data);
 						}}
 					/>
-					<Input
-						placeholder="Unit"
-						onChangeText={(data) => {
-							handleChange("unit", data);
-						}}
+					<ButtonGroup
+						onPress={(index) => handleUnitChange(index)}
+						selectedIndex={selectedUnit}
+						buttons={FOOD_UNITS}
+						containerStyle={{ borderColor: "#999", borderWidth: 1, marginBottom: 30 }}
 					/>
 					<View style={styles.buttonContainer}>
 						<Button buttonStyle={styles.button} title="Save" onPress={() => storeData("food")} />
