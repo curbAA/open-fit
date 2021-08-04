@@ -6,8 +6,6 @@ import ItemList from "../../components/ItemList/ItemList";
 import AddItemButton from "openfit/components/AddItemButton/AddItemButton";
 import ExerciseForm from "./ExerciseForm";
 
-// TODO add a scroll view inside the View component.
-
 const ExerciseMenu = ({ availableExerciseList }) => {
 	const [displayOverlay, setDisplayOverlay] = useState(false);
 
@@ -17,12 +15,11 @@ const ExerciseMenu = ({ availableExerciseList }) => {
 
 	return (
 		<View style={styles.container}>
-			<ItemList type="exercise" displayList={true} list={availableExerciseList} />
-			<AddItemButton title="Create Exercise" onPress={toggleOverlay} />
-			<ExerciseForm
-				displayOverlay={displayOverlay}
-				toggleOverlay={toggleOverlay}
-			/>
+			<ScrollView>
+				<ItemList type="exercise" displayList={true} list={availableExerciseList} />
+				<AddItemButton title="Create Exercise" onPress={toggleOverlay} />
+				<ExerciseForm displayOverlay={displayOverlay} toggleOverlay={toggleOverlay} />
+			</ScrollView>
 		</View>
 	);
 };
