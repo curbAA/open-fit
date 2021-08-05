@@ -63,7 +63,7 @@ const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 							onChangeText={(data) => {
 								handleChange("label", data);
 							}}
-							placeholder="Exercise"
+							placeholder="Exercise Name"
 						/>
 						<View style={{ height: 60, flexDirection: "row" }}>
 							<Input

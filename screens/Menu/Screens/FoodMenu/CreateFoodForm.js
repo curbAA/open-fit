@@ -50,41 +50,42 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 				<View style={styles.overlay}>
 					<Text style={styles.title}>Create Food</Text>
 					<Divider style={styles.divider} />
-					<Input
-						onChangeText={(data) => {
-							handleChange("label", data);
-						}}
-						placeholder="Food"
-					/>
-					<View style={styles.commonServingContainer}>
+					<View style={{ marginVertical: 30 }}>
 						<Input
-							containerStyle={{ flex: 3 }}
-							keyboardType="number-pad"
-							placeholder="Common Serving"
+						containerStyle={{width:250}}
 							onChangeText={(data) => {
-								handleChange("common", data);
+								handleChange("label", data);
 							}}
+							placeholder="Food Name"
 						/>
-						<Text
-							style={{ flex: 0.8, textAlignVertical: "bottom", marginVertical: 30, color: "#666" }}
-						>
-							{FOOD_UNITS[selectedUnitIndex]}
-						</Text>
-						<Input
-							containerStyle={{ flex: 2 }}
-							placeholder="Calories"
-							onChangeText={(data) => {
-								handleChange("kcal", data);
-							}}
-							keyboardType="number-pad"
+						<View style={styles.commonServingContainer}>
+							<Input
+								containerStyle={{ flex: 3 }}
+								keyboardType="number-pad"
+								placeholder="Common Serving"
+								onChangeText={(data) => {
+									handleChange("common", data);
+								}}
+							/>
+							<Text style={{ flex: 0.8, textAlignVertical: "center", color: "#666" }}>
+								{FOOD_UNITS[selectedUnitIndex]}
+							</Text>
+							<Input
+								containerStyle={{ flex: 2 }}
+								placeholder="Calories"
+								onChangeText={(data) => {
+									handleChange("kcal", data);
+								}}
+								keyboardType="number-pad"
+							/>
+						</View>
+						<ButtonGroup
+							onPress={(index) => handleUnitChange(index)}
+							selectedIndex={selectedUnitIndex}
+							buttons={FOOD_UNITS}
+							containerStyle={{ borderColor: "#999", borderWidth: 1 }}
 						/>
 					</View>
-					<ButtonGroup
-						onPress={(index) => handleUnitChange(index)}
-						selectedIndex={selectedUnitIndex}
-						buttons={FOOD_UNITS}
-						containerStyle={{ borderColor: "#999", borderWidth: 1, marginBottom: 30 }}
-					/>
 					<View style={styles.buttonContainer}>
 						<Button buttonStyle={styles.button} title="Save" onPress={() => storeData("food")} />
 						<Button
@@ -117,14 +118,13 @@ const styles = StyleSheet.create({
 	},
 	divider: {
 		marginTop: 5,
-		marginBottom: 20,
 		backgroundColor: "cornflowerblue",
 	},
 	// ────────────────────────────────────────────────────────────────────────────────
 	commonServingContainer: {
 		display: "flex",
 		flexDirection: "row",
-		height: 80,
+		height: 60,
 	},
 	// ────────────────────────────────────────────────────────────────────────────────
 	buttonContainer: {
