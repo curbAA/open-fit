@@ -6,8 +6,9 @@ import { Overlay, Text, Input, Divider, Button } from "react-native-elements";
 import { AppContext } from "openfit/components/Context/AppContext";
 
 // TODO show visible error when user leaves fields on blank
+// TODO show calories input next to common time input with "min" in the middle
 
-const ExerciseForm = ({toggleOverlay, displayOverlay}) => {
+const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableExercise } = useContext(AppContext);
 
 	const exerciseDefault = {
@@ -56,26 +57,34 @@ const ExerciseForm = ({toggleOverlay, displayOverlay}) => {
 				<View style={styles.overlay}>
 					<Text style={styles.title}>Create Exericse</Text>
 					<Divider style={styles.divider} />
-					<Input
-						onChangeText={(data) => {
-							handleChange("label", data);
-						}}
-						placeholder="Exercise"
-					/>
-					<Input
-						onChangeText={(data) => {
-							handleChange("kcal", data);
-						}}
-						keyboardType="number-pad"
-						placeholder="Calories Burned in Common Time"
-					/>
-					<Input
-						placeholder="Common Time"
-						onChangeText={(data) => {
-							handleChange("common", data);
-						}}
-						keyboardType="number-pad"
-					/>
+					<View style={{marginVertical:30}}>
+						<Input
+							containerStyle={{ width: 250 }}
+							onChangeText={(data) => {
+								handleChange("label", data);
+							}}
+							placeholder="Exercise"
+						/>
+						<View style={{ height: 60, flexDirection: "row" }}>
+							<Input
+								containerStyle={{ flex: 2 }}
+								placeholder="Common Time"
+								onChangeText={(data) => {
+									handleChange("common", data);
+								}}
+								keyboardType="number-pad"
+							/>
+							<Text style={{ textAlignVertical: "center", flex: 0.6, color: "#666" }}>min</Text>
+							<Input
+								containerStyle={{ flex: 1.5 }}
+								onChangeText={(data) => {
+									handleChange("kcal", data);
+								}}
+								keyboardType="number-pad"
+								placeholder="Calories"
+							/>
+						</View>
+					</View>
 					<View style={styles.buttonContainer}>
 						<Button
 							buttonStyle={styles.button}
@@ -114,7 +123,6 @@ const styles = StyleSheet.create({
 	},
 	divider: {
 		marginTop: 5,
-		marginBottom: 20,
 		backgroundColor: "cornflowerblue",
 	},
 
