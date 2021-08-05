@@ -10,11 +10,11 @@ import { AppContext } from "openfit/components/Context/AppContext";
 const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableFood } = useContext(AppContext);
 
-	const [selectedUnit, setSelectedUnit] = useState(0);
+	const [selectedUnitIndex, setSelectedUnitIndex] = useState(0);
 	const FOOD_UNITS = ["g", "ml", "oz"];
 
 	const handleUnitChange = (index) => {
-		setSelectedUnit(index);
+		setSelectedUnitIndex(index);
 		handleChange("unit", FOOD_UNITS[index]);
 	};
 
@@ -56,23 +56,32 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 						}}
 						placeholder="Food"
 					/>
-					<Input
-						placeholder="Calories"
-						onChangeText={(data) => {
-							handleChange("kcal", data);
-						}}
-						keyboardType="number-pad"
-					/>
-					<Input
-						keyboardType="number-pad"
-						placeholder="Common Serving"
-						onChangeText={(data) => {
-							handleChange("common", data);
-						}}
-					/>
+					<View style={styles.commonServingContainer}>
+						<Input
+							containerStyle={{ flex: 3 }}
+							keyboardType="number-pad"
+							placeholder="Common Serving"
+							onChangeText={(data) => {
+								handleChange("common", data);
+							}}
+						/>
+						<Text
+							style={{ flex: 0.8, textAlignVertical: "bottom", marginVertical: 30, color: "#666" }}
+						>
+							{FOOD_UNITS[selectedUnitIndex]}
+						</Text>
+						<Input
+							containerStyle={{ flex: 2 }}
+							placeholder="Calories"
+							onChangeText={(data) => {
+								handleChange("kcal", data);
+							}}
+							keyboardType="number-pad"
+						/>
+					</View>
 					<ButtonGroup
 						onPress={(index) => handleUnitChange(index)}
-						selectedIndex={selectedUnit}
+						selectedIndex={selectedUnitIndex}
 						buttons={FOOD_UNITS}
 						containerStyle={{ borderColor: "#999", borderWidth: 1, marginBottom: 30 }}
 					/>
@@ -111,7 +120,13 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		backgroundColor: "cornflowerblue",
 	},
-
+	// ────────────────────────────────────────────────────────────────────────────────
+	commonServingContainer: {
+		display: "flex",
+		flexDirection: "row",
+		height: 80,
+	},
+	// ────────────────────────────────────────────────────────────────────────────────
 	buttonContainer: {
 		flexDirection: "row-reverse",
 	},
