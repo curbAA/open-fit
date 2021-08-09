@@ -20,34 +20,18 @@ const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 	const [newAvailableExercise, setNewAvailableExercise] = useState(exerciseDefault);
 
 	const handleChange = (value, data) => {
-		if (type == "food") {
-			let placeholderFood = newAvailableFood;
-			placeholderFood[value] = data;
-			setNewAvailableFood(placeholderFood);
-		} else if (type == "exercise") {
-			let placeholderExericse = newAvailableExercise;
-			placeholderExericse[value] = data;
-			setNewAvailableExercise(placeholderExericse);
-		}
+		let placeholderExericse = newAvailableExercise;
+		placeholderExericse[value] = data;
+		setNewAvailableExercise(placeholderExericse);
 	};
 
 	const storeData = () => {
-		if (type == "food") {
-			createAvailableFood({
-				label: newAvailableFood.label,
-				common: newAvailableFood.common,
-				unit: newAvailableFood.unit,
-				kcal: newAvailableFood.kcal,
-			});
-			setNewAvailableFood(foodDefault);
-		} else if (type == "exercise") {
-			createAvailableExercise({
-				label: newAvailableExercise.label,
-				common: newAvailableExercise.common,
-				kcal: newAvailableExercise.kcal,
-			});
-			setNewAvailableExercise(exerciseDefault);
-		}
+		createAvailableExercise({
+			label: newAvailableExercise.label,
+			common: newAvailableExercise.common,
+			kcal: newAvailableExercise.kcal,
+		});
+		setNewAvailableExercise(exerciseDefault);
 		toggleOverlay();
 	};
 
@@ -57,7 +41,7 @@ const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 				<View style={styles.overlay}>
 					<Text style={styles.title}>Create Exericse</Text>
 					<Divider style={styles.divider} />
-					<View style={{marginVertical:30}}>
+					<View style={{ marginVertical: 30 }}>
 						<Input
 							containerStyle={{ width: 250 }}
 							onChangeText={(data) => {
