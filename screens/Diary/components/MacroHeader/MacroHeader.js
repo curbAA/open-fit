@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 
 // Components
 import Element from "./components/HeaderElement";
 
-const MacroHeader = ({exerciseTotal, foodTotal, goal}) => {
+// Context
+import { AppContext } from "openfit/components/Context/AppContext";
+
+const MacroHeader = ({ exerciseTotal, foodTotal, goal }) => {
+	const { roundNumber } = useContext(AppContext);
+
 	return (
 		<View style={styles.container}>
 			<Element calories={goal} subtitle="GOAL" />
 			<Element calories={goal - (foodTotal + exerciseTotal)} green subtitle="REMAINING" />
-			<Element calories={foodTotal + exerciseTotal} subtitle="NET" />
+			<Element calories={roundNumber(exerciseTotal + foodTotal)} subtitle="NET" />
 			<Element calories={foodTotal} subtitle="FOOD" />
 			<Element calories={exerciseTotal} subtitle="EXERCISE" />
 		</View>
