@@ -6,7 +6,6 @@ import { Overlay, Text, Input, Divider, Button } from "react-native-elements";
 import { AppContext } from "openfit/components/Context/AppContext";
 
 // TODO show visible error when user leaves fields on blank
-// TODO show calories input next to common time input with "min" in the middle
 
 const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableExercise } = useContext(AppContext);

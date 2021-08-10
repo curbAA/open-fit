@@ -7,6 +7,16 @@ export const AppContext = createContext();
 
 import { roundNumber } from "./components/math";
 
+// TODO Use classes for objects in lists
+// YOU BRAIN-DEAD PSEUDO-PROGRAMMER, YOU SHOULD HAVE DONE THAT FROM THE BEGGINING
+// JUST MAKE food, exercise, availableFood, and availableExercise CLASSES FFS
+// IT WAS SO SIMPLE AND YOU COULD NOT REMEMBER THAT CLASSES FRICKING EXIST
+// CANT BELIEVE THAT YOU CALL YOURSELF A PROGRAMMER
+
+// TODO implement promises for handling errors in functions
+// Such as addFood, editFood, createAvailableFood, editAvailableFood, etc.
+// for handling errors. 
+
 export const AppContextProvider = (props) => {
 	// ─── APP STATE ──────────────────────────────────────────────────────────────────
 	const appState = useRef(AppState.currentState);
