@@ -32,14 +32,21 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 		setDisplayError(!displayError);
 	};
 
+	const addFunction = () => {
+		addExercise({ exercise: selectedExercise, time: time })
+			.then((result) => {
+				resetState();
+				toggleOverlay();
+			})
+			.catch((error) => {
+				setDisplayError(true);
+			});
+	};
+
 	return (
 		<Base
 			title="Add Exercise"
-			addFunction={() => {
-				addExercise({ exercise: selectedExercise, time: time });
-				resetState();
-				toggleOverlay();
-			}}
+			addFunction={addFunction}
 			cancelFunction={() => {
 				resetState();
 				toggleOverlay();
@@ -56,13 +63,17 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 				list={availableExerciseList}
 				onChangeItem={(item) => {
 					setSelectedExercise(item);
+					setDisplayError(false);
 				}}
 			/>
 			<AmountInput
 				unit={selectedExercise.unit}
 				calories={selectedExercise.kcal}
 				amount={time}
-				setAmount={setTime}
+				setAmount={(args) => {
+					setTime(args);
+					setDisplayError(false);
+				}}
 				placeholder="Time"
 			/>
 		</Base>

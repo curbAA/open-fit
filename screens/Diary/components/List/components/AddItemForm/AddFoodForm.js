@@ -19,9 +19,11 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 	const [selectedFood, setSelectedFood] = useState({});
 	const [amount, setAmount] = useState(0);
 
-	const resetState = () => {
+	const reset = () => {
 		setSelectedFood({});
 		setAmount(0);
+		toggleOverlay();
+		setDisplayError(false);
 	};
 
 	// Error Message
@@ -31,23 +33,23 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 		setDisplayError(!displayError);
 	};
 
+	const addFunction = () => {
+		addFood({ food: selectedFood, amount: amount })
+			.then((result) => {
+				reset();
+			})
+			.catch((error) => {
+				setDisplayError(true);
+			});
+	};
+
 	return (
 		<Base
 			title="Add Food"
-			addFunction={() => {
-				addFood({ food: selectedFood, amount: amount });
-				resetState();
-				toggleOverlay();
-			}}
-			cancelFunction={() => {
-				resetState();
-				toggleOverlay();
-			}}
+			addFunction={addFunction}
+			cancelFunction={reset}
 			overlayVisible={displayOverlay}
-			onBackdropPress={() => {
-				resetState();
-				toggleOverlay();
-			}}
+			onBackdropPress={reset}
 			displayError={displayError}
 			toggleError={toggleError}
 		>
@@ -55,13 +57,17 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 				list={availableFoodList}
 				onChangeItem={(item) => {
 					setSelectedFood(item);
+					setDisplayError(false);
 				}}
 			/>
 			<AmountInput
 				unit={selectedFood.unit}
 				calories={selectedFood.kcal}
 				amount={amount}
-				setAmount={setAmount}
+				setAmount={(args) => {
+					setAmount(args);
+					setDisplayError(false);
+				}}
 				placeholder="Amount"
 			/>
 		</Base>
