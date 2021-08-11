@@ -1,5 +1,5 @@
 import uuid from "react-uuid";
-import roundNumber from "./math";
+import { roundNumber } from "./math";
 
 //
 // ─── CLASSES ────────────────────────────────────────────────────────────────────
@@ -9,9 +9,9 @@ class AvailableFood {
 	constructor({ label, unit, kcal, common }) {
 		this.type = "availableFood";
 		this.label = label;
-		this.value = label.toLowerCase;
+		this.value = label.toLowerCase();
 		this.unit = unit;
-		this.kcal = roundNumber(kcal);
+		this.kcal = roundNumber(parseInt(kcal) / parseInt(common));
 		this.common = roundNumber(common);
 		this.id = uuid();
 	}
@@ -30,33 +30,33 @@ class AvailableExercise {
 	constructor({ label, kcal, common }) {
 		this.type = "availableExercise";
 		this.label = label;
-		this.value = label.toLowerCase;
-		this.kcal = roundNumber(kcal);
+		this.value = label.toLowerCase();
 		this.unit = "min";
+		this.kcal = roundNumber(parseInt(kcal) / parseInt(common));
 		this.common = roundNumber(common);
 		this.id = uuid();
 	}
 }
 
 class Exercise {
-	constructor({ exercise, amount }) {
+	constructor({ exercise, time }) {
 		this.type = "exercise";
-		this.food = exercise;
-		this.amount = roundNumber(amount);
+		this.exercise = exercise;
+		this.time = roundNumber(time);
 		this.id = uuid();
 	}
 }
 
 //
 // ─── CHECK FUNCTIONS ────────────────────────────────────────────────────────────
-//
+// Return an object based on the class if the conditions are true
 
 export const newFood = ({ food, amount }) => {
 	return new Promise((resolve, reject) => {
-		if (typeof food == "object" && typeof amount == "number") {
+		if (food.type == "availableFood" && typeof amount == "number") {
 			resolve(new Food({ food: food, amount: amount }));
 		} else {
-			reject(Error("Invalid New Food Inputs"));
+			reject("Invalid New Food Inputs");
 		}
 	});
 };
@@ -65,33 +65,35 @@ export const newAvailableFood = ({ label, unit, kcal, common }) => {
 	return new Promise((resolve, reject) => {
 		if (
 			typeof label == "string" &&
+			label != "" &&
 			typeof unit == "string" &&
-			typeof kcal == "number" &&
-			typeof common == "number"
+			unit != "" &&
+			parseInt(kcal) > 0 &&
+			parseInt(common) > 0
 		) {
 			resolve(new AvailableFood({ label: label, unit: unit, kcal: kcal, common: common }));
 		} else {
-			reject(Error("Invalid New Available Food Inputs"));
+			reject("Invalid New Available Food Inputs");
 		}
 	});
 };
 
 export const newExercise = ({ exercise, time }) => {
 	return new Promise((resolve, reject) => {
-		if (typeof exercise == "object" && typeof time == "number") {
+		if (exercise.type == "availableExercise" && typeof time == "number") {
 			resolve(new Exercise({ exercise: exercise, time: time }));
 		} else {
-			reject(Error("Invalid New Exercise Inputs"));
+			reject("Invalid New Exercise Inputs");
 		}
 	});
 };
 
 export const newAvailableExercise = ({ label, kcal, common }) => {
 	return new Promise((resolve, reject) => {
-		if (typeof label == "string" && typeof kcal == "number" && typeof common == "number") {
+		if (typeof label == "string" && label != "" && parseInt(kcal) > 0 && parseInt(common) > 0) {
 			resolve(new AvailableExercise({ label: label, kcal: kcal, common: common }));
 		} else {
-			reject(Error("Invalid New Available Exercise Inputs"));
+			reject("Invalid New Available Exercise Inputs");
 		}
 	});
 };

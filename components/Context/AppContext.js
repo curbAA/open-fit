@@ -6,6 +6,7 @@ import uuid from "react-uuid";
 export const AppContext = createContext();
 
 import { roundNumber } from "./components/math";
+import { newAvailableFood, newFood, newAvailableExercise, newExercise } from "./components/classes";
 
 // TODO Use classes for objects in lists
 // YOU BRAIN-DEAD PSEUDO-PROGRAMMER, YOU SHOULD HAVE DONE THAT FROM THE BEGGINING
@@ -15,7 +16,7 @@ import { roundNumber } from "./components/math";
 
 // TODO implement promises for handling errors in functions
 // Such as addFood, editFood, createAvailableFood, editAvailableFood, etc.
-// for handling errors. 
+// for handling errors.
 
 export const AppContextProvider = (props) => {
 	// ─── APP STATE ──────────────────────────────────────────────────────────────────
@@ -51,186 +52,36 @@ export const AppContextProvider = (props) => {
 
 	// ─── FOOD ───────────────────────────────────────────────────────────────────────
 
-	const [availableFoodList, setAvailableFoodList] = useState([
-		{
-			type: "availableFood",
-			label: "Egg",
-			value: "egg",
-			unit: "units",
-			kcal: 75,
-			common: 1,
-			id: "4",
-		},
-		{
-			type: "availableFood",
-			label: "Cheese",
-			value: "cheese",
-			unit: "g",
-			kcal: 2,
-			common: 50,
-			id: "3",
-		},
-		{
-			type: "availableFood",
-			label: "Milk",
-			value: "milk",
-			unit: "ml",
-			kcal: 1,
-			common: 250,
-			id: "2",
-		},
-		{
-			type: "availableFood",
-			label: "Steak",
-			value: "steak",
-			unit: "g",
-			kcal: 1.7,
-			common: 200,
-			id: "1",
-		},
-	]);
+	const [availableFoodList, setAvailableFoodList] = useState([]);
 
-	const [foodList, setFoodList] = useState([
-		// {
-		// 	type: "food",
-		// 	food: {
-		// 		type: "availableFood",
-		// 		label: "Steak",
-		// 		value: "steak",
-		// 		unit: "g",
-		// 		kcal: 1.7,
-		// 		common: 200,
-		// 		id: "1",
-		// 	},
-		// 	amount: 100,
-		// 	id: "1",
-		// },
-		// {
-		// 	type: "food",
-		// 	food: {
-		// 		type: "availableFood",
-		// 		label: "Steak",
-		// 		value: "steak",
-		// 		unit: "g",
-		// 		kcal: 1.7,
-		// 		common: 200,
-		// 		id: "1",
-		// 	},
-		// 	amount: 100,
-		// 	id: "2",
-		// },
-		// {
-		// 	type: "food",
-		// 	food: {
-		// 		type: "availableFood",
-		// 		label: "Steak",
-		// 		value: "steak",
-		// 		unit: "g",
-		// 		kcal: 1.7,
-		// 		common: 200,
-		// 		id: "1",
-		// 	},
-		// 	amount: 100,
-		// 	id: "3",
-		// },
-	]);
+	const [foodList, setFoodList] = useState([]);
 
 	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
 
-	const [availableExerciseList, setAvailableExerciseList] = useState([
-		{
-			type: "exercise",
-			label: "Burpees",
-			value: "burpees",
-			common: 10,
-			unit: "min", // may use later on
-			kcal: -12.5,
-			id: "3",
-		},
-		{
-			type: "exercise",
-			label: "Running",
-			value: "running",
-			common: 10,
-			unit: "min", // may use later on
-			kcal: -11,
-			id: "2",
-		},
-		{
-			type: "exercise",
-			label: "Weightlifting",
-			value: "weightlifting",
-			common: 10,
-			unit: "min", // may use later on
-			kcal: -9.3,
-			id: "1",
-		},
-	]);
+	const [availableExerciseList, setAvailableExerciseList] = useState([]);
 
-	const [exerciseList, setExerciseList] = useState([
-		// {
-		// 	type: "exercise",
-		// 	exercise: {
-		// 		type: "exercise",
-		// 		label: "Weightlifting",
-		// 		value: "weightlifting",
-		// 		common: 10,
-		// 		unit: "min", // may use later on
-		// 		kcal: -9.3,
-		// 		id: "1",
-		// 	},
-		// 	time: 10,
-		// 	id: "1",
-		// },
-		// {
-		// 	type: "exercise",
-		// 	exercise: {
-		// 		type: "exercise",
-		// 		label: "Weightlifting",
-		// 		value: "weightlifting",
-		// 		common: 10,
-		// 		unit: "min", // may use later on
-		// 		kcal: -9.3,
-		// 		id: "1",
-		// 	},
-		// 	time: 10,
-		// 	id: "2",
-		// },
-		// {
-		// 	type: "exercise",
-		// 	exercise: {
-		// 		type: "exercise",
-		// 		label: "Weightlifting",
-		// 		value: "weightlifting",
-		// 		common: 10,
-		// 		unit: "min", // may use later on
-		// 		kcal: -9.3,
-		// 		id: "1",
-		// 	},
-		// 	time: 10,
-		// 	id: "3",
-		// },
-	]);
+	const [exerciseList, setExerciseList] = useState([]);
 
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
 
 	// ─── FOOD ───────────────────────────────────────────────────────────────────────
-	const addFood = ({ food, amount } = {}) => {
-		let newFood = {
-			type: "food",
-			food: food, // Object from AvailableFoodList
-			amount: Math.abs(parseInt(amount)),
-			id: uuid(),
-		};
-
-		let newFoodList = [...foodList, newFood];
-
-		setFoodList(newFoodList);
-		storeData("@foodList", newFoodList);
+	const addFood = ({ food, amount }) => {
+		return new Promise((resolve, reject) => {
+			newFood({ food: food, amount: amount })
+				.then((value) => {
+					let newFoodList = [...foodList, value];
+					setFoodList(newFoodList);
+					storeData("@foodList", newFoodList);
+					resolve("Item Has Been Saved");
+				})
+				.catch((error) => {
+					reject(Error(error));
+				});
+		});
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const editFood = ({ id, food, amount } = {}) => {
+	const editFood = ({ id, food, amount }) => {
 		let newFood = {
 			type: "food",
 			food: food, // Object from AvailableFoodList
@@ -247,7 +98,7 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const deleteFood = ({ id } = {}) => {
+	const deleteFood = ({ id }) => {
 		let newFoodList = foodList;
 		newFoodList = newFoodList.filter((item) => {
 			return item.id !== id;
@@ -258,25 +109,24 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ─── AVAILABLE FOOD ──────────────────────────────────────────────────────────────
-	const createAvailableFood = ({ label, common, unit, kcal } = {}) => {
-		let newAvailableFood = {
-			type: "availableFood",
-			label: label,
-			value: label.toLowerCase(),
-			common: Math.abs(parseInt(common)),
-			unit: unit,
-			kcal: roundNumber(Math.abs(parseInt(kcal)) / Math.abs(parseInt(common))),
-			id: uuid(),
-		};
-
-		let newAvailableFoodList = [...availableFoodList, newAvailableFood];
-
-		setAvailableFoodList(newAvailableFoodList);
-		storeData("@availableFoodList", newAvailableFoodList);
+	const createAvailableFood = ({ label, common, unit, kcal }) => {
+		return new Promise((resolve, reject) => {
+			newAvailableFood({ label: label, common: common, unit: unit, kcal: kcal })
+				.then((value) => {
+					let newAvailableFoodList = [...availableFoodList, value];
+					setAvailableFoodList(newAvailableFoodList);
+					storeData("@availableFoodList", newAvailableFoodList);
+					resolve("Item Has Been Saved");
+					console.log(value);
+				})
+				.catch((error) => {
+					reject(Error(error));
+				});
+		});
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const editAvailableFood = ({ id, label, common, unit, kcal } = {}) => {
+	const editAvailableFood = ({ id, label, common, unit, kcal }) => {
 		let newAvailableFood = {
 			type: "availableFood",
 			label: label,
@@ -297,7 +147,7 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const deleteAvailableFood = ({ id } = {}) => {
+	const deleteAvailableFood = ({ id }) => {
 		let newAvailableFoodList = availableFoodList;
 		newAvailableFoodList = newAvailableFoodList.filter((item) => {
 			return item.id !== id;
@@ -308,22 +158,26 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
-	const addExercise = ({ exercise, time } = {}) => {
-		let newExercise = {
-			type: "exercise",
-			exercise: exercise, // Object from availableExerciseList
-			time: Math.abs(parseInt(time)),
-			id: uuid(),
-		};
-
-		let newExerciseList = [...exerciseList, newExercise];
-
-		setExerciseList(newExerciseList);
-		storeData("@exerciseList", newExerciseList);
+	const addExercise = ({ exercise, time }) => {
+		newExercise({ exercise: exercise, time: time })
+			.then((result) => console.log(result))
+			.catch((error) => Error(error));
+		return new Promise((resolve, reject) => {
+			newExercise({ exercise: exercise, time: time })
+				.then((value) => {
+					let newExerciseList = [...exerciseList, value];
+					setExerciseList(newExerciseList);
+					storeData("@exerciseList", newExerciseList);
+					resolve("Item Has Been Saved");
+				})
+				.catch((error) => {
+					reject(Error(error));
+				});
+		});
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const editExercise = ({ id, exercise, time } = {}) => {
+	const editExercise = ({ id, exercise, time }) => {
 		let newExercise = {
 			type: "exercise",
 			exercise: exercise, // Object from availableExerciseList
@@ -341,7 +195,7 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const deleteExercise = ({ id } = {}) => {
+	const deleteExercise = ({ id }) => {
 		let newExerciseList = exerciseList;
 		newExerciseList = newExerciseList.filter((item) => {
 			return item.id !== id;
@@ -351,25 +205,23 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ─── AVAILABLE EXERCISE ─────────────────────────────────────────────────────────
-	const createAvailableExercise = ({ label, common, kcal } = {}) => {
-		let newAvailableExercise = {
-			type: "availableExercise",
-			label: label,
-			value: label.toLowerCase(),
-			common: Math.abs(parseInt(common)),
-			unit: "min",
-			kcal: roundNumber(Math.abs(parseInt(kcal)) / Math.abs(parseInt(common))) * -1,
-			id: uuid(),
-		};
-
-		let newAvailableExerciseList = [...availableExerciseList, newAvailableExercise];
-
-		setAvailableExerciseList(newAvailableExerciseList);
-		storeData("@availableExerciseList", newAvailableExerciseList);
+	const createAvailableExercise = ({ label, common, kcal }) => {
+		return new Promise((resolve, reject) => {
+			newAvailableExercise({ label: label, common: common, kcal: kcal })
+				.then((value) => {
+					let newAvailableExerciseList = [...availableExerciseList, value];
+					setAvailableExerciseList(newAvailableExerciseList);
+					storeData("@availableExerciseList", newAvailableExerciseList);
+					resolve("Item Has Been Saved");
+				})
+				.catch((error) => {
+					reject(Error(error));
+				});
+		});
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const editAvailableExercise = ({ id, label, common, kcal } = {}) => {
+	const editAvailableExercise = ({ id, label, common, kcal }) => {
 		let newAvailableExercise = {
 			type: "availableExercise",
 			label: label,
@@ -390,7 +242,7 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ────────────────────────────────────────────────────────────
-	const deleteAvailableExercise = ({ id } = {}) => {
+	const deleteAvailableExercise = ({ id }) => {
 		let newAvailableExerciseList = availableExerciseList;
 		newAvailableExerciseList = newAvailableExerciseList.filter((item) => {
 			return item.id !== id;
