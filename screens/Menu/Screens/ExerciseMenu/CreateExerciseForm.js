@@ -5,6 +5,9 @@ import { Overlay, Text, Input, Divider, Button } from "react-native-elements";
 // Context
 import { AppContext } from "openfit/components/Context/AppContext";
 
+// Components
+import ErrorMessage from "../components/FormErrorMessage/ErrorMessage";
+
 // TODO show visible error when user leaves fields on blank
 
 const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
@@ -18,10 +21,15 @@ const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 
 	const [newAvailableExercise, setNewAvailableExercise] = useState(exerciseDefault);
 
+	// ─── INPUT ERROR MESSAGE ────────────────────────────────────────────────────────
+	const [displayError, setDisplayError] = useState(false);
+	// ────────────────────────────────────────────────────────────────────────────────
+
 	const handleChange = (value, data) => {
 		let placeholderExericse = newAvailableExercise;
 		placeholderExericse[value] = data;
 		setNewAvailableExercise(placeholderExericse);
+		setDisplayError(false);
 	};
 
 	const storeData = () => {
@@ -29,14 +37,25 @@ const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 			label: newAvailableExercise.label,
 			common: newAvailableExercise.common,
 			kcal: newAvailableExercise.kcal,
-		});
-		setNewAvailableExercise(exerciseDefault);
-		toggleOverlay();
+		})
+			.then((result) => {
+				setNewAvailableExercise(exerciseDefault);
+				toggleOverlay();
+			})
+			.catch((error) => {
+				setDisplayError(true);
+			});
 	};
 
 	return (
 		<View style={styles.container}>
-			<Overlay isVisible={displayOverlay} onBackdropPress={toggleOverlay}>
+			<Overlay
+				isVisible={displayOverlay}
+				onBackdropPress={() => {
+					toggleOverlay();
+					setDisplayError(false);
+				}}
+			>
 				<View style={styles.overlay}>
 					<Text style={styles.title}>Create Exericse</Text>
 					<Divider style={styles.divider} />
@@ -67,15 +86,10 @@ const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 								placeholder="Calories"
 							/>
 						</View>
+						<ErrorMessage displayError={displayError} />
 					</View>
 					<View style={styles.buttonContainer}>
-						<Button
-							buttonStyle={styles.button}
-							onPress={() => {
-								storeData();
-							}}
-							title="Save"
-						/>
+						<Button buttonStyle={styles.button} onPress={storeData} title="Save" />
 						<Button
 							buttonStyle={styles.button}
 							type="outline"
@@ -99,6 +113,7 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		flexWrap: "nowrap",
 		width: Dimensions.get("window").width * 0.87,
+		paddingHorizontal: 10,
 	},
 	title: {
 		color: "cornflowerblue",

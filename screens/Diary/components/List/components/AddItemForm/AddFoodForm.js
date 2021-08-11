@@ -8,7 +8,6 @@ import Base from "./components/Base/Base";
 import DropdownPicker from "./components/DropdownPicker/DropdownPicker";
 import AmountInput from "./components/AmountInput/AmountInput";
 
-
 const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 	const { availableFoodList, addFood } = useContext(AppContext);
 
@@ -25,10 +24,6 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 
 	// Error Message
 	const [displayError, setDisplayError] = useState(false);
-
-	const toggleError = () => {
-		setDisplayError(!displayError);
-	};
 
 	const addFunction = () => {
 		addFood({ food: selectedFood, amount: amount })
@@ -48,7 +43,7 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 			overlayVisible={displayOverlay}
 			onBackdropPress={reset}
 			displayError={displayError}
-			toggleError={toggleError}
+			toggleError={() => displayError(true)}
 		>
 			<DropdownPicker
 				list={availableFoodList}

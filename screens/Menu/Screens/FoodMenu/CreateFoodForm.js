@@ -5,11 +5,15 @@ import { Overlay, Text, Input, Divider, Button, ButtonGroup } from "react-native
 // Context
 import { AppContext } from "openfit/components/Context/AppContext";
 
+// Components
+import ErrorMessage from "../components/FormErrorMessage/ErrorMessage";
+
 // TODO Show visible error when user leaves fields on blank
 
 const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableFood } = useContext(AppContext);
 
+	// ─── UNIT SELECTION ─────────────────────────────────────────────────────────────
 	const [selectedUnitIndex, setSelectedUnitIndex] = useState(0);
 	const FOOD_UNITS = ["g", "ml", "oz"];
 
@@ -17,6 +21,7 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 		setSelectedUnitIndex(index);
 		handleChange("unit", FOOD_UNITS[index]);
 	};
+	// ────────────────────────────────────────────────────────────────────────────────
 
 	const foodDefault = {
 		label: "",
@@ -27,10 +32,15 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 
 	const [newAvailableFood, setNewAvailableFood] = useState(foodDefault);
 
+	// ─── INPUT ERROR MESSAGE ────────────────────────────────────────────────────────
+	const [displayError, setDisplayError] = useState(false);
+	// ────────────────────────────────────────────────────────────────────────────────
+
 	const handleChange = (value, data) => {
 		let placeholderFood = newAvailableFood;
 		placeholderFood[value] = data;
 		setNewAvailableFood(placeholderFood);
+		setDisplayError(false);
 	};
 
 	const storeData = () => {
@@ -39,20 +49,31 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 			common: newAvailableFood.common,
 			unit: newAvailableFood.unit,
 			kcal: newAvailableFood.kcal,
-		});
-		setNewAvailableFood(foodDefault);
-		toggleOverlay();
+		})
+			.then((result) => {
+				setNewAvailableFood(foodDefault);
+				toggleOverlay();
+			})
+			.catch((error) => {
+				setDisplayError(true);
+			});
 	};
 
 	return (
 		<View style={styles.container}>
-			<Overlay isVisible={displayOverlay} onBackdropPress={toggleOverlay}>
+			<Overlay
+				isVisible={displayOverlay}
+				onBackdropPress={() => {
+					toggleOverlay();
+					setDisplayError(false);
+				}}
+			>
 				<View style={styles.overlay}>
 					<Text style={styles.title}>Create Food</Text>
 					<Divider style={styles.divider} />
 					<View style={{ marginVertical: 30 }}>
 						<Input
-						containerStyle={{width:250}}
+							containerStyle={{ width: 250 }}
 							onChangeText={(data) => {
 								handleChange("label", data);
 							}}
@@ -86,8 +107,9 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 							containerStyle={{ borderColor: "#999", borderWidth: 1 }}
 						/>
 					</View>
+					<ErrorMessage displayError={displayError} />
 					<View style={styles.buttonContainer}>
-						<Button buttonStyle={styles.button} title="Save" onPress={() => storeData("food")} />
+						<Button buttonStyle={styles.button} title="Save" onPress={storeData} />
 						<Button
 							buttonStyle={styles.button}
 							type="outline"
@@ -111,6 +133,7 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		flexWrap: "nowrap",
 		width: Dimensions.get("window").width * 0.87,
+		paddingHorizontal: 10,
 	},
 	title: {
 		color: "cornflowerblue",

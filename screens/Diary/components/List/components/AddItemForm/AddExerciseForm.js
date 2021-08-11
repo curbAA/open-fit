@@ -8,7 +8,6 @@ import Base from "./components/Base/Base";
 import DropdownPicker from "./components/DropdownPicker/DropdownPicker";
 import AmountInput from "./components/AmountInput/AmountInput";
 
-
 const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 	const { availableExerciseList, addExercise } = useContext(AppContext);
 
@@ -24,10 +23,6 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 
 	// Error Message
 	const [displayError, setDisplayError] = useState(false);
-
-	const toggleError = () => {
-		setDisplayError(!displayError);
-	};
 
 	const addFunction = () => {
 		addExercise({ exercise: selectedExercise, time: time })
@@ -54,7 +49,7 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 				toggleOverlay();
 			}}
 			displayError={displayError}
-			toggleError={toggleError}
+			toggleError={() => setDisplayError(true)}
 		>
 			<DropdownPicker
 				list={availableExerciseList}
