@@ -6,7 +6,7 @@ import { Icon, ListItem } from "react-native-elements";
 import { AppContext } from "openfit/components/Context/AppContext";
 
 const ListItemFood = ({ food }) => {
-	const { deleteAvailableFood, editAvailableFood } = useContext(AppContext);
+	const { deleteAvailableFood, roundNumber } = useContext(AppContext);
 
 	return (
 		<ListItem bottomDivider>
@@ -15,7 +15,7 @@ const ListItemFood = ({ food }) => {
 					<View>
 						<ListItem.Title>{food.label}</ListItem.Title>
 						<ListItem.Subtitle>
-							{`${food.kcal * food.common}kcal / ${food.common}${food.unit}`}
+							{`${roundNumber(food.kcal * food.common)}kcal / ${food.common}${food.unit}`}
 						</ListItem.Subtitle>
 					</View>
 					<View style={[foodStyles.item, foodStyles.buttonContainer]}>
@@ -45,7 +45,7 @@ const ListItemFood = ({ food }) => {
 };
 
 const ListItemExercise = ({ exercise }) => {
-	const { deleteAvailableExercise, editAvailableExercise } = useContext(AppContext);
+	const { deleteAvailableExercise, roundNumber } = useContext(AppContext);
 	return (
 		<ListItem bottomDivider>
 			<ListItem.Content style={styles.itemContainer}>
@@ -53,7 +53,7 @@ const ListItemExercise = ({ exercise }) => {
 					<View>
 						<ListItem.Title>{exercise.label}</ListItem.Title>
 						<ListItem.Subtitle>
-							{exercise.kcal * exercise.common}kcal / {exercise.common} min
+							{`${roundNumber(exercise.kcal * exercise.common)}kcal / ${exercise.common}${exercise.unit}`}
 						</ListItem.Subtitle>
 					</View>
 					<View style={[foodStyles.item, foodStyles.buttonContainer]}>
