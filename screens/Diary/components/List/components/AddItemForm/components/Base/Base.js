@@ -4,6 +4,7 @@ import { Divider, Overlay } from "react-native-elements";
 
 // Components
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
+import ErrorMessage from "./ErrorMessage";
 
 const Base = ({
 	title,
@@ -12,6 +13,8 @@ const Base = ({
 	addFunction,
 	cancelFunction,
 	children,
+	toggleError,
+	displayError,
 }) => {
 	return (
 		<View style={styles.container}>
@@ -21,10 +24,8 @@ const Base = ({
 					<Divider style={styles.divider} />
 					<View style={styles.content}>
 						{children}
-						<ButtonContainer
-							addFunction={addFunction}
-							cancelFunction={cancelFunction}
-						/>
+						<ErrorMessage displayError={displayError} />
+						<ButtonContainer addFunction={addFunction} cancelFunction={cancelFunction} />
 					</View>
 				</View>
 			</Overlay>

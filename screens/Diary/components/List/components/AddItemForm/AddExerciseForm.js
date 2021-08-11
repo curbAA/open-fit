@@ -17,12 +17,19 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 
 	// User Determined
 	const [selectedExercise, setSelectedExercise] = useState({});
-	const [time, setTime] = useState("");
+	const [time, setTime] = useState(0);
 
 	// Clear form
 	const resetState = () => {
 		setSelectedExercise({});
-		setTime("");
+		setTime(0);
+	};
+
+	// Error Message
+	const [displayError, setDisplayError] = useState(false);
+
+	const toggleError = () => {
+		setDisplayError(!displayError);
 	};
 
 	return (
@@ -42,16 +49,17 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 				resetState();
 				toggleOverlay();
 			}}
+			displayError={displayError}
+			toggleError={toggleError}
 		>
 			<DropdownPicker
 				list={availableExerciseList}
 				onChangeItem={(item) => {
-					console.log("selectedExercise", item);
 					setSelectedExercise(item);
 				}}
 			/>
 			<AmountInput
-				unit={"min"}
+				unit={selectedExercise.unit}
 				calories={selectedExercise.kcal}
 				amount={time}
 				setAmount={setTime}

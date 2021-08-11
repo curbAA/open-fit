@@ -10,7 +10,6 @@ import AmountInput from "./components/AmountInput/AmountInput";
 
 // TODO create error component for modal
 // TODO show error component inside modal when user gives wrong input
-// TODO make a button group selector for food unit (g, ml, lbs, oz, unit, fl oz)
 // TODO create a button for creating new food in availableFood selector
 
 const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
@@ -23,6 +22,13 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 	const resetState = () => {
 		setSelectedFood({});
 		setAmount(0);
+	};
+
+	// Error Message
+	const [displayError, setDisplayError] = useState(false);
+
+	const toggleError = () => {
+		setDisplayError(!displayError);
 	};
 
 	return (
@@ -42,6 +48,8 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 				resetState();
 				toggleOverlay();
 			}}
+			displayError={displayError}
+			toggleError={toggleError}
 		>
 			<DropdownPicker
 				list={availableFoodList}
