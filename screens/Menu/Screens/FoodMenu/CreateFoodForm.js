@@ -15,7 +15,7 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 
 	// ─── UNIT SELECTION ─────────────────────────────────────────────────────────────
 	const [selectedUnitIndex, setSelectedUnitIndex] = useState(0);
-	const FOOD_UNITS = ["g", "ml", "oz"];
+	const FOOD_UNITS = ["g", "ml", "oz", "unit/s"];
 
 	const handleUnitChange = (index) => {
 		setSelectedUnitIndex(index);
@@ -52,6 +52,7 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 		})
 			.then((result) => {
 				setNewAvailableFood(foodDefault);
+				setSelectedUnitIndex(0);
 				toggleOverlay();
 			})
 			.catch((error) => {
