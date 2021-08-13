@@ -4,7 +4,7 @@ import { Divider, Overlay } from "react-native-elements";
 
 // Components
 import ButtonContainer from "./ButtonContainer";
-import ErrorMessage from "./ErrorMessage";
+import FormErrorMessage from "openfit/components/FormErrorMessage";
 
 const Base = ({
 	title,
@@ -13,7 +13,6 @@ const Base = ({
 	addFunction,
 	cancelFunction,
 	children,
-	toggleError,
 	displayError,
 }) => {
 	return (
@@ -24,7 +23,7 @@ const Base = ({
 					<Divider style={styles.divider} />
 					<View style={styles.content}>
 						{children}
-						<ErrorMessage displayError={displayError} />
+						<FormErrorMessage displayError={displayError} />
 						<ButtonContainer addFunction={addFunction} cancelFunction={cancelFunction} />
 					</View>
 				</View>

@@ -6,7 +6,7 @@ import { Overlay, Text, Input, Divider, Button } from "react-native-elements";
 import { AppContext } from "openfit/components/Context/AppContext";
 
 // Components
-import ErrorMessage from "openfit/components/FormErrorMessage/ErrorMessage";
+import FormErrorMessage from "openfit/components/FormErrorMessage";
 
 const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableExercise } = useContext(AppContext);
@@ -84,7 +84,7 @@ const ExerciseForm = ({ toggleOverlay, displayOverlay }) => {
 								placeholder="Calories"
 							/>
 						</View>
-						<ErrorMessage displayError={displayError} />
+						<FormErrorMessage displayError={displayError} />
 					</View>
 					<View style={styles.buttonContainer}>
 						<Button buttonStyle={styles.button} onPress={storeData} title="Save" />

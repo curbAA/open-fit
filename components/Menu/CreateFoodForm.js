@@ -6,7 +6,7 @@ import { Overlay, Text, Input, Divider, Button, ButtonGroup } from "react-native
 import { AppContext } from "openfit/components/Context/AppContext";
 
 // Components
-import ErrorMessage from "openfit/components/FormErrorMessage/ErrorMessage";
+import FormErrorMessage from "openfit/components/FormErrorMessage";
 
 const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableFood } = useContext(AppContext);
@@ -106,7 +106,7 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 							containerStyle={{ borderColor: "#999", borderWidth: 1 }}
 						/>
 					</View>
-					<ErrorMessage displayError={displayError} />
+					<FormErrorMessage displayError={displayError} />
 					<View style={styles.buttonContainer}>
 						<Button buttonStyle={styles.button} title="Save" onPress={storeData} />
 						<Button
