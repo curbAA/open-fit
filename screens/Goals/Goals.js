@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { Input, Button, Text } from "react-native-elements";
+import { Input, Button, Text, ButtonGroup } from "react-native-elements";
+
+// Components
+import FormErrorMessage from "openfit/components/FormErrorMessage";
 
 // Context
 import { AppContext } from "openfit/components/Context/AppContext";
@@ -8,25 +11,10 @@ import { AppContext } from "openfit/components/Context/AppContext";
 const Goals = () => {
 	const { goalCalories, editGoalCalories } = useContext(AppContext);
 
-	const [newGoalCalories, setNewGoalCalories] = useState("");
-
-	const handleChange = (value) => {
-		setNewGoalCalories(value);
-	};
-
-	const saveGoalCalories = () => {
-		editGoalCalories(newGoalCalories);
-		setNewGoalCalories("");
-	};
-
 	return (
 		<View style={styles.container}>
-			<Title goalCalories={goalCalories} />
-			<Form
-				handleChange={handleChange}
-				newGoalCalories={newGoalCalories}
-				saveGoalCalories={saveGoalCalories}
-			/>
+			<Text style={{textAlign:"center"}} h3>BMI Calculator</Text>
+			<Form saveNewCalories={editGoalCalories} />
 		</View>
 	);
 };
@@ -36,90 +24,128 @@ export default Goals;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "center",
 		margin: 10,
 	},
 });
 
-//
-// ─── COMPONENTS ─────────────────────────────────────────────────────────────────
-//
+const Form = ({ saveNewCalories }) => {
+	const [gender, setGender] = useState(0);
+	const [weight, setWeight] = useState(0);
+	const [height, setHeight] = useState(0);
+	const [age, setAge] = useState(0);
+	const [activity, setActivity] = useState(0);
+	const [goal, setGoal] = useState(0);
 
-const Title = ({ goalCalories }) => {
-	return (
-		<View styles={titleStyles.container}>
-			<Text h4 style={[titleStyles.text, titleStyles.textTop]}>
-				GOAL CALORIES
-			</Text>
-			<Text h1 style={[titleStyles.text, titleStyles.textBottom]}>
-				{goalCalories}
-			</Text>
-		</View>
-	);
-};
+	// Input Error
+	const [displayError, setDisplayError] = useState(false);
 
-const titleStyles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		textAlign: "center",
-		backgroundColor: "black",
-	},
-	text: {
-		textAlign: "center",
-	},
-	textTop: {},
-	textBottom: {
-		color: "green",
-	},
-});
-
-const Form = ({ handleChange, newGoalCalories, saveGoalCalories }) => {
-	const [inputMessage, setInputMessage] = useState("");
-
-	const showInputMessage = (message, time) => {
-		setInputMessage(message);
-		setTimeout(() => {
-			setInputMessage("");
-		}, time);
+	const handleChange = (type, value) => {
+		if (type == "gender") setGender(value);
+		if (type == "weight") setWeight(parseInt(value) ? parseInt(value) : 0);
+		if (type == "height") setHeight(parseInt(value) ? parseInt(value) : 0);
+		if (type == "age") setAge(parseInt(value) ? parseInt(value) : 0);
+		if (type == "activity") setActivity(value);
+		if (type == "goal") setGoal(value);
+		setDisplayError(false);
 	};
 
-	const save = () => {
-		showInputMessage("Changes Applied", 1500);
-		saveGoalCalories();
+	const calculateBMR = () => {
+		return new Promise((resolve, reject) => {
+			let result;
+
+			// Errors
+			if (weight == 0) {
+				setDisplayError(true);
+				reject("Wrong Inputs");
+			}
+			if (height == 0) {
+				setDisplayError(true);
+				reject("Wrong Inputs");
+			}
+			if (age == 0) {
+				setDisplayError(true);
+				reject("Wrong Inputs");
+			}
+
+			// Male or Female
+			if (gender == 0) result = 66.47 + 13.75 * weight + 5.003 * height - 6.755 * age;
+			if (gender == 1) result = 655.1 + 9.563 * weight + 1.85 * height - 4.676 * age;
+
+			// Acitivity
+			if (activity == 0) result = result * 1.2;
+			if (activity == 1) result = result * 1.375;
+			if (activity == 2) result = result * 1.55;
+			if (activity == 3) result = result * 1.812;
+
+			// Goal
+			if (goal == 0) result = result - 400;
+			if (goal == 1) result = result;
+			if (goal == 2) result = result + 400;
+
+			// Round
+			result = Math.round(result);
+
+			console.log(result);
+			resolve(result);
+		});
 	};
 
 	return (
-		<View style={formStyles.form}>
+		<View style={{ flex: 1, marginTop: 20 }}>
 			<Input
-				placeholder="Goal Calories"
-				errorMessage={inputMessage}
-				errorStyle={{ color: "green" }}
-				onChangeText={(value) => handleChange(value)}
-				value={newGoalCalories.toString()}
-				keyboardType="number-pad"
-				containerStyle={formStyles.inputContainer}
-				inputStyle={formStyles.inputInput}
+				label="Your Weight in Kg"
+				labelStyle={{ fontSize: 12 }}
+				placeholder="Weight"
+				onChangeText={(value) => handleChange("weight", value)}
 			/>
-			<Button containerStyle={formStyles.button} title="Apply" onPress={save} />
+			<Input
+				label="Your Height in cm"
+				labelStyle={{ fontSize: 12 }}
+				placeholder="Height"
+				onChangeText={(value) => handleChange("height", value)}
+			/>
+			<Input
+				label="Your Age in years"
+				labelStyle={{ fontSize: 12 }}
+				placeholder="Age"
+				onChangeText={(value) => handleChange("age", value)}
+			/>
+			<CustomButtonGroup
+				label="Gender"
+				onPress={(value) => handleChange("gender", value)}
+				selectedIndex={gender}
+				buttons={["Male", "Female"]}
+			/>
+			<CustomButtonGroup
+				label="Daily Activity"
+				onPress={(value) => handleChange("activity", value)}
+				selectedIndex={activity}
+				buttons={["None", "Little", "Moderate", "High"]}
+			/>
+			<CustomButtonGroup
+				label="Goal"
+				onPress={(value) => handleChange("goal", value)}
+				selectedIndex={goal}
+				buttons={["Lose", "Maintain", "Gain"]}
+			/>
+			<FormErrorMessage displayError={displayError} />
+			<Button
+				onPress={() =>
+					calculateBMR()
+						.then((res) => saveNewCalories(res))
+						.catch((err) => console.log(err))
+				}
+				title="Save"
+			/>
 		</View>
 	);
 };
 
-const formStyles = StyleSheet.create({
-	form: {
-		flex: 1,
-		flexDirection: "row",
-		paddingTop: 10,
-	},
-	inputContainer: {
-		flex: 3,
-	},
-	inputInput: {
-		paddingBottom: 0,
-		paddingLeft: 10,
-	},
-	button: {
-		flex: 1,
-	},
-});
+const CustomButtonGroup = ({ label, ...props }) => {
+	return (
+		<View style={{ marginBottom: 20 }}>
+			<Text style={{ marginLeft: 20 }}>{label}</Text>
+			<ButtonGroup {...props} />
+		</View>
+	);
+};
