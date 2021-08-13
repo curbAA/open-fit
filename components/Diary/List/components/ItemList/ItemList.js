@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import ListItem from "./components/ListItem/ListItem";
+import ListItem from "./ListItem";
 
 // TODO implement edit item functionality (modal or text-to-input)
 
