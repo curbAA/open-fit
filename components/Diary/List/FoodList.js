@@ -12,7 +12,7 @@ import AddItemButton from "openfit/components/AddItemButton/AddItemButton";
 // TODO create addExercise button at end of list
 
 const FoodList = () => {
-	const { foodList, getTotalCalories } = useContext(AppContext);
+	const { foodList, getTotalCalories, roundNumber } = useContext(AppContext);
 
 	const [displayList, setDisplayList] = useState(true);
 	const [displayOverlay, setDisplayOverlay] = useState(false);
@@ -42,7 +42,7 @@ const FoodList = () => {
 				toggleList={toggleList}
 				displayList={displayList}
 				toggleOverlay={toggleListWhenOverlay}
-				totalCalories={getTotalCalories("food")}
+				totalCalories={roundNumber(getTotalCalories("food"))}
 			/>
 			<ItemList type="food" list={foodList} displayList={displayList} />
 			<AddItemButton title="Add Food" onPress={toggleOverlay} />

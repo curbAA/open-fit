@@ -15,7 +15,7 @@ const ListItemFood = ({ item }) => {
 					<ListItem.Subtitle>{item.amount + " " + item.food.unit}</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>{roundNumber(item.food.kcal * item.amount)}</Text>
+					<Text style={styles.calories}>{roundNumber(item.food.kcal * item.amount, 0)}</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
 				<Icon
@@ -51,7 +51,7 @@ const ListItemExercise = ({ item }) => {
 					<ListItem.Subtitle>{item.time} min</ListItem.Subtitle>
 				</View>
 				<View style={styles.caloriesContainer}>
-					<Text style={styles.calories}>{roundNumber(item.exercise.kcal * item.time)}</Text>
+					<Text style={styles.calories}>{roundNumber(item.exercise.kcal * item.time, 0)}</Text>
 					<Text style={styles.subtitle}>Kcal</Text>
 				</View>
 
