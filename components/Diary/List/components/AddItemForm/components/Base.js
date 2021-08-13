@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Divider, Overlay } from "react-native-elements";
 
 // Components
-import ButtonContainer from "../ButtonContainer/ButtonContainer";
+import ButtonContainer from "./ButtonContainer";
 import ErrorMessage from "./ErrorMessage";
 
 const Base = ({
