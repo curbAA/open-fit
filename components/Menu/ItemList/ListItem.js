@@ -53,7 +53,9 @@ const ListItemExercise = ({ exercise }) => {
 					<View>
 						<ListItem.Title>{exercise.label}</ListItem.Title>
 						<ListItem.Subtitle>
-							{`${roundNumber(exercise.kcal * exercise.common), 0}kcal / ${exercise.common}${exercise.unit}`}
+							{`${roundNumber(exercise.kcal * exercise.common, 0)}kcal / ${exercise.common}${
+								exercise.unit
+							}`}
 						</ListItem.Subtitle>
 					</View>
 					<View style={[foodStyles.item, foodStyles.buttonContainer]}>

@@ -42,7 +42,7 @@ const FoodList = () => {
 				toggleList={toggleList}
 				displayList={displayList}
 				toggleOverlay={toggleListWhenOverlay}
-				totalCalories={roundNumber(getTotalCalories("food"))}
+				totalCalories={roundNumber(getTotalCalories("food"),0)}
 			/>
 			<ItemList type="food" list={foodList} displayList={displayList} />
 			<AddItemButton title="Add Food" onPress={toggleOverlay} />
