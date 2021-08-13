@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import ListItem from "./components/ListItem/ListItem";
+import ListItem from "./ListItem";
 
 const ItemList = ({ list, type, displayList }) => {
 	if (displayList) {

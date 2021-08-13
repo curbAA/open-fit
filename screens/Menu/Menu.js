@@ -7,8 +7,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 const Tab = createMaterialTopTabNavigator();
 
 // Screens
-import FoodMenu from "./screens/FoodMenu/FoodMenu";
-import ExerciseMenu from "./screens/ExerciseMenu/ExerciseMenu";
+import FoodMenu from "./screens/FoodMenu";
+import ExerciseMenu from "./screens/ExerciseMenu";
 
 // Context
 import { AppContext } from "openfit/components/Context/AppContext";

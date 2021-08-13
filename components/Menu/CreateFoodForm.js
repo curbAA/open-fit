@@ -6,7 +6,7 @@ import { Overlay, Text, Input, Divider, Button, ButtonGroup } from "react-native
 import { AppContext } from "openfit/components/Context/AppContext";
 
 // Components
-import ErrorMessage from "../components/FormErrorMessage/ErrorMessage";
+import ErrorMessage from "openfit/components/FormErrorMessage/ErrorMessage";
 
 // TODO Show visible error when user leaves fields on blank
 

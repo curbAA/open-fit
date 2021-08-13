@@ -5,9 +5,9 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { AppContext } from "openfit/components/Context/AppContext"; // General Context (App)
 
 // Components
-import MacroHeader from "./components/MacroHeader/MacroHeader";
-import FoodList from "./components/List/FoodList";
-import ExerciseList from "./components/List/ExerciseList";
+import MacroHeader from "openfit/components/Diary/MacroHeader/MacroHeader";
+import FoodList from "openfit/components/Diary/List/FoodList";
+import ExerciseList from "openfit/components/Diary/List/ExerciseList";
 
 const Diary = () => {
 	const { goalCalories, getTotalCalories } = useContext(AppContext);

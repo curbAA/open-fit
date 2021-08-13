@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 
 // Components
-import ItemList from "../../components/ItemList/ItemList";
+import ItemList from "openfit/components/Menu/ItemList/ItemList";
 import AddItemButton from "openfit/components/AddItemButton/AddItemButton";
-import FoodForm from "./CreateFoodForm";
+import ExerciseForm from "openfit/components/Menu/CreateExerciseForm";
 
-const FoodMenu = ({ availableFoodList }) => {
+const ExerciseMenu = ({ availableExerciseList }) => {
 	const [displayOverlay, setDisplayOverlay] = useState(false);
 
 	const toggleOverlay = () => {
@@ -16,18 +16,15 @@ const FoodMenu = ({ availableFoodList }) => {
 	return (
 		<View style={styles.container}>
 			<ScrollView>
-				<ItemList type="food" displayList={true} list={availableFoodList} />
-				<AddItemButton title="Create Food" onPress={toggleOverlay} />
-				<FoodForm
-					displayOverlay={displayOverlay}
-					toggleOverlay={toggleOverlay}
-				/>
+				<ItemList type="exercise" displayList={true} list={availableExerciseList} />
+				<AddItemButton title="Create Exercise" onPress={toggleOverlay} />
+				<ExerciseForm displayOverlay={displayOverlay} toggleOverlay={toggleOverlay} />
 			</ScrollView>
 		</View>
 	);
 };
 
-export default FoodMenu;
+export default ExerciseMenu;
 
 const styles = StyleSheet.create({
 	container: {
