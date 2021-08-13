@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 
 // Components
-import Element from "./components/HeaderElement";
+import Element from "./HeaderElement";
 
 // Context
 import { AppContext } from "openfit/components/Context/AppContext";
