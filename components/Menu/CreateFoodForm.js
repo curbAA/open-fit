@@ -8,8 +8,6 @@ import { AppContext } from "openfit/components/Context/AppContext";
 // Components
 import ErrorMessage from "openfit/components/FormErrorMessage/ErrorMessage";
 
-// TODO Show visible error when user leaves fields on blank
-
 const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 	const { createAvailableFood } = useContext(AppContext);
 
