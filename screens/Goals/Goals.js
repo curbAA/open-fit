@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Text } from "react-native-elements";
 
 // Components
@@ -13,13 +13,15 @@ const Goals = () => {
 	const { goalCalories, editGoalCalories } = useContext(AppContext);
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.header}>
-				<Text h3>BMI Calculator</Text>
-				<GoalBanner goalCalories={goalCalories} />
+		<ScrollView>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<Text h3>BMI Calculator</Text>
+					<GoalBanner goalCalories={goalCalories} />
+				</View>
+				<Form saveNewCalories={editGoalCalories} />
 			</View>
-			<Form saveNewCalories={editGoalCalories} />
-		</View>
+		</ScrollView>
 	);
 };
 

@@ -28,7 +28,7 @@ const Form = ({ editNewCalories }) => {
 
 	const calculateBMR = () => {
 		return new Promise((resolve, reject) => {
-			let result;
+			let result = 0;
 
 			// Errors
 			if (weight == 0) {
