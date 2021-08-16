@@ -8,7 +8,7 @@ const AddItemButton = (props) => {
 			icon={<Icon name="plus" size={24} color="cornflowerblue" type="antdesign" />}
 			buttonStyle={styles.button}
 			containerStyle={styles.container}
-			type="outline"
+			type="clear"
 			{...props}
 		/>
 	);
@@ -17,9 +17,6 @@ const AddItemButton = (props) => {
 export default AddItemButton;
 
 const styles = StyleSheet.create({
-	button: {
-		borderWidth: 2,
-	},
 	container: {
 		margin: 10,
 	},
