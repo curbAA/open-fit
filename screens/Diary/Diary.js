@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 
 // Context
 import { AppContext } from "openfit/components/Context/AppContext"; // General Context (App)
@@ -8,6 +8,7 @@ import { AppContext } from "openfit/components/Context/AppContext"; // General C
 import MacroHeader from "openfit/components/Diary/MacroHeader/MacroHeader";
 import FoodList from "openfit/components/Diary/List/FoodList";
 import ExerciseList from "openfit/components/Diary/List/ExerciseList";
+import Calendar from "openfit/components/Diary/Calendar";
 
 const Diary = () => {
 	const { goalCalories, getTotalCalories } = useContext(AppContext);
@@ -19,6 +20,7 @@ const Diary = () => {
 				foodTotal={getTotalCalories("food")}
 				goal={goalCalories}
 			/>
+			<Calendar />
 			<ScrollView>
 				<FoodList />
 				<ExerciseList />
