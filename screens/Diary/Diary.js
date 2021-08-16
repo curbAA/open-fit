@@ -8,7 +8,7 @@ import { AppContext } from "openfit/components/Context/AppContext"; // General C
 import MacroHeader from "openfit/components/Diary/MacroHeader/MacroHeader";
 import FoodList from "openfit/components/Diary/List/FoodList";
 import ExerciseList from "openfit/components/Diary/List/ExerciseList";
-import Calendar from "openfit/components/Diary/Calendar";
+import CalendarSelector from "openfit/components/Diary/CalendarSelector/CalendarSelector";
 
 const Diary = () => {
 	const { goalCalories, getTotalCalories } = useContext(AppContext);
@@ -20,7 +20,7 @@ const Diary = () => {
 				foodTotal={getTotalCalories("food")}
 				goal={goalCalories}
 			/>
-			<Calendar />
+			<CalendarSelector />
 			<ScrollView>
 				<FoodList />
 				<ExerciseList />

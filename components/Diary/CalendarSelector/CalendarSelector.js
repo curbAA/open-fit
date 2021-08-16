@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-elements";
-import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
 
 // Components
 import TouchableOpacity from "openfit/components/TouchableOpacity";
+import CalendarOverlay from "./CalendarOverlay";
 
-const Calendar = () => {
+const CalendarSelector = () => {
 	const [selectedDate, setSelectedDate] = useState(moment());
 	const DATE_FORMAT = "MMMM Do YYYY";
 
@@ -35,30 +34,19 @@ const Calendar = () => {
 						: selectedDate.format(DATE_FORMAT)}
 				</Text>
 			</TouchableOpacity>
-			{displayCalendar ? (
-				<>
-					<CalendarPicker
-						selectedStartDate={selectedDate.format()}
-						onDateChange={handleDateChange}
-					/>
-					<View style={styles.buttonContainer}>
-						<Button onPress={handleOk} containerStyle={styles.button} title="Ok" />
-						<Button
-							onPress={handleCancel}
-							containerStyle={styles.button}
-							type="outline"
-							title="Cancel"
-						/>
-					</View>
-				</>
-			) : (
-				<></>
-			)}
+			<CalendarOverlay
+				isVisible={displayCalendar}
+				handleCancel={handleCancel}
+				handleOk={handleOk}
+				selectedDate={selectedDate}
+				handleDateChange={handleDateChange}
+				onBackdropPress={toggleCalendar}
+			/>
 		</View>
 	);
 };
 
-export default Calendar;
+export default CalendarSelector;
 
 const styles = StyleSheet.create({
 	selectedDate: {
@@ -66,12 +54,5 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderColor: "#cecece",
 		borderWidth: 1,
-	},
-	buttonContainer: {
-		flexDirection: "row-reverse",
-	},
-	button: {
-		width: 100,
-		margin: 10,
 	},
 });
