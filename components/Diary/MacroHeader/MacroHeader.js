@@ -20,7 +20,7 @@ const MacroHeader = ({ exerciseTotal, foodTotal, goal }) => {
 			/>
 			<Element calories={roundNumber(exerciseTotal + foodTotal, 0)} subtitle="NET" />
 			<Element calories={roundNumber(foodTotal, 0)} subtitle="FOOD" />
-			<Element calories={roundNumber(exerciseTotal)} subtitle="EXERCISE" />
+			<Element calories={roundNumber(exerciseTotal, 0)} subtitle="EXERCISE" />
 		</View>
 	);
 };
