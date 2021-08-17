@@ -74,18 +74,21 @@ const Form = ({ editGoalCalories }) => {
 				labelStyle={{ fontSize: 12 }}
 				placeholder="Weight"
 				onChangeText={(value) => handleChange("weight", value)}
+				keyboardType="number-pad"
 			/>
 			<Input
 				label="Your Height in cm"
 				labelStyle={{ fontSize: 12 }}
 				placeholder="Height"
 				onChangeText={(value) => handleChange("height", value)}
+				keyboardType="number-pad"
 			/>
 			<Input
 				label="Your Age in years"
 				labelStyle={{ fontSize: 12 }}
 				placeholder="Age"
 				onChangeText={(value) => handleChange("age", value)}
+				keyboardType="number-pad"
 			/>
 			<CustomButtonGroup
 				label="Gender"
