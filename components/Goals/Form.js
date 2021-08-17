@@ -5,7 +5,7 @@ import { Text, ButtonGroup, Input, Button } from "react-native-elements";
 // Components
 import FormErrorMessage from "openfit/components/FormErrorMessage";
 
-const Form = ({ editNewCalories }) => {
+const Form = ({ editGoalCalories }) => {
 	const [gender, setGender] = useState(0);
 	const [weight, setWeight] = useState(0);
 	const [height, setHeight] = useState(0);
@@ -109,8 +109,8 @@ const Form = ({ editNewCalories }) => {
 			<Button
 				onPress={() =>
 					calculateBMR()
-						.then((res) => editNewCalories(res))
-						.catch((err) => console.log(err))
+						.then((res) => editGoalCalories(res))
+						.catch((err) => Error(err))
 				}
 				title="Save"
 			/>

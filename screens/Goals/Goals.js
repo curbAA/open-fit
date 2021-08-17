@@ -19,7 +19,7 @@ const Goals = () => {
 					<Text h3>BMI Calculator</Text>
 					<GoalBanner goalCalories={goalCalories} />
 				</View>
-				<Form saveNewCalories={editGoalCalories} />
+				<Form editGoalCalories={editGoalCalories} />
 			</View>
 		</ScrollView>
 	);
