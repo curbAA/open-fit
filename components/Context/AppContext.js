@@ -259,7 +259,7 @@ export const AppContextProvider = (props) => {
 			});
 		} else if (type == "exercise") {
 			exerciseList.map((item) => {
-				totalCalories += item.time * item.exercise.kcal;
+				totalCalories += Math.abs(item.time * item.exercise.kcal) * -1;
 			});
 		}
 		return totalCalories ? roundNumber(totalCalories) : 0;
