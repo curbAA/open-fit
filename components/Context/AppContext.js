@@ -1,7 +1,6 @@
 import React, { createContext, useRef, useEffect, useState } from "react";
 import { AppState } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import uuid from "react-uuid";
 
 export const AppContext = createContext();
 
