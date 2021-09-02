@@ -16,7 +16,7 @@ const CalendarOverlay = ({
 			<Overlay isVisible={isVisible} onBackdropPress={onBackdropPress}>
 				<View style={styles.overlay}>
 					<CalendarPicker
-						selectedStartDate={selectedDate.format()}
+						selectedStartDate={selectedDate}
 						onDateChange={handleDateChange}
 					/>
 					<View style={styles.buttonContainer}>

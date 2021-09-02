@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import moment from "moment";
 
@@ -6,12 +6,21 @@ import moment from "moment";
 import TouchableOpacity from "openfit/components/TouchableOpacity";
 import CalendarOverlay from "./CalendarOverlay";
 
+// Context
+import { AppContext } from "openfit/components/Context/AppContext";
+
 const CalendarSelector = () => {
-	const [selectedDate, setSelectedDate] = useState(moment());
-	const DATE_FORMAT = "MMMM Do YYYY";
+	const { selectedDate, setSelectedDate, _dateFormat } = useContext(AppContext);
+
+	const unparsedDate = () => {
+		console.log("selectedDate", moment(selectedDate));
+		console.log("Date Format", moment().format(_dateFormat));
+		if (selectedDate) return moment(selectedDate);
+		else return moment(selectedDate);
+	};
 
 	const handleDateChange = (date) => {
-		setSelectedDate(date);
+		setSelectedDate(date.format(_dateFormat));
 	};
 
 	const [displayCalendar, setDisplayCalendar] = useState(false);
@@ -29,9 +38,9 @@ const CalendarSelector = () => {
 		<View>
 			<TouchableOpacity onPress={toggleCalendar}>
 				<Text style={styles.selectedDate}>
-					{selectedDate.format(DATE_FORMAT) == moment().format(DATE_FORMAT)
-						? selectedDate.format(DATE_FORMAT) + " (Today)"
-						: selectedDate.format(DATE_FORMAT)}
+					{selectedDate == moment().format(_dateFormat)
+						? selectedDate + " (Today)"
+						: selectedDate}
 				</Text>
 			</TouchableOpacity>
 			<CalendarOverlay

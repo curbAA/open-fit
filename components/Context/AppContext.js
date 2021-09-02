@@ -1,6 +1,7 @@
 import React, { createContext, useRef, useEffect, useState } from "react";
 import { AppState } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment";
 
 export const AppContext = createContext();
 
@@ -39,17 +40,172 @@ export const AppContextProvider = (props) => {
 		appState.current = nextAppState;
 	};
 
-	// ─── FOOD ───────────────────────────────────────────────────────────────────────
-
-	const [availableFoodList, setAvailableFoodList] = useState([]);
+	// ─── LIST HISTORY ───────────────────────────────────────────────────────────────
+	const _dateFormat = "YYYY-MM-DD";
+	const [selectedDate, setSelectedDate] = useState(moment().format(_dateFormat));
 
 	const [foodList, setFoodList] = useState([]);
+	const [exerciseList, setExerciseList] = useState([]);
 
-	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
+	const example = [
+		{
+			date: "2021-09-01",
+			lists: {
+				foodList: [
+					{
+						amount: 12,
+						food: {
+							common: 200,
+							id: "55f4bbe-8040-bdee-e57e-a82b8b8675d",
+							kcal: 2.18,
+							label: "Helado",
+							type: "availableFood",
+							unit: "g",
+							value: "helado",
+						},
+						id: "c28bff4-8ed5-b80a-6acf-8be1adf2d86",
+						type: "food",
+					},
+				],
+				exerciseList: [],
+			},
+		},
+		{
+			date: "2021-09-02",
+			lists: {
+				foodList: [],
+				exerciseList: [
+					{
+						exercise: {
+							common: 30,
+							id: "fe6d4-7167-106e-2cb5-bae2ca8d6c6",
+							kcal: 6.67,
+							label: "Pesas ",
+							type: "availableExercise",
+							unit: "min",
+							value: "pesas ",
+						},
+						id: "c367f25-1f6c-3d1-dda1-571c47c0015",
+						time: 12,
+						type: "exercise",
+					},
+				],
+			},
+		},
+		{
+			date: "2021-09-03",
+			lists: {
+				foodList: [
+					{
+						amount: 24,
+						food: {
+							common: 200,
+							id: "55f4bbe-8040-bdeasde-e57e-a82b8b8675d",
+							kcal: 2.18,
+							label: "Aledo",
+							type: "availableFood",
+							unit: "g",
+							value: "aledo",
+						},
+						id: "casd28bff4-8ed5-b80a-6acf-8be1adf2d86",
+						type: "food",
+					},
+					{
+						amount: 12,
+						food: {
+							common: 200,
+							id: "55f4bbe-8040-bdee-e57e-a82b8b8675d",
+							kcal: 2.18,
+							label: "Helado",
+							type: "availableFood",
+							unit: "g",
+							value: "helado",
+						},
+						id: "c28bff4-8ed5-b80a-6acf-8be1adf2d86",
+						type: "food",
+					},
+				],
+				exerciseList: [
+					{
+						exercise: {
+							common: 30,
+							id: "fe6d4-7167-106e-2cb5-bae2ca8d6c6",
+							kcal: 6.67,
+							label: "Pesas ",
+							type: "availableExercise",
+							unit: "min",
+							value: "pesas ",
+						},
+						id: "c367f25-1f6c-3d1-dda1-571c47c0015",
+						time: 12,
+						type: "exercise",
+					},
+					{
+						exercise: {
+							common: 30,
+							id: "fe6d4-7167-106e-2cb5-baasde2ca8d6c6",
+							kcal: 6.67,
+							label: "Sapes ",
+							type: "availableExercise",
+							unit: "min",
+							value: "sapes ",
+						},
+						id: "c367f25-1f6c-3d1asd-dda1-571c47c0015",
+						time: 24,
+						type: "exercise",
+					},
+				],
+			},
+		},
+	];
 
+	const [listHistory, setListHistory] = useState([]);
+
+	useEffect(() => {
+		updateLists(listHistory, selectedDate), [selectedDate];
+	});
+
+	const [availableFoodList, setAvailableFoodList] = useState([]);
 	const [availableExerciseList, setAvailableExerciseList] = useState([]);
 
-	const [exerciseList, setExerciseList] = useState([]);
+	const updateLists = (history = listHistory, date) => {
+		let dayItem = history.find((item) => item.date == date);
+
+		if (dayItem) {
+			setFoodList(dayItem.lists.foodList);
+			setExerciseList(dayItem.lists.exerciseList);
+		}
+
+		console.log("lists Updated!");
+	};
+
+	const fetchListHistory = async () => {
+		try {
+			const fetched = await getData("@listHistory");
+			setListHistory(fetched);
+			updateLists(fetched, selectedDate);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const storeListHistory = (newFoodList, newExerciseList, date) => {
+		let newListHistory = listHistory;
+		let newItem = { date: date, lists: { foodList: newFoodList, exerciseList: newExerciseList } };
+
+		console.log("NEW LISTHISTORY", newListHistory);
+		console.log("NEW ITEM", newItem);
+
+		// If index exists, "list" should be replaced
+		let index = newListHistory.findIndex((item) => item.date == date);
+		if (index !== undefined) {
+			newListHistory[index] = newItem;
+		} else {
+			newListHistory = [...newListHistory, newItem];
+		}
+
+		storeData("@listHistory", newListHistory);
+	};
 
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
 
@@ -60,7 +216,7 @@ export const AppContextProvider = (props) => {
 				.then((value) => {
 					let newFoodList = [...foodList, value];
 					setFoodList(newFoodList);
-					storeData("@foodList", newFoodList);
+					storeListHistory(newFoodList, exerciseList, selectedDate);
 					resolve("Item Has Been Saved");
 				})
 				.catch((error) => {
@@ -83,7 +239,7 @@ export const AppContextProvider = (props) => {
 		});
 
 		setFoodList(newFoodList);
-		storeData("@foodList", newFoodList);
+		storeListHistory(newFoodList, exerciseList, selectedDate);
 	};
 
 	// ────────────────────────────────────────────────────────────
@@ -94,7 +250,7 @@ export const AppContextProvider = (props) => {
 		});
 
 		setFoodList(newFoodList);
-		storeData("@foodList", newFoodList);
+		storeListHistory(newFoodList, exerciseList, selectedDate);
 	};
 
 	// ─── AVAILABLE FOOD ──────────────────────────────────────────────────────────────
@@ -156,7 +312,7 @@ export const AppContextProvider = (props) => {
 				.then((value) => {
 					let newExerciseList = [...exerciseList, value];
 					setExerciseList(newExerciseList);
-					storeData("@exerciseList", newExerciseList);
+					storeListHistory(foodList, newExerciseList, selectedDate);
 					resolve("Item Has Been Saved");
 				})
 				.catch((error) => {
@@ -180,7 +336,7 @@ export const AppContextProvider = (props) => {
 		});
 
 		setExerciseList(newExerciseList);
-		storeData("@exerciseList", newExerciseList);
+		storeListHistory(foodList, newExerciseList, selectedDate);
 	};
 
 	// ────────────────────────────────────────────────────────────
@@ -190,7 +346,7 @@ export const AppContextProvider = (props) => {
 			return item.id !== id;
 		});
 		setExerciseList(newExerciseList);
-		storeData("@exerciseList", newExerciseList);
+		storeListHistory(foodList, newExerciseList, selectedDate);
 	};
 
 	// ─── AVAILABLE EXERCISE ─────────────────────────────────────────────────────────
@@ -287,6 +443,7 @@ export const AppContextProvider = (props) => {
 	};
 
 	const getAllData = () => {
+		fetchListHistory();
 		getData("@availableFoodList")
 			.then((result) => {
 				setAvailableFoodList(result);
@@ -294,13 +451,13 @@ export const AppContextProvider = (props) => {
 			.catch((err) => {
 				console.error(err);
 			});
-		getData("@foodList")
-			.then((result) => {
-				setFoodList(result);
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		// getData("@foodList")
+		// 	.then((result) => {
+		// 		setFoodList(result);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.error(err);
+		// 	});
 		getData("@availableExerciseList")
 			.then((result) => {
 				setAvailableExerciseList(result);
@@ -308,13 +465,13 @@ export const AppContextProvider = (props) => {
 			.catch((err) => {
 				console.error(err);
 			});
-		getData("@exerciseList")
-			.then((result) => {
-				setExerciseList(result);
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		// getData("@exerciseList")
+		// 	.then((result) => {
+		// 		setExerciseList(result);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.error(err);
+		// 	});
 		getData("@goalCalories")
 			.then((result) => {
 				setGoalCalories(result);
@@ -325,10 +482,9 @@ export const AppContextProvider = (props) => {
 	};
 
 	const storeAllData = () => {
+		storeData("@listHistory", listHistory);
 		storeData("@availableFoodList", availableFoodList);
-		storeData("@foodList", foodList);
 		storeData("@availableExerciseList", availableExerciseList);
-		storeData("@exerciseList", exerciseList);
 		storeData("@goalCalories", goalCalories);
 	};
 
@@ -365,6 +521,10 @@ export const AppContextProvider = (props) => {
 				getTotalCalories,
 				goalCalories,
 				editGoalCalories,
+				// Date
+				selectedDate,
+				setSelectedDate,
+				_dateFormat,
 				// Math
 				roundNumber,
 				// Data
