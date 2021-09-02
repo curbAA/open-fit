@@ -12,7 +12,7 @@ const TouchableOpacity = (props) => {
 			onPressOut={() => {
 				setIsPressed(false);
 			}}
-			style={[props.styles, isPressed ? styles.pressed : styles.released]}
+			style={[props.containerStyle, isPressed ? styles.pressed : styles.released]}
 			{...props}
 		>
 			{props.children}
@@ -26,6 +26,5 @@ const styles = StyleSheet.create({
 	pressed: {
 		backgroundColor: "#cecece",
 	},
-	released: {
-	},
+	released: {},
 });

@@ -12,15 +12,15 @@ import { AppContext } from "openfit/components/Context/AppContext";
 const CalendarSelector = () => {
 	const { selectedDate, setSelectedDate, _dateFormat } = useContext(AppContext);
 
-	const unparsedDate = () => {
-		console.log("selectedDate", moment(selectedDate));
-		console.log("Date Format", moment().format(_dateFormat));
-		if (selectedDate) return moment(selectedDate);
-		else return moment(selectedDate);
-	};
-
 	const handleDateChange = (date) => {
 		setSelectedDate(date.format(_dateFormat));
+	};
+
+	const goToPreviousDay = () => {
+		setSelectedDate(moment(selectedDate).subtract(1, "days").format(_dateFormat));
+	};
+	const goToNextDay = () => {
+		setSelectedDate(moment(selectedDate).add(1, "days").format(_dateFormat));
 	};
 
 	const [displayCalendar, setDisplayCalendar] = useState(false);
@@ -36,13 +36,21 @@ const CalendarSelector = () => {
 
 	return (
 		<View>
-			<TouchableOpacity onPress={toggleCalendar}>
-				<Text style={styles.selectedDate}>
-					{selectedDate == moment().format(_dateFormat)
-						? selectedDate + " (Today)"
-						: selectedDate}
-				</Text>
-			</TouchableOpacity>
+			<View style={styles.dateButtonContainer}>
+				<TouchableOpacity onPress={goToPreviousDay} containerStyle={styles.sideButton}>
+					<Text style={styles.selectedDate}>1</Text>
+				</TouchableOpacity>
+				<TouchableOpacity containerStyle={styles.mainButton} onPress={toggleCalendar}>
+					<Text style={styles.selectedDate}>
+						{selectedDate == moment().format(_dateFormat)
+							? selectedDate + " (Today)"
+							: selectedDate}
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={goToNextDay} containerStyle={styles.sideButton}>
+					<Text style={styles.selectedDate}>2</Text>
+				</TouchableOpacity>
+			</View>
 			<CalendarOverlay
 				isVisible={displayCalendar}
 				handleCancel={handleCancel}
@@ -64,4 +72,11 @@ const styles = StyleSheet.create({
 		borderColor: "#cecece",
 		borderWidth: 1,
 	},
+	dateButtonContainer: {
+		flexDirection: "row",
+	},
+	sideButton: {
+		flex: 1,
+	},
+	mainButton: { flex: 10 },
 });
