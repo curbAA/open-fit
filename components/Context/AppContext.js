@@ -161,19 +161,23 @@ export const AppContextProvider = (props) => {
 
 	const [listHistory, setListHistory] = useState([]);
 
-	useEffect(() => {
-		updateLists(listHistory, selectedDate), [selectedDate];
-	});
+	const changeDate = (date) => {
+		setSelectedDate(date);
+		updateLists(listHistory, date);
+	};
 
 	const [availableFoodList, setAvailableFoodList] = useState([]);
 	const [availableExerciseList, setAvailableExerciseList] = useState([]);
 
-	const updateLists = (history = listHistory, date) => {
+	const updateLists = (history = [], date) => {
 		let dayItem = history.find((item) => item.date == date);
 
 		if (dayItem) {
 			setFoodList(dayItem.lists.foodList);
 			setExerciseList(dayItem.lists.exerciseList);
+		} else {
+			setFoodList([]);
+			setExerciseList([]);
 		}
 
 		console.log("lists Updated!");
@@ -523,7 +527,7 @@ export const AppContextProvider = (props) => {
 				editGoalCalories,
 				// Date
 				selectedDate,
-				setSelectedDate,
+				setSelectedDate: changeDate,
 				_dateFormat,
 				// Math
 				roundNumber,
