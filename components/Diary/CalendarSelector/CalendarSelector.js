@@ -38,7 +38,7 @@ const CalendarSelector = () => {
 		<View>
 			<View style={styles.dateButtonContainer}>
 				<TouchableOpacity onPress={goToPreviousDay} containerStyle={styles.sideButton}>
-					<Text style={styles.selectedDate}>1</Text>
+					<Text style={styles.selectedDate}>-1</Text>
 				</TouchableOpacity>
 				<TouchableOpacity containerStyle={styles.mainButton} onPress={toggleCalendar}>
 					<Text style={styles.selectedDate}>
@@ -48,7 +48,7 @@ const CalendarSelector = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={goToNextDay} containerStyle={styles.sideButton}>
-					<Text style={styles.selectedDate}>2</Text>
+					<Text style={styles.selectedDate}>+1</Text>
 				</TouchableOpacity>
 			</View>
 			<CalendarOverlay
@@ -78,5 +78,5 @@ const styles = StyleSheet.create({
 	sideButton: {
 		flex: 1,
 	},
-	mainButton: { flex: 10 },
+	mainButton: { flex: 8 },
 });
