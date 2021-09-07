@@ -188,27 +188,31 @@ export const AppContextProvider = (props) => {
 			const fetched = await getData("@listHistory");
 			setListHistory(fetched);
 			updateLists(fetched, selectedDate);
+			console.log("Fetched", fetched);
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
+	//! This seems to give an error
+
 	const storeListHistory = (newFoodList, newExerciseList, date) => {
 		let newListHistory = listHistory;
 		let newItem = { date: date, lists: { foodList: newFoodList, exerciseList: newExerciseList } };
 
-		console.log("NEW LISTHISTORY", newListHistory);
-		console.log("NEW ITEM", newItem);
+		console.log("SELECTED DATE", date);
 
 		// If index exists, "list" should be replaced
 		let index = newListHistory.findIndex((item) => item.date == date);
-		if (index !== undefined) {
+
+		if (index !== -1) {
 			newListHistory[index] = newItem;
 		} else {
-			newListHistory = [...newListHistory, newItem];
+			newListHistory = [...newListHistory, newItem]
 		}
 
 		storeData("@listHistory", newListHistory);
+		updateLists(newListHistory, date);
 	};
 
 	// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
@@ -219,12 +223,11 @@ export const AppContextProvider = (props) => {
 			newFood({ food: food, amount: amount })
 				.then((value) => {
 					let newFoodList = [...foodList, value];
-					setFoodList(newFoodList);
 					storeListHistory(newFoodList, exerciseList, selectedDate);
 					resolve("Item Has Been Saved");
 				})
 				.catch((error) => {
-					reject(Error(error));
+					reject(console.error(error));
 				});
 		});
 	};
@@ -252,8 +255,6 @@ export const AppContextProvider = (props) => {
 		newFoodList = newFoodList.filter((item) => {
 			return item.id !== id;
 		});
-
-		setFoodList(newFoodList);
 		storeListHistory(newFoodList, exerciseList, selectedDate);
 	};
 
@@ -308,14 +309,10 @@ export const AppContextProvider = (props) => {
 
 	// ─── EXERCISE ───────────────────────────────────────────────────────────────────
 	const addExercise = ({ exercise, time }) => {
-		newExercise({ exercise: exercise, time: time })
-			.then((result) => console.log(result))
-			.catch((error) => Error(error));
 		return new Promise((resolve, reject) => {
 			newExercise({ exercise: exercise, time: time })
 				.then((value) => {
 					let newExerciseList = [...exerciseList, value];
-					setExerciseList(newExerciseList);
 					storeListHistory(foodList, newExerciseList, selectedDate);
 					resolve("Item Has Been Saved");
 				})
@@ -349,7 +346,6 @@ export const AppContextProvider = (props) => {
 		newExerciseList = newExerciseList.filter((item) => {
 			return item.id !== id;
 		});
-		setExerciseList(newExerciseList);
 		storeListHistory(foodList, newExerciseList, selectedDate);
 	};
 
