@@ -15,7 +15,8 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 	const [selectedFood, setSelectedFood] = useState({});
 	const [amount, setAmount] = useState(0);
 
-	const reset = () => {
+	// Clear Form
+	const resetState = () => {
 		setSelectedFood({});
 		setAmount(0);
 		toggleOverlay();
@@ -28,7 +29,7 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 	const addFunction = () => {
 		addFood({ food: selectedFood, amount: amount })
 			.then((result) => {
-				reset();
+				resetState();
 			})
 			.catch((error) => {
 				setDisplayError(true);
@@ -39,9 +40,9 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 		<Base
 			title="Add Food"
 			addFunction={addFunction}
-			cancelFunction={reset}
+			cancelFunction={resetState}
 			overlayVisible={displayOverlay}
-			onBackdropPress={reset}
+			onBackdropPress={resetState}
 			displayError={displayError}
 			toggleError={() => displayError(true)}
 		>

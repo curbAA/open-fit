@@ -6,11 +6,7 @@ const CustomDropdownPicker = ({ list, onChangeItem }) => {
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState({})
 	const [itemList, setItemList] = useState(list)
-	
-	useEffect(() => {
-		onChangeItem(value)
-		console.log(value)
-	}, [value])
+
 
 	return (
 		<DropdownPicker
@@ -20,6 +16,8 @@ const CustomDropdownPicker = ({ list, onChangeItem }) => {
 			setOpen={setOpen}
 			setValue={setValue}
 			setItems={setItemList}
+
+			onSelectItem={(item) => onChangeItem(item)}
 
 			containerStyle={styles.container}
 			dropDownStyle={styles.dropdown}

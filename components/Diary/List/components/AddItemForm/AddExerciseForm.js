@@ -19,6 +19,8 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 	const resetState = () => {
 		setSelectedExercise({});
 		setTime(0);
+		toggleOverlay();
+		setDisplayError(false);
 	};
 
 	// Error Message
@@ -39,17 +41,11 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 		<Base
 			title="Add Exercise"
 			addFunction={addFunction}
-			cancelFunction={() => {
-				resetState();
-				toggleOverlay();
-			}}
+			cancelFunction={resetState}
 			overlayVisible={displayOverlay}
-			onBackdropPress={() => {
-				resetState();
-				toggleOverlay();
-			}}
+			onBackdropPress={resetState}
 			displayError={displayError}
-			toggleError={() => setDisplayError(true)}
+			toggleError={() => displayError(true)}
 		>
 			<DropdownPicker
 				list={availableExerciseList}
