@@ -26,6 +26,7 @@ const AddFoodForm = ({ displayOverlay, toggleOverlay }) => {
 	// Error Message
 	const [displayError, setDisplayError] = useState(false);
 
+	// Confirm if data meets the template
 	const addFunction = () => {
 		addFood({ food: selectedFood, amount: amount })
 			.then((result) => {

@@ -26,11 +26,11 @@ const AddExerciseForm = ({ displayOverlay, toggleOverlay }) => {
 	// Error Message
 	const [displayError, setDisplayError] = useState(false);
 
+	// Confirm if data meets the template
 	const addFunction = () => {
 		addExercise({ exercise: selectedExercise, time: time })
 			.then((result) => {
 				resetState();
-				toggleOverlay();
 			})
 			.catch((error) => {
 				setDisplayError(true);
