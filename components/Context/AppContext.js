@@ -163,6 +163,7 @@ export const AppContextProvider = (props) => {
 
 	const changeDate = (date) => {
 		setSelectedDate(date);
+		storeListHistory(foodList, exerciseList, selectedDate);
 		updateLists(listHistory, date);
 	};
 
@@ -170,6 +171,7 @@ export const AppContextProvider = (props) => {
 	const [availableExerciseList, setAvailableExerciseList] = useState([]);
 
 	const updateLists = (history = [], date) => {
+
 		let dayItem = history.find((item) => item.date == date);
 
 		if (dayItem) {
@@ -195,7 +197,6 @@ export const AppContextProvider = (props) => {
 	};
 
 	//! This seems to give an error
-
 	const storeListHistory = (newFoodList, newExerciseList, date) => {
 		let newListHistory = listHistory;
 		let newItem = { date: date, lists: { foodList: newFoodList, exerciseList: newExerciseList } };
@@ -208,7 +209,7 @@ export const AppContextProvider = (props) => {
 		if (index !== -1) {
 			newListHistory[index] = newItem;
 		} else {
-			newListHistory = [...newListHistory, newItem]
+			newListHistory.push(newItem)
 		}
 
 		storeData("@listHistory", newListHistory);
