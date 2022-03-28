@@ -5,6 +5,32 @@ import { Text, ListItem, Icon } from "react-native-elements";
 // Context
 import { AppContext } from "openfit/components/Context/AppContext";
 
+// Components
+const MacroContainer = ({ item, roundNumber }) => {
+    return (
+        <View style={styles.macroParent}>
+            <View style={styles.macroContainer}>
+                <Text style={styles.macroNumber}>
+                    {roundNumber(item.food.macros.protein * item.amount, 0)} g
+                </Text>
+                <Text style={styles.macroSubtitle}>Prot.</Text>
+            </View>
+            <View style={styles.macroContainer}>
+                <Text style={styles.macroNumber}>
+                    {roundNumber(item.food.macros.carbs * item.amount, 0)} g
+                </Text>
+                <Text style={styles.macroSubtitle}>Carb.</Text>
+            </View>
+            <View style={styles.macroContainer}>
+                <Text style={styles.macroNumber}>
+                    {roundNumber(item.food.macros.fat * item.amount, 0)} g
+                </Text>
+                <Text style={styles.macroSubtitle}>Fat.</Text>
+            </View>
+        </View>
+    );
+};
+
 const ListItemFood = ({ item }) => {
     const { deleteFood, editFood, roundNumber } = useContext(AppContext);
     return (
@@ -14,26 +40,7 @@ const ListItemFood = ({ item }) => {
                     <ListItem.Title>{item.food.label}</ListItem.Title>
                     <ListItem.Subtitle>{item.amount + " " + item.food.unit}</ListItem.Subtitle>
                 </View>
-                <View style={styles.macroParent}>
-                    <View style={styles.macroContainer}>
-                        <Text style={styles.macroNumber}>
-                            {roundNumber(item.food.macros.protein * item.amount, 0)} g
-                        </Text>
-                        <Text style={styles.macroSubtitle}>Prot.</Text>
-                    </View>
-                    <View style={styles.macroContainer}>
-                        <Text style={styles.macroNumber}>
-                            {roundNumber(item.food.macros.carbs * item.amount, 0)} g
-                        </Text>
-                        <Text style={styles.macroSubtitle}>Carb.</Text>
-                    </View>
-                    <View style={styles.macroContainer}>
-                        <Text style={styles.macroNumber}>
-                            {roundNumber(item.food.macros.fat * item.amount, 0)} g
-                        </Text>
-                        <Text style={styles.macroSubtitle}>Fat.</Text>
-                    </View>
-                </View>
+                <MacroContainer item={item} roundNumber={roundNumber} />
                 <View style={styles.caloriesContainer}>
                     <Text style={styles.calories}>
                         {roundNumber(item.food.kcal * item.amount, 0)}
