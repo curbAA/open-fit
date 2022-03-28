@@ -26,6 +26,11 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 		common: 0,
 		kcal: 0,
 		unit: "g",
+		macros: {
+			protein: 0,
+			carbs: 0,
+			fat: 0,
+		},
 	};
 
 	const [newAvailableFood, setNewAvailableFood] = useState(foodDefault);
@@ -36,7 +41,17 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 
 	const handleChange = (value, data) => {
 		let placeholderFood = newAvailableFood;
-		placeholderFood[value] = data;
+
+		// Macro handling
+		if (value == "protein") {
+			placeholderFood.macros.protein = data
+		} else if (value == "carbs") {
+			placeholderFood.macros.carbs = data
+		} else if (value == "fat") {
+			placeholderFood.macros.fat = data
+		} else { placeholderFood[value] = data }
+
+		console.log("Values: " + placeholderFood)
 		setNewAvailableFood(placeholderFood);
 		setDisplayError(false);
 	};
@@ -45,8 +60,9 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 		createAvailableFood({
 			label: newAvailableFood.label,
 			common: newAvailableFood.common,
-			unit: newAvailableFood.unit,
 			kcal: newAvailableFood.kcal,
+			macros: newAvailableFood.macros,
+			unit: newAvailableFood.unit,
 		})
 			.then((result) => {
 				setNewAvailableFood(foodDefault);
@@ -78,6 +94,32 @@ const FoodForm = ({ toggleOverlay, displayOverlay }) => {
 							}}
 							placeholder="Food Name"
 						/>
+						<View style={styles.macrosContainer}>
+							<Input
+								containerStyle={{ flex: 3 }}
+								keyboardType="number-pad"
+								placeholder="Protein"
+								onChangeText={(data) => {
+									handleChange("protein", data);
+								}}
+							/>
+							<Input
+								containerStyle={{ flex: 3 }}
+								keyboardType="number-pad"
+								placeholder="Carbs"
+								onChangeText={(data) => {
+									handleChange("carbs", data);
+								}}
+							/>
+							<Input
+								containerStyle={{ flex: 3 }}
+								keyboardType="number-pad"
+								placeholder="Fat"
+								onChangeText={(data) => {
+									handleChange("fat", data);
+								}}
+							/>
+						</View>
 						<View style={styles.commonServingContainer}>
 							<Input
 								containerStyle={{ flex: 3 }}
@@ -144,9 +186,19 @@ const styles = StyleSheet.create({
 	},
 	// ────────────────────────────────────────────────────────────────────────────────
 	commonServingContainer: {
+		marginTop: 30,
 		display: "flex",
 		flexDirection: "row",
 		height: 60,
+	},
+	// ────────────────────────────────────────────────────────────────────────────────
+	macrosContainer: {
+		display: "flex",
+		flexDirection: "column",
+		height: 110,
+		marginLeft: 20,
+		// borderWidth: 1,
+		borderColor: "red"
 	},
 	// ────────────────────────────────────────────────────────────────────────────────
 	buttonContainer: {

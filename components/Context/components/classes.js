@@ -6,12 +6,17 @@ import { roundNumber } from "./math";
 //
 
 class AvailableFood {
-	constructor({ label, unit, kcal, common }) {
+	constructor({ label, unit, kcal, common, macros }) {
 		this.type = "availableFood";
 		this.label = label;
 		this.value = label.toLowerCase();
 		this.unit = unit;
 		this.kcal = roundNumber(parseInt(kcal) / parseInt(common));
+		this.macros = {
+			protein: roundNumber(parseInt(macros.protein) / parseInt(common)),
+			fat: roundNumber(parseInt(macros.fat) / parseInt(common)),
+			carbs: roundNumber(parseInt(macros.carbs) / parseInt(common))
+		};
 		this.common = roundNumber(common);
 		this.id = uuid();
 	}
@@ -61,7 +66,7 @@ export const newFood = ({ food, amount }) => {
 	});
 };
 
-export const newAvailableFood = ({ label, unit, kcal, common }) => {
+export const newAvailableFood = ({ label, unit, kcal, common, macros }) => {
 	return new Promise((resolve, reject) => {
 		if (
 			typeof label == "string" &&
@@ -71,7 +76,7 @@ export const newAvailableFood = ({ label, unit, kcal, common }) => {
 			parseInt(kcal) > 0 &&
 			parseInt(common) > 0
 		) {
-			resolve(new AvailableFood({ label: label, unit: unit, kcal: kcal, common: common }));
+			resolve(new AvailableFood({ label: label, unit: unit, kcal: kcal, common: common, macros: macros }));
 		} else {
 			reject("Invalid New Available Food Inputs");
 		}

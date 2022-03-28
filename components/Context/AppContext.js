@@ -196,7 +196,6 @@ export const AppContextProvider = (props) => {
 		}
 	};
 
-	//! This seems to give an error
 	const storeListHistory = (newFoodList, newExerciseList, date) => {
 		let newListHistory = listHistory;
 		let newItem = { date: date, lists: { foodList: newFoodList, exerciseList: newExerciseList } };
@@ -260,9 +259,9 @@ export const AppContextProvider = (props) => {
 	};
 
 	// ─── AVAILABLE FOOD ──────────────────────────────────────────────────────────────
-	const createAvailableFood = ({ label, common, unit, kcal }) => {
+	const createAvailableFood = ({ label, common, unit, kcal, macros }) => {
 		return new Promise((resolve, reject) => {
-			newAvailableFood({ label: label, common: common, unit: unit, kcal: kcal })
+			newAvailableFood({ label: label, common: common, unit: unit, kcal: kcal, macros: macros })
 				.then((value) => {
 					let newAvailableFoodList = [...availableFoodList, value];
 					setAvailableFoodList(newAvailableFoodList);
